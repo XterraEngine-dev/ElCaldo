@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gt.dev.lazaro.elcaldo">
+
+    <!-- Google Analytics required permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/elcaldoicono"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <!--
+             Optionally, register AnalyticsReceiver and AnalyticsService to support background
+             dispatching on non-Google Play devices
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider472492076284805"
+            android:exported="true" />
+
+        <activity
+            android:name=".vista.actividades.SplashActivity"
+            android:label="ElCaldo"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".vista.actividades.WizardActivity"
+            android:label="Wizard"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".vista.actividades.MainActivity"
+            android:label="@string/home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.actividades.ComoUsarActivity"
+            android:label="Como usar"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".vista.actividades.CamaraActivity"
+            android:label="@string/camara_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.actividades.BuscarActivity"
+            android:label="@string/buscar_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.actividades.CreditosActivity"
+            android:label="@string/creditos"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".vista.actividades.MainActivity" />
+        </activity>
+        <activity
+            android:name=".vista.actividades.OtrasComidasActivity"
+            android:label="@string/otras_comidas"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.actividades.DetalleComidaActivity"
+            android:label="@string/detalle_activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".controlador.Preferencias"
+            android:label="Preferencias"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".vista.actividades.FavoritosActivity"
+            android:label="@string/favoritos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".vista.actividades.CopyrightActivity"
+            android:label="@string/terminos_condiciones"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.actividades.AgregarRecetaActivity"
+            android:label="Agrega receta tipica"
+            android:screenOrientation="portrait" />
+        <activity android:name=".vista.actividades.MisRecetasActivity" />
+        <activity
+            android:name=".vista.actividades.DetalleComidaScrollingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.actividades.TweetComposerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".vista.actividades.BebidasActivity"
+            android:label="@string/bebidas_activity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.coffe.CafeMainActivity"
+            android:label="@string/title_activity_cafe_main"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.coffe.BurdelActivity"
+            android:label="@string/title_activity_burdel"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".vista.coffe.CameraCoffeActivity"></activity>
+    </application>
+
+</manifest>

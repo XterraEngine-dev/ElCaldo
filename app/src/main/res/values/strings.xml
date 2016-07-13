@@ -1,0 +1,759 @@
+<resources>
+    <string name="app_name">ElCaldo</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_buscar">Busqueda</string>
+    <string name="drawer_open">Open</string>
+    <string name="home">Recetario Típico</string>
+    <string name="drawer_close">Close</string>
+    //voz a texto
+    <string name="speech_prompt">Menciona Un plato de comida típica</string>
+    <string name="speech_not_supported">Lo sentimos, tu dispositivo no es compatible voz a texto de Google</string>
+
+    <string name="tap_on_mic">Presiona en el microfono para hablar</string>
+    <string name="pagina_principal">Recetario Típico</string>
+    <string name="salir">Salir</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="title_activity_fourth">NombreComida</string>
+    <string name="creditos">Créditos</string>
+    <string name="compartir">Redes Sociales</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_acerca_de">AcercaDe</string>
+    <string name="acercade">Desarollador de aplicación: Fernando Lazaro</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="title_activity_creditos">Créditos</string>
+    <string name="caldoapp">ElCaldo</string>
+    <string name="title_activity_tutorial">Tutorial</string>
+    <string name="title_activity_terminos_condiciones">TerminosCondiciones</string>
+    <string name="title_activity_comparte">Comparte</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="title_activity_otras_comidas">OtrasComidas</string>
+    <string name="hint_plato_comida">Escriba una comida típica...</string>
+
+    //Tutorial
+    <string name="email">BIENVENIDO</string>
+    <string name="calender">NAVEGACIÓN</string>
+    <string name="shopping">PLATOS TÍPICOS</string>
+    <string name="social_network">REDES SOCIALES</string>
+
+
+    <string name="email_hint">ElCaldo es más que una herramienta es una extensión para cualquier persona que quiera preparar una plato típico.</string>
+    <string name="calender_hint">La interfaz de usuario intuitiva, divertida y colorida. Desliza el menú de navegación de izquierda
+    a derecha para poder interactuar con las demas funcionalidades.</string>
+    <string name="shopping_hint">Guatemala cuenta con una gastronomía amplia de diversos sabores y colores, que esperas?
+        así que busca el plato que te apetezca. Realiza una busqueda por medio de texto o comando de voz el plato que deseas.</string>
+    <string name="social_network_hint">Comparte tus platos típicos favoritos con tus amigos, compañeros y familia en tus redes sociales. </string>
+    <string name="skip">SKIP</string>
+
+    //i dont know
+    <string name="pref_previously_started">Saber juatafuk</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="title_activity_como_usar">ComoUsarActivity</string>
+
+    //NavigationDrawer
+    <string name="otras_comidas">Otras Comidas</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="prefs">Audio Preferencias</string>
+    <string name="como_usar">Como usar</string>
+    <string name="web_site">Web site</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="terminos_condiciones">Terminos y condiciones</string>
+    <string name="creditos_drawer">Créditos</string>
+
+
+    //Titulos Actividades
+    <string name="camara_activity">Comparte tu preparación</string>
+    <string name="buscar_activity">Buscar una receta</string>
+    <string name="detalle_activity">Detalle de receta</string>
+
+    //Preferencias de audio
+    <string name="desactivar">Desactivar</string>
+    <string name="audio_splash">Audio en la pantalla de bienvenida</string>
+
+    //BuscarActivity - Toast
+    <string name="toast_buscar">Realize una busqueda del plato típico que desee, por medio de escritura o comando de voz</string>
+
+    //CamaraActivity - Toast
+    <string name="toast_camara">Debes tomar una foto para poder compartirla</string>
+    <string name="toast_shot">Toma una foto de plato típico!</string>
+    <string name="comparte_camara">Así quedo mi plato típico Amigos! :D</string>
+    <string name="comparte_imagen">Compartir imagen del plato</string>
+    <string name="comparte_plato">Compartir del plato típico</string>
+
+    <string name="via">- Vía aplicación ElCaldo</string>
+
+    //BaseDatos
+    <string name="conexion_fallida">No se encontro este plato en la base de datos</string>
+
+    //DetalleComida Adaptador
+    <string name="ingreidientes">Ingredientes</string>
+    <string name="preparacion">Preparación</string>
+
+    <string name="compartir_picture">Compartir imagen</string>
+
+
+    <string name="working_that">Estamos trabajando en ello :D</string>
+
+    //Facebook api
+    <string name="share_on_facebook">Compartir Facebook</string>
+    <string name="facebook_app_id" translatable="false">472492076284805</string>
+
+    //Twitter api
+    <string name="share_on_twitter">Compartir Twitter</string>
+
+    //Fav
+    <string name="agregado_favorito">Te ha gustado esta receta! :D</string>
+
+    //Titulo
+    <string name="bebidas_activity">Bebidas Típicas</string>
+
+    <string name="bebidas">Bebidas típicas</string>
+    <string name="title_activity_cafe_main">CafeMainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="origin_coffe_nav_name">Origen del cafe</string>
+    <string name="cultivo_coffe">Consumo y cultivo</string>
+    <string name="recolection_coffe">Recolección</string>
+    <string name="tueste_coffe">Tueste</string>
+    <string name="coffe_in_world">Café en el mundo</string>
+    <string name="coffe_mezcla">Mezcla</string>
+    <string name="kinds_of_coffe">Tipos de café</string>
+    <string name="datos_curiosos_coffe">Datos curiosos</string>
+    <string name="coffe_health">Café y la salud</string>
+    <string name="coffe_in_guate">Café en Guatemala</string>
+    <string name="dev_coment">Por un buen café</string>
+
+
+    <string name="coffe_main">El café es una leyenda, conocida por
+    musulmanes y cristianos. A nivel religioso habla de que en una
+    ocasión hubo un profeta que estaba enfermo, el ángel Gabriel les
+    devolvia la salud y la fuerza viril, ofreciéndoles una bebida negra
+    como la gran piedra Negra que hay en la Meca."\n\n"
+
+    Como esta leyenda corren otras muchas que subrayan la importancia
+    que se le ha atribuido al café a lo largo de la historia humana."\n\n"
+
+    Lo que parece cierto es que el café se empezó a consumir en las
+    altiplaniecies de Abisinia, donde crecía en forma silvestre su
+    modalidad llamada Arábica."\n\n"
+
+    De Etiopía pasó a a Arabia y a la India, probablemente a través
+    de peregrinos musumlamnes que viajaban a La Meca, ya que las rutas de
+    peregrinación fueron al mismo tiempo, durante siglos, grandes rutas
+    comerciales."\n\n"
+
+    Pero los grandes propagadores del café fueron los holandeses, que
+    explotaron grandes plantaciones del mismo en sus colonias de Ceilán
+    e Indonesia."\n\n"
+
+    Ellos fueron los importadores del cafeto y quienes lo calimatarón en
+    los jardines botánicos de Amsterdam, París y Londres, desde donde
+    pasó a la Guyana holandesa, al Brasil, a Centroamérica y a otros
+    muchos países. Gracias a lo cual en tres siglos esta infusión ha
+    pasado de ser casi desconocido a convertirse en una bebida universal
+    que Bach, Balzac,, Beethoven, Goldoni, Napoléon, rossini, Voltaire
+    y otros muchos personajes de la historia han consumido en grandes
+    cantidad y elogiado desmesuradamente."\n\n"</string>
+
+    <string name="origin_coffe_text">Las plantas de café son originarias de
+    la antigua etiopia en la república de Yemen."\n\n"
+
+    Es fácil confundirse con el origen verdadero del café, ya que antiguas leyendas
+    sobre el cultivo y las costumbre de  tomar café provienen de Arabia."\n\n"
+
+    Uno de los más antiguos escritos que hace referencias al café es llamado
+    "The Success of Coffe"(El éxito del café), escirto por un sensible hombre
+    originario de Mecca llamado Abu-Bek a principios del S.XV y traducido al
+    Francés en 1699 por Antoine de Gailland, el mismo que tradujo "Thousand and One Arabian Nights"(Las mil y una noches)."\n\n"
+
+    La más fuerte y aceptada de las leyendas acerca del descubriimiento del café
+    y de la bebida del café es la que hace referencia a un pastor llamado Kaldi.
+    La leyenda dice que Kaldi se dió cuenta del extraño comportamiento de
+    sus cabras estaban saltando alrededor muy excitadas y llenas de energía.
+    El arbusto del que Kaldi pensó que sus cabras habían comido las frutas,
+    tenían como frutas parecidas a las cerezas. Entonces Kaldi decidió probar
+    las hojas del arbusto y un rato despúes se sintió lleno de energía."\n\n"
+
+    Kaldi después llevó algunos frutos y ramas de ese arbusto a un monasterio.
+    Allí le contó al Abad la historia de las cabras y de como se había sentido
+    después de haber comodio las hojas. El Abad decidió cocinar las ramas
+    y las cerezas; el resultado fue una bebida muy amarga que él tiró de
+    inmediato al fuego. Cuando las cerezas cayeron en las brazas empezaron a hervir,
+    las arvejas verdes que tenían en su interior produjeron un delicioso aroma
+    que hicieron que el Aband pensar en hacer una bebida basada en el
+    café tostado, y es así como la bebida del café nace."\n\n"</string>
+
+    <string name="consumo_cultivo_text">Los Arabes fueron los primeros en
+    descubrir las virtudes y las posibilidades económicas del café. Esto
+    fue porque desarrollaron todo el proceso de cultivo y procesamiento
+    del café y lo guardaron como un secreto. Los Arabes también trataron
+    de evitar la extradición de cualquier semilla de café."\n\n"
+
+    El café comenzó a conquistar territorio en el mundo como la bebida
+    favorita en Europa y llegó a Italia en 1645 cortesía de el comerciante
+    Veneciano Pietro Della Valle. Inglaterra comenzó a tomar café en
+    1650 gracias a el comerciante Daniel Edwards, quien fue el primero
+    que abrió un establecimiento de venta de café en Inglaterra y en Europa."\n\n"
+
+    Otro autor, H.J.E. Jacob, afirma que el café como bebida en Europa
+    comienza en Vienna con la invasión por parte de Turkish bajo
+    el comando de Kara-Mustafa. Jacob además da crédito a un héroe de la
+    época, Josef Koltschitzky, por abrir el primer "Cafe" en Septiembre
+    12 de 1683 en el centro de la ciudad de Vienna."\n\n"
+
+    El café llegó a Francia a través de el Puerto de Marcella. En 1660
+    algunos comerciantes de ese puerto quienes sabían del café, sus
+    atributos y efectos por sus viajes alrededor del mundo, decidieron
+    llevar unos cuantos sacos desde Egipto y por 1661 la primera
+    tienda de café fue abierta en Marcella."\n\n"
+
+    La historia señala a Soliman Aga, el embajador de Persia en Paris
+    durante el reinado de Luis XIV, como el primero en introducir el café
+    en la Monarquía y la alta sociedad Francesa."\n\n"
+
+    La primer tienda de café en Paris fue abierta al público en 1672
+    por Pascal Armeniano a lo largo de la tradicional avenida
+    Saint German. Un Siciliano de nombre Procopio abrió una tienda
+    similar cerca, donde se reunían alrededor del exquisito sabor
+    del café, muchos de los mejores ejemplares de la sociedad Parisina.
+    En 1689 Procopio traladó su tienda de café a un lugar cerca al Teatro
+    de la Comedia Francés dodne prosperó y finalmente finalizó cuando ya
+    era conocido en todo Paris."\n\n"</string>
+
+    <string name="recoleccion_text">Es con la recoleccion de las cerezas
+    (los futos de la Arábica o de la Canephora) que empieza el largo
+    camino del café."\n\n"
+
+    El Picking es un método completamente manual y consiste en arrancar
+    una por una sólo las cerezas perfectamente maduras. De esta forma
+    se obtiene un conjunto homogéneo de buena calidad."\n\n"
+
+    El stripping consiste en recoger, con trilladoras o bien a mano, todas
+    las crezas de una vez. Sucesivamente es preciso cerner la cosecha, puesto
+    que las cerezas verdes o ya fermentadas se recogen junto con las
+    maduras."\n\n"
+
+    **El beneficio del cafe**"\n"
+
+    Desde los centros de recolección el café llega a la fase del
+    beneficio, que permite extraer los granos de café de los frutos,
+    eliminando la pulpa y la película. Al terminar dicha fase, se
+    puede dividir los cafés en específicas tipologías comerciales,
+    conformes a las clasificaciones internacionales."\n\n"
+
+    Hay diversos tipos de tratamientos:"\n"
+
+    Con el beneficio húmedo, usado para las variedades de café más
+    finas, se obtiene un producto denominado café lavado o mild.
+    Su aspecto es uniforme y sin defectos. Este tratamiento require
+    cerezas de madurez y consistencia homogénea: una máquina las
+    dispulpa, separando la piel (exocarpio) de los granos que
+    posteriormente se colocan en tanques de agua duran uno o dos días
+    para que fermente. Una vez libres del mucílago, los granos estan
+    listos para ser lavados y secados al sol o en secaderos mecánicos
+    a temperatura de 45-60 grados."\n\n"
+
+    El café así obtenido sigue conservando algunas membranas protectoras
+    (el pergamino y la película plateada) que se quitan con una máquina
+    denominada descascarilladora. Los granos verdes, una vez pelados,
+    estan listos para ser recogidos en almacenes bien aireados."\n\n"
+
+    Con el beneficio seco se obtienen cafés denominados naturales
+    de aspecto poco uniforme. Inmediatamente después de la recolección,
+    los frutos, se colocan en capas y se dejan al aire durante dos o
+    tres semanas. La exposición al sol y la acción de las máquinas separan
+    el grano tanto de la pulpa como de las dos membranas protectoras."\n\n"
+
+    El sistema semilavado tiene la caracteriza por un consumo de agua inferior
+    respecto al método húmedo. Las cerezas son despulpadas por medio de una
+    máquina que elimina tanto la piel (exocarpio) como la pulpa (mesocarpio).
+    El café así obtenido se seca al sol o en los secadores."\n\n"
+
+    En la planta, este proceso es constantemente monitoreado, desde la
+    llegada del café verde hasta el alamcenamiento del producto acabado."\n\n"</string>
+
+    <string name="tueste_text">Con el tueste los granos sufren una
+    transformación: cambian de color, pierden peso, aumentan de volumen
+    y adquieren aroma. Las altas tempraturas permiten a los
+    granos desarrollar sus características aromáticas."\n\n"
+
+    * A 100 C son dorados y desprenden un olor parecido al del plan
+    tostado, que pronto se convertirá en el aroma sublime del café."\n\n"
+
+    * Por encima de 150 - 180 C son más grandes, brillantes y de color
+    marrón."\n\n"
+
+    * A 200 - 230 C el tueste está en el nivel óptimo y el café
+    adquiere su sabor típico. Una vez extraído de la tostadora, el café
+    se enfría rápidamente con flujos de aire frío."\n\n"
+
+    Los ciclos largos están destinados a los blends para espresso, con
+    el fin de obtener una bebida cremosa y un sabor único y armonioso."\n\n"
+
+    Las mezclas de distintos granos son, un elemento en el cual la
+    cultura del café halla su máxima exresión. Imprescindibles para
+    obtener una bebida de calidad, los mejores blends nacen de la
+    unión de diferentes variedades de café, incluso cinco o seis a la vez."\n\n"
+
+    Por ejemplo, los que se componen sólo de Arábica son más dulces y
+    fragantes, mientras que los formados por Arábica y robusta poseen
+    más cuerpo y un sabor fuerte."\n\n"
+
+    La variedad de cafés procedentes de nuestras fincas permiten crear un
+    sin fin de blends de sabor y aroma diferentes: plenos y
+    achocolatados, o bien fragantes, acídulos  perfumados cuando
+    prevalecen los Arábica."\n\n"
+
+    Una molienda cuidadosa"\n"
+
+    El grado de molido cabia la resistencia del café el paso del agua,
+    afectando a la velocidad de extracción y por lo tanto a las
+    caracteríticas organolépticas de la bebida en la taza, cualquiera
+    que se la modalidad de preparación."\n\n"
+
+    Almacenamiento y envasado"\n"
+
+    También en este caso la experiencia y el esfuerzo hacia la
+    excelencia nos han llevado a elaborar ténicas específicas. Para
+    evitar que el café molido se deteriore al entrar en contacto con
+    el aire, antes del envasado, el producto es almacenado en un
+    espacio con atmósfera controlada. De esta forma garantizamos la
+    total dispersión del antipidrido carbónico es muy poco tiempo,
+    sin alterar las fragancia."\n\n"
+
+    Tanto en grano como en polvo, el café ha de ser envasado para que
+    se mantenga intactas sus característics organolépticas, por lo tanto
+    la elección del material y de la ténica del embalaje es
+    determinante."\n\n"</string>
+
+    <string name="cafe_mundo_text">En la platanción"\n"
+
+    El café crece en árboles perennes pequeños en plantaciones en Sur y
+    Centro América, África y Asia."\n\n"
+
+    Como requieren la cantidad justa de luz solar y sombra, riego regular,
+    fertilizantes y control de plagas y maleza, los jóvenes cafetos
+    demandan una atención constante de los agricultores. Se pueden
+    necesitar hasta cuatro años para que un árbol de café alcance su producción
+    madura. Una vez que se alcanza esta etapa, los árboles de cfé, si se manejan
+    bien, se pueden mantener por hasta 40 años."\n\n"
+
+    Arábica y Robusta"\n"
+
+    Entre las aproximadamente 60 especies existenetes de café, Arábica y Robusta
+    son las que se utilizan para fines comerciales y preparación. Robusta,
+    que desde un punto de vista botánico es una variedad de Canephora, se
+    cultiva a baja altitud, con respecto al nivel de mar de cerca de
+    800m (también influenciado por la latitud). Robusta se caracteriza por
+    una nota fuerte, cuerpo fuerte y muy poco acidez. Se cultiva
+    principalmente en Vietnam, Brasil e Indonesia. Arábica crece a mayor
+    altitud, usualmente sobre los 800 metros y hasta 2500 metros. Incluye
+    diversas variedades conocidas como Bourbon. Tipica, Caturra, Cutuai,
+    Catimor, Mundo Novo, Colombia, etc.
+    Arábica se caracteriza por el fino aroma, menos cuerpo y agradable acidez.
+    Brasil, Colombia, Etiopía, América Central, México, India, África oriental
+    se encuentra entre los países productos de Arábica más conocidos."\n\n"
+
+    Selección de los granos"\n"
+
+    Una vez que los árboles de café comienzan a producir fruta, se
+    requieren cerca de nueve meses para que la fruta madure en cerezas rojas.
+    El café aún se sigue recolectando a mano. Para una mejor calidad, solamente
+    se seleccionan las cerezas rojas maduras, djeando las cerezas no
+    maduras en las ramas para cosecharlas más tarde. Como cada árbol
+    se visita varias veces durante la temproada, este es un método
+    más caro. En forma alternativa, el agricultor puede decidir el
+    momento de cosechar y luego recolectar en cada árbol sacando
+    cerezas verdes y maduras. Para hacer esto la ersona que recolecta
+    desliza las manos a lo largo de las ramas, dejando que las cerezas
+    ciagan en un canasto o lona extendida bajo el árbol, de donde
+    se recogen. Esto es más eficiente pero resulta en una menor calidad
+    general."\n\n"
+
+    Preparación de los granos verdes"\n"
+
+    Los granos frescos de café se deben de secar antes de tostarlos.
+    Existen dos maneras de preparar los granos de café: el método "seco"
+    y el metodo "humedo". Con el método seco, las cerezas rojas recién
+    cosechadas se distribuyen sobre alfombrillas especiales y se dejan
+    secar al sol por dos a tres semanas. Una vez secas, la parte
+    externa de las cerezas se saca mecánicamente del grano de café
+    verde. Con el método "húmedo", se usa una máquina despulpadora para
+    sacar la pulpa externa de las cerezas. El "café parchado" resultante
+    se fermenta y enjuaga para eliminar cualquier resto de pulpa.
+    Luego se descascara este café parchado para obtener los granos."\n\n"
+
+    Selección de los granos"\n"
+
+    En esta etapa, los granos de café tiene una tonalidad verdosa
+    por lo que se conocen como "granos verdes" sin el sabor u olor
+    del café típico. Antes de guardarlo en costales y enviar a otros
+    países, los granos verdes se clasifican, miden y revisan para
+    garantizar un producto de alta calidad final. Otros de los nombres
+    que reciben los granos imperfectos rechazados son Malolientes,
+    Negros, Ácidos y Pintos."\n\n"</string>
+
+    <string name="mezcla_text">Los procedimientos de mezcla y cata son
+    complejos y cada productor hace un seguijientos estrecho de las
+    mezclas de sus cafés."\n\n"
+
+    Tostado de los granos"\n"
+
+    No es hasta que se tuestan los granos verdes que estos liberan el aroma
+    y el sabor del café que todos conocemos. Según el equipo de tostado y
+    el sabor deseado del café preparado, los granos verdes se tuestan entre
+    180 C  240 C durante tres y 12 minutos."\n\n"
+
+    Molienda"\n"
+
+    Antes de colarse, el café tostado debe ser molido. La molienda
+    aumenta el área superficial del café, dejando que el sabor se pueda
+    extraer con mayor facilidad al colarse."\n\n"
+
+    Hacerlo Soluble"\n"
+
+    el café soluble se hace exactamente de la misma manera que el cafe
+    colado: se mezclan los granos, se tuestan y muelen antes de colarlo
+    únicamente con agua. Finalmente, este café recientemente colado se
+    deshidrata cuidadosamente, removiendo el agua, produciendo un café
+    100% soluble."\n\n"</string>
+
+    <string name="tipocafe_title">Tipos de café</string>
+
+    <string name="tipo_cafe_text">Cappuccino"\n"
+
+    También conocido como una invención italiana, el cappuccino es una
+    mezcla espumosa de espresso y leche hervida al vapor en igual proporción."\n\n"
+
+    Café au lait / Café Latte"\n"
+
+    El café au lait es un típico café francés que se prepara con espresso,
+    leche hervida al vapor coronado con un poco de espuma de leche. Tiene
+    más leche que un capuccino."\n\n"
+
+    Latte Macchiato"\n"
+
+    Un vaso lleno con espuma de leche caliente en una porción de espresso
+    que se ha vertido lentamente. El espresso se vierte en la leche y la
+    espuma, creando un efecto de capa que se aprecia por el vidrio de la taza."\n\n"
+
+    Americano"\n"
+
+    Espresso con agua caliente. Algunos dicen que el nombre surgió debido a
+    la similitud de la intesidad de este café con el café colado regular
+    que se toma en Estados Unidos."\n\n"
+
+    Corretto"\n"
+
+    Espresso rociado con licor, por ejemplo, Grappa o Cognac."\n"
+
+    Ristretto"\n"
+
+    Doble carga de espresso."\n\n"
+
+    Romano"\n"
+
+    Espresso servido con una rodaja de limón."\n\n"
+
+    Con Panna"\n"
+
+    Espresso coronado con un poco de crema batida."\n\n"
+
+    Granita de Caffé"\n"
+
+    Gold espresso vertido sobre hielo molido."\n\n"
+
+    Mocha"\n"
+    Un tercio de espresso, un tercio de chocolate caliente y un tercio de leche hervido al vapor."\n\n"
+
+    Frappé"\n"
+
+    Café frío agitado con cubos de hielo. Es un café popular en Grecia y
+    Bulgaria, especialmente en los meses del verano."\n\n"</string>
+
+    <string name="curioso_text">Sorprende a tus amigos con estos datos
+    curiosos del café:"\n\n"
+
+    * Se pueden necesitar hasta cuatro años para que un árbol de café
+    alcance su producción madura."\n\n"
+
+    * Cada cereza de café tiene dos granos."\n\n"
+
+    * Los 2 tipos principales de café producido comercialmente son Arábica
+    y Robusta. Los granos de Arábica representan alrededor del 65% de la
+    producción total del café y el café Robusta compone el resto."\n\n"
+
+    * La palabra "café" se origina de la palabra árabe "Kaweh", que significa
+    fortaleza o vigor."\n\n"
+
+    * Al siglo IX el café se consumia ampliamente en Persia. Al siglo XV ya era
+    conocido en todo el mundo árabe."\n\n"
+
+    * Después del agua, el café es la 2da bebida más consumida en todo el
+    mundo."\n\n"
+
+    * El sabor del café es un delicado equilibrio de características
+    que se unen para crear la taza perfecta. Acidez, aroma y cuerpo
+    son los componentes del sabor. Estas son algunas de las
+    características más típicas del sabor:"\n\n"
+
+    * Riqueza: se refiere al cuerpo y densidad."\n\n"
+
+    * Complejidad: La percepción de varios sabores."\n\n"
+
+    * Equilibrio: La presencia satisfactoria de todas las características
+    básicas del sabor donde no hay un elemento que sobresalga más que otro."\n\n"
+
+    * Los holandeses comenzaron a cultivar café en la isla de Java, ahora
+    parte de Indonesia, en 1696."\n\n"
+
+    * El café llegó a Europa a comienzos del siglo XVII. Luis XIV y el Papa
+    Clemente III fueron de los primeros adeptos a la bebida."\n\n"
+
+    * La primera cafetería en Inglaterra abrió sus puertas en Oxford, en
+    1650, y en Londres un año más tarde. En 1700, había alrededor de 2000
+    cafeterías en la capital."\n\n"
+
+    * Llevó a la isla caribeña de martinica. Cincuenta años más tarde se
+    estimaba que había 18 millones de árboles."\n\n"
+
+    * Las cafeterías londinenses del siglo XVII se hicieron conocidas
+    como "Penny Universities" debido a que con el precio de un café se
+    podía formar parte de conversaciones con artistas, comerciantes y
+    poetas que frecuentaban esos lugares. Esto condujo a que Carlos II
+    interntara cerrar las cafeterías en 1676, tildándolas de cunas
+    de intrigas políticas."\n\n"
+
+    * Bach compuso la canta del café en honor a la bebida. Beethoven era
+    también un ávido bebedor de café."\n\n"
+
+    * En 1800 Brasil se convirtió en el mayor productor del café del
+    mundo."\n\n"
+
+    * La producción de todo un año de un árbol apenas produce 500 gramos
+    de café soluble."\n\n"</string>
+
+    <string name="salud_text">Investigadores en diversas partes del mundo, han
+    analizado con detenimiento las propiedades de los granos de café.
+    Y algunas de sus conclusiones más recientes, apuntan a que sus
+    antioxidantes ayudan a combatir, entre otras cosas, los radicales
+    libres: uno de los factores causantes del envejecimiento."\n\n"
+
+    Hay diversos estudios que asocian los componenetes del café, como
+    los antioxidantes, con un menor riesgo de diabetes tipo 2, daño
+    hepático y el Parkinson. Además, los antioxidantes ayudan a combatir
+    los radicales libres: uno de los factores causantes del
+    enevejecmiento."\n\n"
+
+    Café y Salud"\n"
+
+    En efecto, los antioxidantes del café poseen efectos positivos sobre la
+    salud. Un estudio reciente mostró que la cafeína presente en el café
+    y otros alimentos, puede tener un efecto protector frente al desarrollo
+    del Parkinson, una enfermedad que ataca al sistema nervioso central."\n\n"
+
+    Con respecto al daño hepático, varios estudios han concluido que algunos
+    de los componentes presentes en el café aumentan la capcidad antioxidante
+    en el hígado, lo que podría relacionarse con un efecto protector del
+    café frente al desarrollo de algunos tipos de cirrosis."\n\n"
+
+    En Noruega un seguimiento sobre 51.306 sujetos durante 17 años lo
+    confirmó: quienes consumían al menos dos tazas de café al día,
+    presentaban un 40% de menor riesgo de muerte por cirrosis alcohólica,
+    otro estudio sobre 5.944 sujetos, mostró lo mismo resecto al daño
+    hepático por cirrosis alcohólica o sobrepeso."\n\n"
+
+    Algo parecido ocurre en el caso de la diabetes tipo 2. Aquí, los polifenoles
+    presentes en el café podrían contribuir a una mayor capacidad
+    antioxidante y además, disminuir la absorción de glucosa, lo que se
+    traduce en un menor nivel de azúcar en la sangre."\n\n"
+
+    Por otra parte, una investigación de la Universidad de Pensilvania,
+    en Estados Unidos, concluyó que tanto la versión con cafeína como
+    la descafeinada, otorgan un nivel más alto de antioxidantes, es así que
+    entre aproximadamente 1000 alimentos este se encuentra entre los 50
+    con más capacidad antioxidantes y en el lugar número 6 cuando se
+    compara su capacidad antioxidante por porción. La cantidad de antioxidantes del café,
+    va a depender de su proceso de torrefacción y del modo de preparación."\n\n"
+
+    ¿Como actuan los antioxidantes?"\n"
+
+    Los polifenoles presentes en el café son los responsables de su función
+    antioxidante. Básicamente, los antioxidantes ayudan a combatir los radicales
+    libres, uno de los factores causantes del envejecimiento celular."\n\n"
+
+    Los radicales libres se generan ante la exposión al humo del tabaco,
+    la radiación, entre otros. Éstos pueden dañar las células de nuestro
+    cuerpo y a largo plazo, pueden causar alteraciones en nuestro
+    organismo."\n\n"</string>
+
+    <string name="title_activity_burdel">BurdelActivity</string>
+
+    <string name="cafe_guate_text">El café es el segundo productos más
+    comerciado en todo el mundo después del petróleo."\n\n"
+
+    Durante una iniciativa desarrollada por sacerdotes jesuitas es como
+    llegan las primeras plantas de café en Guatemala en 1773."\n\n"
+
+    A mediados del siglo XVIII el consumo del café no se había generalizado
+    aunque algunas veces se usaba como medicina."\n\n"
+
+    En 1803 una disposición gubernamental entre vigor, exonerando durante
+    diez años el cacao, azúcar, algodón y café, del impuesto de alcabala y
+    de otros impuestos, además en 1835, se decretó un premio de doscientos
+    pesos al agricultor que primero cosechara cien quintales de café, con
+    premios de cien pesos al segundos, tercero y cuatro lugares."\n\n"
+
+    En 1856 se hizo la primera exportación, consiste en 95 quintales oro
+    a un valor de USD 10 por que en 1865 el café guatemalteco participo
+    por primera vez en un evento internacional, la exhibición internacional
+    de Paris, y en 1888 ganó el primer lugar de exhibición mundial de París,
+    alcanzando mayores niveles de producción debido a una alta cotización en
+    el mercado internacional."\n\n"
+
+    Enn 1915 el café guatemalteco nuevamente es galardonado obteniendo
+    el Primer Lugar en la exposión de San Francisco."\n\n"
+
+    En 1910 los guatemaltecos, doctor Federico Lehnohoff y Eduardo T.
+    Gabarrus desarrollando el café soluble en Fancia. pero la primera
+    guerra mundial impidió que se comercializara quedando la patente en
+    Francia. La fórmula que se usa actualemnte es la misma, pero no ha
+    sido mejorada."\n\n"
+
+    Los cafés que se producen en Guatemala se clasifican como
+    "Arábigos Lavados", produciéndose en todos sus departamentos, tienen
+    diferentes características por la altiutd, tipo de suelo, temperatura,
+    nubosidad y régimen de la región donde se cultivan."\n\n"
+
+    Esto afecta las características del grano de café en tamaño, estructura y
+    consistencia, causando calidad de ser distintas, son diferenciables
+    y únicas entre sí."\n\n"
+
+    Esta regionalización natural única produce varios tipos exclusivos
+    de café. Entre los más concoidos se cuentran: El café Fraijanes,
+    Café Cobán, Café Huhuetenango, Café Atitlan y Café Antigua. El café
+    Antigua es un tipo de café reonocido internacionalmente, que es objeto
+    de un sobreprecio en los mercados gourmet."\n\n"
+
+    Se cultiva en una zona localizada entre volcanes, cuyas laderas forman un
+    valle con condiciones ecológicas y climáticas particularmente
+    propicias para el cultivo del mejor café."\n\n"
+
+    Los suelos, de origen volcánicos, son jóvenes y presentan condiciones
+    +optimas de fertilidad para grano, algunos expertos nacionales
+    y extranjeros, consideran que el café Genuino Antigua, es uno de los
+    cafés más finos que se producen en el mundo."\n\n"
+
+    CULTIVO"\n"
+    El café tradicionalmente se cultiva bajo la sombra de otros árboles
+    que ayudan a la preservación del medio ambiente."\n\n"
+
+    En Guatemala crecen más de 800 millones de cafetos, los cuales están
+    dimensionados en 262,300 hectáreas de terreno. A su vez, estas plantas
+    de café reciben la sombra que proporciona cerca de 30 millones de
+    árboles de especies tales como el caspirol, el cuje, el chuchín, etc."\n\n"
+
+    Este gigantesco bosque artifial diriamente vierte a la armósfera
+    la cantidad de 5 millones de toneladas de oxígeno."\n"</string>
+
+    <string name="tip_dev_text">Guatemala es un maravilloso lugar para
+    admirar y degustar en todo lo que nuestro bello país ofrece. Ahora
+    seamos claros y directos."\n\n"
+
+    Lastimosamente somos una cultura que no sabe apreciar lo bueno que
+    tenemos aquí y uno de los puntos donde me pude dar cuenta que no
+    apreciamos lo excelente del café guatemalteco. Nos han acostumbrado
+    a tomar de ese "cafectio instantáneo" en ningún momento quiero hablar
+    mal de estos cafés de sobrecito pero siendo, Guatemala de los mejores
+    países en el ámbito cafetero, por que no sabemos al menos de las
+    propiedades básicas y fundamentales para degustar el café."\n\n"
+
+    En realidad es curioso que personas extranjeras que visitan Guatemala,
+    les he preguntado que nombren 5 cosas que según ellos, gusten e
+    identifiquen a nuestro país, ellos responden:"\n\n"
+
+    - Naturaleza."\n"
+    - Color."\n"
+    - Olor."\n"
+    - Sabores."\n"
+
+    Y el más curioso de todos,"\n"
+
+    - Café."\n"
+
+    Ahora yo digo, ¿Cómo es posible, que las personas recuerden a Guate como
+    un país de buen café? Mientras nosotros no llegamos a tener la mínima idea
+    de porqué. Bueno pues realice algunos estudios culturales-antropológicos y
+    pues es abrumante la respuesta."\n\n"
+
+    Desde pequeños se nos ha acostumbrado a beber café de cual sea, es
+    lamentable ver a personas mayores de edad, darles una buena y digna
+    taza de café gourmet guatemalteco y la reacción de estas personas,
+    hacen un gesto como si les estuviese dando alguna especie de bebida
+    toxica corrosiva."\n\n"
+
+    Como mencionaba esto radica desde que tenemos el primer contacto que
+    tenemos con el mundo del café y conforme el tiempo se te vuelve
+    costumbre tomar "cafecito de sobrecito" pero hoy te diré unas cuantas
+    razones para tomar una buena taza de café y que dejes de aceptar
+    cualquier "cafecito" que te ofrezcan."\n\n"
+
+    1. Café instantáneo a nivel salud, es de las peores cosas que puedes
+    tomar, en realidad, estos sobres por la cantidad de químicos que trae
+    consigo son dañinos para tu organismo."\n\n"
+
+    2. Una verdadera taza de café trae más propiedades y efectos positivos
+    para tu organismo, incluso para tu sistema inmunológico."\n\n"
+
+    3. Como buen chapín deberías saber al menos que tipo de café estás tomando
+    y de que región proviene."\n\n"
+
+    4. Apreciar el mercado loca, apoyemos más al excelente trabajo que hacen
+    nuestro artesanos agricultores por mantener una calidad exquisita de café,
+    que lastimosamente el mejor café del país se lo llevan entidades
+    extranjeras, le ponen su marca, regresa al país incrementando su
+    precio exorbitante pero tu te crees cool por ir a repagar tu taza de
+    café al CUADRUPLE de su precio real."\n\n"
+
+    Todo lo mencionado anteriormente es para que hagamos consciencia que
+    el buen café de nuestro país, debemos de apoyarlo para que se quede
+    con nosotros y apreciarlo como tal, de otra manera, como haremos que
+    nuestras futuras generaciones valoren y desarrollen nuevas oportunidades
+    para el país."\n\n"
+
+    Te digo: Aprecia la naturaleza, aprecia la cultura, aprecia nuestra
+    gastronomía, APRECIA NUESTRO CAFE, es triste saber que los extranjeros
+    saben más de nuestro aís que nosotros mismos, empezando por el café sería
+    bueno, ya que como bien mencionaba angterioemente es el segundo
+    producto más comerciado en el mundo entero."\n\n"
+
+    Extras del café"\n"
+
+    Sus propiedades y efectos positivos desde la percepción de su aroma
+    y sabor, el café nos brinda una serie de emociones que reaniman
+    nuestro estado físico y espirutal al saborearlo."\n\n"
+
+    Pero se ha comprobado que tomar de dos a tres tazas de buen café
+    al día ayuda a mantener un equilibrio en la salid. Entre los
+    beneficios que podemos encontrar, están, prevención de ciertos tipos
+    de cáncer y diabetes, y beneficios para el aparato circulatorio y
+    respiratorio. Además aporta antioxidante que ayudan a retrasar el
+    proceso de envejecimiento y estimula la memoria.</string>
+
+    <string name="sabor_eterna">Sabor a eterna primavera</string>
+    <string name="elcafe">ElCafe</string>
+    <string name="back_to_elcaldo">Regresar a ElCaldo</string>
+
+    <string name="message_coffe_camera">Así quedo mi cafecito Amigos! :D</string>
+    <string name="via_app_elcafe">- Vía aplicación ElCaldo</string>
+    <string name="share_pic_coffe">Compartir imagen del café</string>
+    <string name="learn_about_coffee">Aprendamos de café</string>
+    <string name="dev_about">Fundador y desarrollador</string>
+    <string name="agrada_text">Cuando fusiónamos la tecnología con la cultura, nace un bebé llamado innovación</string>
+
+</resources>
+

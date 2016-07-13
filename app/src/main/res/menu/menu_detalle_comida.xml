@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="samples.exoguru.lazaro.vista.DetalleComidaActivity">
+    <item
+        android:id="@+id/abAcercade"
+        android:orderInCategory="100"
+        android:title="@string/creditos"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/abFav"
+        android:icon="@drawable/favorito"
+        android:orderInCategory="100"
+        android:title="Favorito"
+        app:showAsAction="always" />
+
+</menu>

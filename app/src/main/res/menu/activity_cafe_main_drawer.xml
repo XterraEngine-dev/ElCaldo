@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/coffe_origin_id"
+            android:icon="@drawable/origen"
+            android:title="@string/origin_coffe_nav_name" />
+        <item
+            android:id="@+id/consumo_cultivo_id"
+            android:icon="@drawable/consumocultivo"
+            android:title="@string/cultivo_coffe" />
+        <item
+            android:id="@+id/recoleccion_id"
+            android:icon="@drawable/recoleccion"
+            android:title="@string/recolection_coffe" />
+        <item
+            android:id="@+id/tueste_id"
+            android:icon="@drawable/tueste"
+            android:title="@string/tueste_coffe" />
+
+        <item
+            android:id="@+id/tipo_cafe_id"
+            android:icon="@drawable/guatecoffe"
+            android:title="@string/tipocafe_title" />
+    </group>
+
+    <item android:title="Extras">
+        <menu>
+            <item
+                android:id="@+id/cafe_mundo_id"
+                android:icon="@drawable/website"
+                android:title="@string/coffe_in_world" />
+            <item
+                android:id="@+id/mezcla_id"
+                android:icon="@drawable/mezcla"
+                android:title="@string/coffe_mezcla" />
+            <item
+                android:id="@+id/curioso_id"
+                android:icon="@drawable/curiosos"
+                android:title="@string/datos_curiosos_coffe" />
+
+            <item
+                android:id="@+id/healt_id"
+                android:icon="@drawable/healtcoffe"
+                android:title="@string/coffe_health" />
+            <item
+                android:id="@+id/guate_id"
+                android:icon="@drawable/guatecoffe"
+                android:title="@string/coffe_in_guate" />
+
+
+            <item
+                android:id="@+id/dev_pitch"
+                android:icon="@drawable/devlazarus"
+                android:title="@string/dev_coment" />
+
+            <item
+                android:id="@+id/back_elcaldo"
+                android:icon="@android:drawable/ic_menu_revert"
+                android:title="@string/back_to_elcaldo" />
+        </menu>
+    </item>
+
+</menu>

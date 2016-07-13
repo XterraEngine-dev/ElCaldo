@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_camara"
+            layout="@layout/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/ivDevuelvePic"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_gravity="center"
+            android:background="@drawable/placeholder"
+            android:contentDescription="imagen" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_cyan"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnTomarPic"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="@drawable/sharepic"
+                android:contentDescription="imagen" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnImagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/light_green"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Compartir imagen"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+
+
+    </LinearLayout>
+
+</ScrollView>

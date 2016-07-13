@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="tabsScrollColor">#e8f5e9</color>
+    <color name="notSelected">#212121</color>
+    <color name="darkPrimaryColor">#E65100</color>
+    <color name="primaryColor">#EF6C00</color>
+    <color name="accent_color">#FF9800</color>
+    <color name="detalle_lista">#558b2f</color>
+    <color name="detalle_nombre">#33691e</color>
+
+    //colores para el wizardiu
+
+    <color name="light_green">#8bc34a</color>
+    <color name="light_purple">#9c27b0</color>
+    <color name="light_orange">#d84315</color>
+    <color name="light_cyan">#00bcd4</color>
+    <color name="cafe_oscuro">#3E2723</color>
+    <color name="cafe_claro">#4E342E</color>
+
+
+</resources>
