@@ -755,5 +755,10 @@
     <string name="dev_about">Fundador y desarrollador</string>
     <string name="agrada_text">Cuando fusiónamos la tecnología con la cultura, nace un bebé llamado innovación</string>
 
+    //DetalleScrollingActivity
+    <string name="detalle_compartir_title">Compartir en redes sociales</string>
+    <string name="detalle_nombre_plato_title">Nombre del plato :</string>
+    <string name="detalle_departamento_title">Departamento :</string>
+
 </resources>
 

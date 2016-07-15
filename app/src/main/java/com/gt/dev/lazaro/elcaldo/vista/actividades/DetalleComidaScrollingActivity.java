@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.gt.dev.lazaro.elcaldo.R;
-import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorDetalle;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaDetalleComida;
 import com.gt.dev.lazaro.elcaldo.modelo.DBManager;
 import com.gt.dev.lazaro.elcaldo.modelo.Plato;
@@ -33,8 +31,6 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
 
     public static final String NOMBRE_PLATO = "platocomida";
     public static final String IMAGEN = "img";
-
-    private ListView listaDetalle;
     private ArrayList<CategoriaDetalleComida> categoria;
     private String nombrePlato;
     private int imagenPlato;
@@ -49,6 +45,21 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_comida_scrolling);
+        startVars();
+        getSource();
+        startFacebookApi();
+        cargarPlato();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_detalle_scrolling);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                compartirPlato();
+            }
+        });
+    }
+
+    private void startVars() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,12 +67,19 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
         tvNuevo = (TextView) findViewById(R.id.tvNuevo);
         tvNuevo2 = (TextView) findViewById(R.id.tvNuevo2);
 
+    }
+
+    private void getSource() {
         Bundle bundle = getIntent().getExtras();
         nombrePlato = bundle.getString(NOMBRE_PLATO);
         //imagenPlato = bundle.getInt(NOMBRE_PLATO);
         imagenPlato = bundle.getInt("llave");
         toolbarLayout.setBackgroundResource(imagenPlato);
         toolbarLayout.setTitle(nombrePlato);
+    }
+
+    private void startFacebookApi() {
+
         //Facebook api
 
         ShareLinkContent content = new ShareLinkContent.Builder().setContentTitle(nombrePlato).setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.gt.dev.lazaro.elcaldo")).build();
@@ -71,25 +89,6 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Snackbar.make(v, "Has compartido en facebook! :D", Snackbar.LENGTH_LONG).show();
-            }
-        });
-
-        /*shareTweet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundlePlato = new Bundle();
-                bundlePlato.putString("key", nombrePlato);
-                startActivity(new Intent(DetalleComidaScrollingActivity.this, TweetComposerActivity.class).putExtras(bundlePlato));
-            }
-        });*/
-
-        cargarPlato();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_detalle_scrolling);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                compartirPlato();
             }
         });
     }
@@ -110,20 +109,13 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
             Toast.makeText(DetalleComidaScrollingActivity.this, R.string.conexion_fallida, Toast.LENGTH_SHORT).show();
     }
 
-    private void adaptador(ArrayList<CategoriaDetalleComida> detallesComida) {
-        categoria = detallesComida;
-
-        AdaptadorDetalle adaptador = new AdaptadorDetalle(categoria, DetalleComidaScrollingActivity.this.getApplicationContext());
-        listaDetalle.setAdapter(adaptador);
-    }
-
     private void compartirPlato() {
 
         Intent intentCompartir = new Intent(Intent.ACTION_SEND);
         intentCompartir.setType("text/plain");
-        intentCompartir.putExtra(Intent.EXTRA_SUBJECT, "Compartir en redes sociales");
-        intentCompartir.putExtra(Intent.EXTRA_TEXT, "Nombre del plato : " + nombrePlato + "\n" +
-                "Departamento : " + "Ciudad de Guatemala" + "\n" +
+        intentCompartir.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.detalle_compartir_title));
+        intentCompartir.putExtra(Intent.EXTRA_TEXT, getString(R.string.detalle_nombre_plato_title) + nombrePlato + "\n" +
+                getString(R.string.detalle_departamento_title) + "Ciudad de Guatemala" + "\n" +
                 getString(R.string.via) + " https://play.google.com/store/apps/details?id=com.gt.dev.lazaro.elcaldo");
 
         startActivity(Intent.createChooser(intentCompartir, getString(R.string.comparte_plato)));

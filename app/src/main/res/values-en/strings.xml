@@ -751,4 +751,9 @@
     <string name="dev_about">CEO and developer</string>
     <string name="agrada_text">When we mix the technology with culture, born a baby called innovation</string>
     //When we mix the tecnology with culture, born a babe called innovation
+
+    //DetalleScrollingActivity
+    <string name="detalle_compartir_title">Share on social networks</string>
+    <string name="detalle_nombre_plato_title">Name plate :</string>
+    <string name="detalle_departamento_title">State :</string>
 </resources>
