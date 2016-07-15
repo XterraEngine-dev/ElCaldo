@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
@@ -44,16 +42,28 @@ public class OtrasComidasActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         lista = (ListView) findViewById(R.id.lv4);
 
-        /*boton = new FloatingActionButton.Builder(this).setBackgroundDrawable(R.drawable.plusmaterial).build();
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(OtrasComidasActivity.this, AgregarRecetaActivity.class));
-            }
-        });*/
+        startArrayList();
 
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Categoria categoria = (Categoria) parent.getItemAtPosition(position);
+
+                Bundle bundle = new Bundle();
+                bundle.putString(DetalleComidaScrollingActivity.NOMBRE_PLATO, categoria.getTitulo());
+                bundle.putInt("llave", categoria.getImagen());
+
+                Intent intento = new Intent(getApplicationContext(), DetalleComidaScrollingActivity.class);
+                intento.putExtras(bundle);
+
+                startActivity(intento);
+            }
+        });
+    }
+
+    private void startArrayList() {
+        //Lista data
         categoria = new ArrayList<Categoria>();
-        //16 platos tipicos en otrascomidas
         categoria.add(new Categoria("Tortillas de maíz", "Ciudad de Guatemala", R.drawable.tormaiz));
         categoria.add(new Categoria("Churrasco", "Ciudad de Guatemala", R.drawable.churrasco));
         categoria.add(new Categoria("Chirmol", "Ciudad de Guatemala", R.drawable.chirmol));
@@ -77,50 +87,7 @@ public class OtrasComidasActivity extends AppCompatActivity {
 
         //lista.setOnScrollListener(new OnScrollUpDownListener(lista, 8, scrollAction));
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Categoria categoria = (Categoria) parent.getItemAtPosition(position);
-
-                Bundle bundle = new Bundle();
-                bundle.putString(DetalleComidaActivity.NOMBRE_PLATO, categoria.getTitulo());
-                bundle.putInt("llave", categoria.getImagen());
-
-                Intent intento = new Intent(getApplicationContext(), DetalleComidaScrollingActivity.class);
-                intento.putExtras(bundle);
-
-                startActivity(intento);
-            }
-        });
     }
-
-
-    /*OnScrollUpDownListener.Action scrollAction = new OnScrollUpDownListener.Action() {
-        private boolean hidden = true;
-
-        @Override
-        public void up() {
-            if (hidden) {
-                hidden = false;
-                animate(boton)
-                        .translationY(boton.getHeight() +
-                                getResources().getDimension(R.dimen.fab_elevation_lollipop))
-                        .setInterpolator(new LinearInterpolator())
-                        .setDuration(200);
-            }
-        }
-
-        @Override
-        public void down() {
-            if (!hidden) {
-                hidden = true;
-                animate(boton)
-                        .translationY(0)
-                        .setInterpolator(new LinearInterpolator())
-                        .setDuration(200);
-            }
-        }
-    };*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
