@@ -15,8 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.gt.dev.lazaro.elcaldo.R;
 
 import java.io.InputStream;
@@ -67,27 +65,6 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setHomeButtonEnabled(true);
 
     }
-
-/*
-    private void shareImage() {
-        Intent share = new Intent(Intent.ACTION_SEND);
-
-        // If you want to share a png image only, you can do:
-        // setType("image/png"); OR for jpeg: setType("image/jpeg");
-        share.setType("image/jpg");
-
-        // Make sure you put example png image named myImage.png in your
-        // directory
-        String imagePath = Environment.getExternalStorageDirectory()
-                + "/myImage.png";
-
-        File imageFileToShare = new File(imagePath);
-
-        //Uri uri = Uri.fromFile(imageFileToShare);
-        share.putExtra(Intent.EXTRA_STREAM, bmp);
-
-        startActivity(Intent.createChooser(share, "Share Image!"));
-    }*/
 
     /**
      * Metodo para escuchar el evento click

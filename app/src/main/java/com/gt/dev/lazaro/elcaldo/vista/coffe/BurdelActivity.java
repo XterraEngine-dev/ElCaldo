@@ -23,23 +23,8 @@ public class BurdelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burdel);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setBackgroundColor(getResources().getColor(R.color.cafe_claro));
-        setSupportActionBar(toolbar);
-        toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        tvTexto = (TextView) findViewById(R.id.tv_texto_coffe);
-        //toolbarLayout.setTitle(getTitle());
+        startVars();
         getBundle();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_burdel_share);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shareCoffee();
-            }
-        });
     }
 
     private void shareCoffee() {
@@ -75,4 +60,24 @@ public class BurdelActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void startVars() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar.setBackgroundColor(getResources().getColor(R.color.cafe_claro));
+        setSupportActionBar(toolbar);
+        toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        tvTexto = (TextView) findViewById(R.id.tv_texto_coffe);
+        //toolbarLayout.setTitle(getTitle());
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_burdel_share);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareCoffee();
+            }
+        });
+    }
+
 }
