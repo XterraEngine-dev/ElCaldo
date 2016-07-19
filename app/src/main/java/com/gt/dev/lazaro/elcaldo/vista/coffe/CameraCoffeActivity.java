@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 
 import java.io.InputStream;
@@ -27,6 +29,8 @@ public class CameraCoffeActivity extends AppCompatActivity implements View.OnCli
     private ImageButton shotPic;
     private Bitmap bmp;
     private Toolbar toolbar;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class CameraCoffeActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_camera_coffe);
 
         startVars();
+        startAnalytics();
         InputStream is = getResources().openRawResource(R.raw.splashcaldo);
         bmp = BitmapFactory.decodeStream(is);
     }
@@ -94,4 +99,16 @@ public class CameraCoffeActivity extends AppCompatActivity implements View.OnCli
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void startAnalytics() {
+        //Analytics
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        tracker = googleAnalytics.newTracker("UA-69747362-1");
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
+    }
+
 }

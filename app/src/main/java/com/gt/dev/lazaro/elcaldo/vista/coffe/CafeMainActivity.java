@@ -13,12 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 
 public class CafeMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tvMainCoffe;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class CafeMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_cafe_main);
 
         startVars();
+        startAnalytics();
     }
 
     @Override
@@ -178,6 +183,17 @@ public class CafeMainActivity extends AppCompatActivity
 
         tvMainCoffe.setText(R.string.coffe_main);
 
+    }
+
+    private void startAnalytics() {
+        //Analytics
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        tracker = googleAnalytics.newTracker("UA-69747362-1");
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
 }

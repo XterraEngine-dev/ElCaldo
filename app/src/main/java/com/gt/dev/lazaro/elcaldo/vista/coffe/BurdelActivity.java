@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 
 public class BurdelActivity extends AppCompatActivity {
@@ -18,6 +20,8 @@ public class BurdelActivity extends AppCompatActivity {
     private int picture;
     private CollapsingToolbarLayout toolbarLayout;
     private TextView tvTexto;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class BurdelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_burdel);
         startVars();
         getBundle();
+        startAnalytics();
     }
 
     private void shareCoffee() {
@@ -78,6 +83,16 @@ public class BurdelActivity extends AppCompatActivity {
                 shareCoffee();
             }
         });
+    }
+
+    private void startAnalytics() {
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        tracker = googleAnalytics.newTracker("UA-69747362-1");
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
 }
