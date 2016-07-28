@@ -142,7 +142,11 @@
             android:label="@string/title_activity_burdel"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".vista.coffe.CameraCoffeActivity"></activity>
+        <activity android:name=".vista.coffe.CameraCoffeActivity" />
+        <activity
+            android:name=".vista.actividades.TabsMainActivity"
+            android:label="@string/title_activity_tabs_main"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

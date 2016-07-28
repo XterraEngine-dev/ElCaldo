@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 
 import java.io.InputStream;
@@ -31,6 +33,8 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView devuelvePic;
     private ImageButton tomarPic;
     private Bitmap bmp;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
 
     /**
      * onCreate
@@ -44,6 +48,7 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         Toast.makeText(CamaraActivity.this, R.string.toast_shot, Toast.LENGTH_LONG).show();
 
         iniciaVars();
+        startAnalytics();
 
         InputStream is = getResources().openRawResource(R.raw.splashcaldo);
         bmp = BitmapFactory.decodeStream(is);
@@ -126,6 +131,17 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startAnalytics() {
+        //Analytics
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        tracker = googleAnalytics.newTracker("UA-69747362-1");
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
 }

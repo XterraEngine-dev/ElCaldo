@@ -759,6 +759,7 @@
     <string name="detalle_compartir_title">Compartir en redes sociales</string>
     <string name="detalle_nombre_plato_title">Nombre del plato :</string>
     <string name="detalle_departamento_title">Departamento :</string>
+    <string name="title_activity_tabs_main">TabsMainActivity</string>
 
 </resources>
 

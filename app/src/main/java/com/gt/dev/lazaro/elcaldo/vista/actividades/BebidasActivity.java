@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.ViewPagerAdapter2;
 import com.gt.dev.lazaro.elcaldo.utilidades.SlidingTabLayout;
@@ -20,6 +22,8 @@ public class BebidasActivity extends AppCompatActivity {
     private SlidingTabLayout tabs;
     CharSequence Titles[] = {"Bebidas calientes", "Bebidas frías"};
     int Numboftabs = 2;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -35,6 +39,7 @@ public class BebidasActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setUpTabs();
+        startAnalytics();
     }
 
     private void setUpTabs() {
@@ -66,4 +71,16 @@ public class BebidasActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void startAnalytics() {
+        //Analytics
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        tracker = googleAnalytics.newTracker("UA-69747362-1");
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
+    }
+
 }
