@@ -53,11 +53,7 @@
             android:label="ElCaldo"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".vista.actividades.WizardActivity"
@@ -107,27 +103,17 @@
             android:name=".controlador.Preferencias"
             android:label="Preferencias"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity
-            android:name=".vista.actividades.FavoritosActivity"
-            android:label="@string/favoritos"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".vista.actividades.CopyrightActivity"
             android:label="@string/terminos_condiciones"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".vista.actividades.AgregarRecetaActivity"
-            android:label="Agrega receta tipica"
-            android:screenOrientation="portrait" />
-        <activity android:name=".vista.actividades.MisRecetasActivity" />
+
         <activity
             android:name=".vista.actividades.DetalleComidaScrollingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".vista.actividades.TweetComposerActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".vista.actividades.BebidasActivity"
             android:label="@string/bebidas_activity"
@@ -146,7 +132,13 @@
         <activity
             android:name=".vista.actividades.TabsMainActivity"
             android:label="@string/title_activity_tabs_main"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
