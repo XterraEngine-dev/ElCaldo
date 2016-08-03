@@ -35,9 +35,9 @@
                 android:icon="@drawable/facebookpng"
                 android:title="@string/facebook" />
             <item
-                android:id="@+id/nav_terminos"
+                android:id="@+id/nav_recetassemana"
                 android:icon="@drawable/terminoscopy"
-                android:title="@string/terminos_condiciones" />
+                android:title="@string/recetas_semana_drawer" />
             <item
                 android:id="@+id/nav_cafe"
                 android:icon="@drawable/glass"

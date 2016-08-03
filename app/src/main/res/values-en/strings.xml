@@ -763,4 +763,6 @@
     <string name="caldos_title">Broths</string>
     <string name="tamales_title">Tamales</string>
     <string name="postres_title">Desserts</string>
+
+    <string name="recetas_semana_drawer">Recipes of the week</string>
 </resources>
