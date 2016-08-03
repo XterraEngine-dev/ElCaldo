@@ -53,9 +53,10 @@ public class Tab1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //dbManager = new DBManager(getActivity());
         dbManager = new DBManager(getActivity());
+        requestQueue = Volley.newRequestQueue(getActivity());
+        showCaldosList();
     }
 
     /**
@@ -73,42 +74,16 @@ public class Tab1 extends Fragment {
         lista = (ListView) v.findViewById(R.id.lv1);
 
 
-        //8 platos tipicos en tamales
-        //categoria = new ArrayList<>();
-
-        /*categoria.add(new Categoria("Caldo de gallina india", "Ciudad de Guatemala", R.drawable.caldodegallina));
-        categoria.add(new Categoria("Caldo de res", "Ciudad de Guatemala", R.drawable.caldoderes));
-        categoria.add(new Categoria("Caldo de pata", "Ciudad de Guatemala", R.drawable.pata));
-        categoria.add(new Categoria("Caldo de mariscos", "Ciudad de Guatemala", R.drawable.mariscos));
-        categoria.add(new Categoria("Sopa de tortuga", "Ciudad de Guatemala", R.drawable.tortuga));
-        categoria.add(new Categoria("Kaq ik", "Ciudad de Guatemala", R.drawable.kakik));
-        categoria.add(new Categoria("Jocón", "Ciudad de Guatemala", R.drawable.jocon));
-        categoria.add(new Categoria("Pepián", "Ciudad de Guatemala", R.drawable.pepian));
-        categoria.add(new Categoria("Pepián Indio", "Ciudad de Guatemala", R.drawable.pepianindio));
-        categoria.add(new Categoria("Pollo en Amarillo", "Ciudad de Guatemala", R.drawable.polloenamarillo));
-        categoria.add(new Categoria("Hilachas de res", "Ciudad de Guatemala", R.drawable.hilachas));
-        categoria.add(new Categoria("Revolcado de cerdo", "Ciudad de Guatemala", R.drawable.revolcado));
-        categoria.add(new Categoria("Pulique", "Ciudad de Guatemala", R.drawable.pulique));
-        categoria.add(new Categoria("Gallo en Chicha", "Ciudad de Guatemala", R.drawable.galloenchicha));*/
-
-        //final AdaptadorCategoria adaptador = new AdaptadorCategoria(categoria, Tab1.this.getActivity());
-        //lista.setAdapter(adaptador);
-        //Establecemos el adaptador que hemos creado
-
-
-        /*lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Categoria imagen = categoria.get(position);
-                Intent intento = new Intent(getActivity(), DetalleComidaActivity.class);
-                intento.putExtra("image", imagen.getImagen());
-                startActivity(intento);
-
                 Categoria categoria = (Categoria) parent.getItemAtPosition(position);
-
+                //Ahora solo necesitaremos el ID de plato seleccionado ya que por medio de la apirest solo
+                //disparamos al mismo url añandiendo el ID y nos devolvera todos los datos que necesitamos.
                 Bundle bundle = new Bundle();
-                bundle.putString(DetalleComidaScrollingActivity.NOMBRE_PLATO, categoria.getTitulo());
+                //bundle.putString(DetalleComidaScrollingActivity.NOMBRE_PLATO, categoria.getTitulo());
+                bundle.putString("id", categoria.getId());
                 bundle.putInt("llave", categoria.getImagen());
 
                 Intent intent = new Intent(getActivity(), DetalleComidaScrollingActivity.class);
@@ -117,7 +92,7 @@ public class Tab1 extends Fragment {
                 //startActivity(new Intent(getActivity(), DetalleComidaActivity.class));
                 //Toast.makeText(getActivity(), categoria.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
 
         return v;
@@ -131,14 +106,16 @@ public class Tab1 extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                    JSONArray jsonArray = response.getJSONArray("caldos");
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject data = jsonArray.getJSONObject(i);
+                        JSONObject caldos = jsonArray.getJSONObject(i);
 
-                        String name = data.getString("nombre");
-                        String region = data.getString("region");
+                        String name = caldos.getString("nombre");
+                        String region = caldos.getString("region");
+                        String id = caldos.getString("id");
                         int picture = R.drawable.elcaldoicono;
-                        categoria.add(new Categoria(name, region, R.drawable.elcaldoicono));
+                        categoria.add(new Categoria(name, region, id, R.drawable.elcaldoicono));
+                        setupAdapter(categoria);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -158,8 +135,11 @@ public class Tab1 extends Fragment {
                 return headers;
             }
         };
-        requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(jreq);
+    }
+
+    private void setupAdapter(ArrayList<Categoria> categoria) {
+        this.lista.setAdapter(new AdaptadorCategoria(categoria, getActivity()));
     }
 
 }

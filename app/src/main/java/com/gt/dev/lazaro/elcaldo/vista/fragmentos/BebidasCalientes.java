@@ -4,35 +4,52 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCardView;
-import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
+import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.modelo.DBManager;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by root on 20/03/16.
  */
 public class BebidasCalientes extends Fragment {
 
-    private ArrayList<CategoriaCardView> categoria;
+    private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private ListView lvCalientes;
     DBManager dbManager;
     public static final String KEY_PICTURE = "picture";
+    private RequestQueue requestQueue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbManager = new DBManager(getActivity());
+        requestQueue = Volley.newRequestQueue(getActivity());
+        showCalientesList();
     }
 
     @Nullable
@@ -42,15 +59,6 @@ public class BebidasCalientes extends Fragment {
 
         lvCalientes = (ListView) v.findViewById(R.id.lv_bebidas_calientes);
 
-        categoria = new ArrayList<>();
-
-        categoria.add(new CategoriaCardView("Atol de elote", "Guatemala", R.drawable.atoldeelote));
-        categoria.add(new CategoriaCardView("Arroz en leche", "Guatemala", R.drawable.arrozenleche));
-        categoria.add(new CategoriaCardView("Atol de tres cocimientos", "Guatemala", R.drawable.atoltrescocimientos));
-        categoria.add(new CategoriaCardView("Atol shuco", "Guatemala", R.drawable.atolshuco));
-
-        final AdaptadorCardView adaptador = new AdaptadorCardView(categoria, getActivity());
-        lvCalientes.setAdapter(adaptador);
 
         lvCalientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,4 +75,49 @@ public class BebidasCalientes extends Fragment {
 
         return v;
     }
+
+    private void setupAdapter(ArrayList<CategoriaCardView> categoria) {
+        this.lvCalientes.setAdapter(new AdaptadorCardView(categoria, getActivity()));
+    }
+
+    private void showCalientesList() {
+        String url = Parametros.URL_SHOW_BEBIDAS_CALIENTES;
+
+        CustomRequest calientesRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("calientes");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject calientes = jsonArray.getJSONObject(i);
+
+                        String name = calientes.getString("nombre");
+                        String region = calientes.getString("region");
+                        String id = calientes.getString("id");
+
+                        int picture = R.drawable.elcaldoicono;
+                        categoria.add(new CategoriaCardView(name, region, picture));
+                        setupAdapter(categoria);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                String credentials = Base64.encodeToString(("cifuentes_estrada@hotmail.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", "Basic " + credentials);
+                return headers;
+            }
+        };
+        requestQueue.add(calientesRequest);
+    }
+
 }

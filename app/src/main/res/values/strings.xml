@@ -761,5 +761,11 @@
     <string name="detalle_departamento_title">Departamento :</string>
     <string name="title_activity_tabs_main">TabsMainActivity</string>
 
+    //Titutlos Main
+    <string name="cocina_usuario">Cocina del usuario</string>
+    <string name="caldos_title">Caldos</string>
+    <string name="tamales_title">Tamales</string>
+    <string name="postres_title">Postres</string>
+
 </resources>
 

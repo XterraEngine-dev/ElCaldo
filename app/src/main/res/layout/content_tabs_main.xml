@@ -9,17 +9,9 @@
     tools:context="com.gt.dev.lazaro.elcaldo.vista.actividades.TabsMainActivity"
     tools:showIn="@layout/app_bar_tabs_main">
 
-    <com.gt.dev.lazaro.elcaldo.utilidades.SlidingTabLayout
-        android:id="@+id/tabs"
+    <ListView
+        android:id="@+id/lv_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primaryColor"
-        android:elevation="3dp" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>

@@ -756,4 +756,11 @@
     <string name="detalle_compartir_title">Share on social networks</string>
     <string name="detalle_nombre_plato_title">Name plate :</string>
     <string name="detalle_departamento_title">State :</string>
+
+
+    //Titutlos Main
+    <string name="cocina_usuario">Kitchen user</string>
+    <string name="caldos_title">Broths</string>
+    <string name="tamales_title">Tamales</string>
+    <string name="postres_title">Desserts</string>
 </resources>

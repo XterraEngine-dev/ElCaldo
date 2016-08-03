@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.multidex.MultiDex;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,26 +15,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
-import com.gt.dev.lazaro.elcaldo.adaptadores.ViewPagerAdapter;
+import com.gt.dev.lazaro.elcaldo.adaptadores.MainAdapter;
+import com.gt.dev.lazaro.elcaldo.adaptadores.MainClass;
 import com.gt.dev.lazaro.elcaldo.controlador.Preferencias;
-import com.gt.dev.lazaro.elcaldo.utilidades.SlidingTabLayout;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.CaldosActivity;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.PostresActivity;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TamalesActivity;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TimeLineActivity;
 import com.gt.dev.lazaro.elcaldo.vista.coffe.CafeMainActivity;
 
-public class TabsMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+import java.util.ArrayList;
 
-    private ViewPager pager;
-    private ViewPagerAdapter adapter;
-    SlidingTabLayout tabs;
-    CharSequence Title[] = {"Caldos", "Tamales", "Postres"};
-    int Numboftabs = 3;
+public class TabsMainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener {
+
     FloatingActionButton fab;
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
+    private ListView lista;
+    private ArrayList<MainClass> categoria = new ArrayList<>();
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -68,18 +72,17 @@ public class TabsMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), Title, Numboftabs);
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(true);
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
-            }
-        });
-        tabs.setViewPager(pager);
+        lista = (ListView) findViewById(R.id.lv_main);
+
+        categoria.add(new MainClass(getString(R.string.caldos_title), R.drawable.caldodegallina));
+        categoria.add(new MainClass(getString(R.string.tamales_title), R.drawable.tamalcolorado));
+        categoria.add(new MainClass(getString(R.string.postres_title), R.drawable.rellenitos));
+        categoria.add(new MainClass(getString(R.string.cocina_usuario), R.drawable.cafe_banner_gt));
+
+        MainAdapter adapter = new MainAdapter(categoria, this);
+        lista.setAdapter(adapter);
+
+        lista.setOnItemClickListener(this);
     }
 
     private void startAnalytics() {
@@ -192,6 +195,24 @@ public class TabsMainActivity extends AppCompatActivity
         switch (v.getId()) {
             case R.id.fab_main_elcaldo:
                 startActivity(new Intent(TabsMainActivity.this, BuscarActivity.class));
+                break;
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                startActivity(new Intent(TabsMainActivity.this, CaldosActivity.class));
+                break;
+            case 1:
+                startActivity(new Intent(TabsMainActivity.this, TamalesActivity.class));
+                break;
+            case 2:
+                startActivity(new Intent(TabsMainActivity.this, PostresActivity.class));
+                break;
+            case 3:
+                startActivity(new Intent(TabsMainActivity.this, TimeLineActivity.class));
                 break;
         }
     }

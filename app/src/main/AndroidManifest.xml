@@ -53,7 +53,11 @@
             android:label="ElCaldo"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".vista.actividades.WizardActivity"
@@ -103,13 +107,11 @@
             android:name=".controlador.Preferencias"
             android:label="Preferencias"
             android:theme="@style/Theme.AppCompat.Dialog" />
-
         <activity
             android:name=".vista.actividades.CopyrightActivity"
             android:label="@string/terminos_condiciones"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".vista.actividades.DetalleComidaScrollingActivity"
             android:screenOrientation="portrait"
@@ -132,13 +134,11 @@
         <activity
             android:name=".vista.actividades.TabsMainActivity"
             android:label="@string/title_activity_tabs_main"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".vista.actividades.recetas.CaldosActivity" />
+        <activity android:name=".vista.actividades.recetas.TamalesActivity" />
+        <activity android:name=".vista.actividades.recetas.PostresActivity" />
+        <activity android:name=".vista.actividades.recetas.TimeLineActivity"></activity>
     </application>
 
 </manifest>

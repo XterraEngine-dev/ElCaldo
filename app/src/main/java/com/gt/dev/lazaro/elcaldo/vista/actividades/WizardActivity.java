@@ -19,9 +19,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.controlador.CirclePageIndicator;
 import com.gt.dev.lazaro.elcaldo.utilidades.ColorShades;
-import com.gt.dev.lazaro.elcaldo.R;
 
 /**
  * Created by Lazaro on 11/09/2015
@@ -57,7 +57,7 @@ public class WizardActivity extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
         if (pref.getBoolean("activity_executed", false)) {
-            Intent intent = new Intent(WizardActivity.this, MainActivity.class);
+            Intent intent = new Intent(WizardActivity.this, TabsMainActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -107,7 +107,7 @@ public class WizardActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(WizardActivity.this, MainActivity.class));
+                        startActivity(new Intent(WizardActivity.this, TabsMainActivity.class));
                     }
                 });
 

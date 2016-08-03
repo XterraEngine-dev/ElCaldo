@@ -10,5 +10,6 @@ public class Parametros {
     public static final String URL_SHOW_POSTRES = "http://elcaldo.justiciayagt.com/postres";
     public static final String URL_SHOW_BEBIDAS_FRIAS = "http://elcaldo.justiciayagt.com/frias";
     public static final String URL_SHOW_BEBIDAS_CALIENTES = "http://elcaldo.justiciayagt.com/calientes";
+    public static final String URL_SHOW_OTRAS = "http://elcaldo.justiciayagt.com/otras";
 
 }
