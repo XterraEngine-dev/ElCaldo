@@ -138,8 +138,11 @@
         <activity android:name=".vista.actividades.recetas.CaldosActivity" />
         <activity android:name=".vista.actividades.recetas.TamalesActivity" />
         <activity android:name=".vista.actividades.recetas.PostresActivity" />
-        <activity android:name=".vista.actividades.recetas.TimeLineActivity" />
-        <activity android:name=".vista.actividades.recetas.TopRecipesActivity"></activity>
+        <activity android:name=".vista.actividades.recetas.TopRecipesActivity" />
+        <activity
+            android:name=".vista.actividades.recetas.TimeLineActivity"
+            android:label="@string/title_activity_time_line"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

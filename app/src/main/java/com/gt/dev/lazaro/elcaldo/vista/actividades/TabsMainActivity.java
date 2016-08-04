@@ -78,6 +78,7 @@ public class TabsMainActivity extends AppCompatActivity
         categoria.add(new MainClass(getString(R.string.caldos_title), R.drawable.caldodegallina));
         categoria.add(new MainClass(getString(R.string.tamales_title), R.drawable.tamalcolorado));
         categoria.add(new MainClass(getString(R.string.postres_title), R.drawable.rellenitos));
+        categoria.add(new MainClass(getString(R.string.bebidas_activity), R.drawable.atoldeelote));
         categoria.add(new MainClass(getString(R.string.cocina_usuario), R.drawable.cafe_banner_gt));
 
         MainAdapter adapter = new MainAdapter(categoria, this);
@@ -138,9 +139,6 @@ public class TabsMainActivity extends AppCompatActivity
 
         if (id == R.id.nav_otras_comidas) {
             startActivity(new Intent(TabsMainActivity.this, OtrasComidasActivity.class));
-        } else if (id == R.id.nav_bebidas_tipicas) {
-            startActivity(new Intent(TabsMainActivity.this, BebidasActivity.class));
-
         } else if (id == R.id.nav_preferencias) {
             startActivity(new Intent(TabsMainActivity.this, Preferencias.class));
 
@@ -194,7 +192,7 @@ public class TabsMainActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_main_elcaldo:
-                startActivity(new Intent(TabsMainActivity.this, BuscarActivity.class));
+                startActivity(new Intent(TabsMainActivity.this, CamaraActivity.class));
                 break;
         }
     }
@@ -212,6 +210,9 @@ public class TabsMainActivity extends AppCompatActivity
                 startActivity(new Intent(TabsMainActivity.this, PostresActivity.class));
                 break;
             case 3:
+                startActivity(new Intent(TabsMainActivity.this, BebidasActivity.class));
+                break;
+            case 4:
                 startActivity(new Intent(TabsMainActivity.this, TimeLineActivity.class));
                 break;
         }
