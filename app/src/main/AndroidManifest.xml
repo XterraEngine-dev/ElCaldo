@@ -142,7 +142,11 @@
         <activity
             android:name=".vista.actividades.recetas.TimeLineActivity"
             android:label="@string/title_activity_time_line"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".vista.actividades.recetas.AddRecipeActivity"
+            android:label="Nueva receta"
+            android:theme="@style/Base.Theme.AppCompat.Dialog.FixedSize" />
     </application>
 
 </manifest>
