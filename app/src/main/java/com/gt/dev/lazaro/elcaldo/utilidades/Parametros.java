@@ -12,4 +12,8 @@ public class Parametros {
     public static final String URL_SHOW_BEBIDAS_CALIENTES = "http://elcaldo.justiciayagt.com/calientes";
     public static final String URL_SHOW_OTRAS = "http://elcaldo.justiciayagt.com/otras";
 
+    public static final String URL_SHOW_TMELINE = "http://elcaldo.justiciayagt.com/timeline";
+    public static final String URL_SHOW_TOP = "http://elcaldo.justiciyagt.com/top";
+    public static final String URL_SEARCH = "http://elcaldo.justiciayagt.com/buscar";
+
 }

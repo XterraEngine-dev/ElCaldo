@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -7,7 +8,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+
+import org.json.JSONObject;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
@@ -15,6 +24,9 @@ public class AddRecipeActivity extends AppCompatActivity {
     private ImageView ivPictureRecipe;
     private ImageButton avatar1, avatar2, avatar3, avatar4;
     private EditText etNickname, etRecipename, etIngredients, etPreparation;
+    private String usuario, nombre, region;
+    private ProgressDialog pDialog;
+    private String TAG = AddRecipeActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +52,27 @@ public class AddRecipeActivity extends AppCompatActivity {
         etRecipename = (EditText) findViewById(R.id.et_recipename_addrecipe);
         etIngredients = (EditText) findViewById(R.id.et_ingredients_addrecip);
         etPreparation = (EditText) findViewById(R.id.et_preparation_addrecipe);
+
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Cargando...");
+        pDialog.setCancelable(false);
+    }
+
+    private void addRecipe(){
+        String url = Parametros.URL_SHOW_TMELINE;
+
+        CustomRequest recipeRequest = new CustomRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                VolleyLog.d(TAG, response.toString());
+                //if ()
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
     }
 
 }

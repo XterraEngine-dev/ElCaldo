@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,26 +9,40 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLine;
+import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLineAdapter;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TimeLineActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FloatingActionButton fab;
-    private RequestQueue requestQueue;
+    private ProgressDialog pDialog;
+    private String TAG = TimeLineActivity.class.getSimpleName();
+    private String nombre, region, usuario;
+    private ListView lvTimeline;
+    private ArrayList<TimeLine> categoria = new ArrayList<>();
+
+    private String tag_json_obj = "jsonbj_req", tag_json_array = "jarray_req";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +53,60 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         startVars();
     }
 
+    private void setupAdater(ArrayList<TimeLine> categoria) {
+        this.lvTimeline.setAdapter(new TimeLineAdapter(categoria, this));
+    }
+
+    private void showProgresDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideporgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
+    }
+
     private void startVars() {
         fab = (FloatingActionButton) findViewById(R.id.fab_timeline);
         fab.setOnClickListener(this);
-        requestQueue = Volley.newRequestQueue(this);
+        lvTimeline = (ListView) findViewById(R.id.lv_timeline);
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Cargando...");
+        pDialog.setCancelable(false);
+        getnewRecipes();
     }
 
     private void getnewRecipes() {
-        String url = Parametros.URL_SHOW_TAMALES;
+        showProgresDialog();
+        String url = Parametros.URL_SHOW_TMELINE;
 
         CustomRequest timelineRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("RESPONSE TIMELINE", response.toString().trim());
+                try {
+                    JSONArray jsonArray = response.getJSONArray("timeline");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject timeline = jsonArray.getJSONObject(i);
+
+                        nombre = timeline.getString("nombre");
+                        region = timeline.getString("region");
+                        usuario = timeline.getString("usuario");
+
+                        categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.alboroto, R.drawable.elcaldoicono));
+                        setupAdater(categoria);
+                        hideporgressDialog();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR RESONSETIMELINE", "Message: " + error.getMessage().toString());
+                VolleyLog.d(TAG, "ERROR: " + error.getMessage());
+                hideporgressDialog();
             }
         }) {
             @Override
@@ -66,6 +117,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                 return headers;
             }
         };
+        AppController.getInstance().addToRequestQueue(timelineRequest, tag_json_obj);
     }
 
     @Override
