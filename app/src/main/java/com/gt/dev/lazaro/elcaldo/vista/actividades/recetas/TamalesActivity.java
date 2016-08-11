@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
@@ -54,7 +55,7 @@ public class TamalesActivity extends AppCompatActivity {
         getSupportActionBar().setSubtitle("Select a recipe");
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestQueue = Volley.newRequestQueue(this);
+        //requestQueue = Volley.newRequestQueue(this);
     }
 
     private void setupAdapter(ArrayList<Categoria> categoria) {
@@ -99,7 +100,8 @@ public class TamalesActivity extends AppCompatActivity {
                 return headers;
             }
         };
-        requestQueue.add(tamalesRequest);
+        //requestQueue.add(tamalesRequest);
+        AppController.getInstance().addToRequestQueue(tamalesRequest);
     }
 
     @Override

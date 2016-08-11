@@ -1,8 +1,15 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,8 +25,13 @@ import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
 import org.json.JSONObject;
 
-public class AddRecipeActivity extends AppCompatActivity {
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
+public class AddRecipeActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final int CAMARA_DATA = 0;
     private Button btnUploadPicture, btnTakePicture, btnAddrecipe;
     private ImageView ivPictureRecipe;
     private ImageButton avatar1, avatar2, avatar3, avatar4;
@@ -28,10 +40,19 @@ public class AddRecipeActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private String TAG = AddRecipeActivity.class.getSimpleName();
 
+    private String KEY_IMAGE = "image";
+    private String KEY_NAME = "name";
+
+    private Bitmap bitmap, bmp;
+
+    private int PICK_UP_IMAGE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+        InputStream is = getResources().openRawResource(R.raw.splashcaldo);
+        bmp = BitmapFactory.decodeStream(is);
         startVars();
     }
 
@@ -56,9 +77,13 @@ public class AddRecipeActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
         pDialog.setCancelable(false);
+
+        btnUploadPicture.setOnClickListener(this);
+        btnAddrecipe.setOnClickListener(this);
+        btnTakePicture.setOnClickListener(this);
     }
 
-    private void addRecipe(){
+    private void addRecipe() {
         String url = Parametros.URL_SHOW_TMELINE;
 
         CustomRequest recipeRequest = new CustomRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
@@ -75,4 +100,60 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
+    private void fileChooser() {
+        Intent iChooser = new Intent();
+        iChooser.setType("image/*");
+        iChooser.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(iChooser, "Select your picture"), PICK_UP_IMAGE);
+    }
+
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodeImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodeImage;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_UP_IMAGE && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+                //Getting the Bitmap from the Gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                //Setting the bitmap to the imageview
+                ivPictureRecipe.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if (requestCode == CAMARA_DATA && resultCode == RESULT_OK) {
+            Bundle cesta = data.getExtras();
+            bmp = (Bitmap) cesta.get("data");
+            ivPictureRecipe.setImageBitmap(bmp);
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_takerecipe_addrecipe:
+                Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePic, CAMARA_DATA);
+                break;
+            case R.id.btn_uploadpicture_addrecipe:
+                fileChooser();
+                break;
+            case R.id.btn_add_recipe:
+                addRecipe();
+                break;
+        }
+    }
 }

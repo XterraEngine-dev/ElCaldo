@@ -13,11 +13,9 @@ import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLine;
 import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLineAdapter;
@@ -78,7 +76,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getnewRecipes() {
-        showProgresDialog();
+        //showProgresDialog();
         String url = Parametros.URL_SHOW_TMELINE;
 
         CustomRequest timelineRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -92,11 +90,11 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
 
                         nombre = timeline.getString("nombre");
                         region = timeline.getString("region");
-                        usuario = timeline.getString("usuario");
+                        usuario = timeline.getString("like");
 
                         categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.alboroto, R.drawable.elcaldoicono));
                         setupAdater(categoria);
-                        hideporgressDialog();
+                        //hideporgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -106,6 +104,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "ERROR: " + error.getMessage());
+                Log.d("ERROR RESPONSE", "ERROR: " + error.getMessage());
                 hideporgressDialog();
             }
         }) {
