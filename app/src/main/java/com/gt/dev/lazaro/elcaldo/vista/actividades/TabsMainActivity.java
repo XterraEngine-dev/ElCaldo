@@ -10,6 +10,7 @@ import android.support.multidex.MultiDex;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,7 +24,9 @@ import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainAdapter;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainClass;
+import com.gt.dev.lazaro.elcaldo.controlador.ConectivityReceiver;
 import com.gt.dev.lazaro.elcaldo.controlador.Preferencias;
+import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.CaldosActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.PostresActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TamalesActivity;
@@ -54,6 +57,21 @@ public class TabsMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_tabs_main);
         startAnalytics();
         startVars();
+        verifyConnection();
+    }
+
+    private void showAlertDialog(String title, String message, boolean status) {
+        AlertDialog alertDialog = new AlertDialog.Builder(TabsMainActivity.this).create();
+        alertDialog.setTitle("No tiene conexión a internet");
+        alertDialog.setMessage("Conectar a internet");
+        alertDialog.show();
+    }
+
+    private void verifyConnection() {
+        if (!ConexionVerify.isNetworkAvailable(this)) {
+            showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
+            onStop();
+        }
     }
 
     private void startVars() {
