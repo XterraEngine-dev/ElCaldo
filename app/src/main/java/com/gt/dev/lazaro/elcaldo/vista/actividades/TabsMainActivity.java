@@ -169,18 +169,6 @@ public class TabsMainActivity extends AppCompatActivity
             iWeb.setData(Uri.parse(urlWeb));
             startActivity(iWeb);
 
-        } else if (id == R.id.nav_twitter) {
-            String urlTweet = "http://twitter.com/elcaldoapp";
-            Intent iTweet = new Intent(Intent.ACTION_VIEW);
-            iTweet.setData(Uri.parse(urlTweet));
-            startActivity(iTweet);
-
-        } else if (id == R.id.nav_facebook) {
-            String urlFB = "http://facebook.com/elcaldoapp";
-            Intent iFB = new Intent(Intent.ACTION_VIEW);
-            iFB.setData(Uri.parse(urlFB));
-            startActivity(iFB);
-
         } else if (id == R.id.nav_recetassemana) {
             startActivity(new Intent(TabsMainActivity.this, TopRecipesActivity.class));
         } else if (id == R.id.nav_cafe) {

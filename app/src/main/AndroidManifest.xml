@@ -79,11 +79,7 @@
             android:label="@string/camara_activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".vista.actividades.BuscarActivity"
-            android:label="@string/buscar_activity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".vista.actividades.CreditosActivity"
             android:label="@string/creditos"

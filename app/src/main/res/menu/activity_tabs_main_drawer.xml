@@ -24,14 +24,6 @@
                 android:icon="@drawable/website"
                 android:title="@string/web_site" />
             <item
-                android:id="@+id/nav_twitter"
-                android:icon="@drawable/twitterpng"
-                android:title="@string/twitter" />
-            <item
-                android:id="@+id/nav_facebook"
-                android:icon="@drawable/facebookpng"
-                android:title="@string/facebook" />
-            <item
                 android:id="@+id/nav_recetassemana"
                 android:icon="@drawable/terminoscopy"
                 android:title="@string/recetas_semana_drawer" />
