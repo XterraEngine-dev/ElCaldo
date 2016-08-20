@@ -9,25 +9,28 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
 import com.gt.dev.lazaro.elcaldo.R;
-import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
-import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
+import com.gt.dev.lazaro.elcaldo.uploaders.UploadingHelper;
 
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,12 +43,27 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     private ProgressDialog pDialog;
     private String TAG = AddRecipeActivity.class.getSimpleName();
 
-    private String KEY_IMAGE = "image";
-    private String KEY_NAME = "name";
+    private String KEY_IAMGE = "imagen";
+    private String KEY_NAME = "nombre";
+    private String KEY_INGREDIENTES = "ingredientes";
+    private String KEY_PREPARACION = "preparacion";
+    private String KEY_REGION = "region";
+    private String KEY_IMAGEN = "imagen";
+    private String KEY_SUBIR = "upload";
+    private String KEY_LIKE = "like";
+    private String KEY_AVATAR = "avatar";
+
+    private String UPLOAD_URL = "http//elcaldo.justiciayagt.com/timeline";
+
+    LinearLayout linear;
+    UploadingHelper uploadingHelper;
 
     private Bitmap bitmap, bmp;
 
     private int PICK_UP_IMAGE = 1;
+
+    //Variables de Cifu
+    private static String variable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +72,15 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         InputStream is = getResources().openRawResource(R.raw.splashcaldo);
         bmp = BitmapFactory.decodeStream(is);
         startVars();
+    }
+
+    /**
+     * Obtiene valor de edit text para almacenar en base de datos
+     *
+     * @return
+     */
+    public static String getVariable() {
+        return variable;
     }
 
     private void startVars() {
@@ -83,36 +110,70 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         btnTakePicture.setOnClickListener(this);
     }
 
-    private void addRecipe() {
-        String url = Parametros.URL_SHOW_TMELINE;
+    private void enviarImagen() {
+        /**
+         * Obtiene el string de EditText
+         */
+        EditText traerImagen = (EditText) findViewById(R.id.et_recipename_addrecipe);
 
-        CustomRequest recipeRequest = new CustomRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+        variable = traerImagen.getText().toString();
+
+        /**
+         * Dispara a API Subir.php donde revise el post de la immagen
+         */
+        String url = "http//elcaldo.justiciayagt.com/Subir.php";
+        uploadingHelper = new UploadingHelper(this, url);
+        uploadingHelper.startActivityForImagePick();
+        uploadingHelper.getClass();
+    }
+
+    private void enviarForulario() {
+        StringRequest uploadRequest = new StringRequest(Request.Method.POST, UPLOAD_URL, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-                VolleyLog.d(TAG, response.toString());
-                //if ()
+            public void onResponse(String response) {
+                Log.d(TAG, response);
+
+                Toast.makeText(AddRecipeActivity.this, "this" + response.toString(), Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("ERROR RESPONSE", "MESSAGE: " + error.getMessage());
             }
-        });
-    }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
 
-    private void fileChooser() {
-        Intent iChooser = new Intent();
-        iChooser.setType("image/*");
-        iChooser.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(iChooser, "Select your picture"), PICK_UP_IMAGE);
-    }
+                String name = etRecipename.getText().toString().trim();
+                String ingredientes = etIngredients.getText().toString().trim();
+                String preparacion = etPreparation.getText().toString().trim();
+                String region = etNickname.getText().toString().trim();
+                String like = etRecipename.getText().toString().trim();
+                String avatar = etRecipename.getText().toString().trim();
+                String url = "http://elcaldo.justiciayagt.com/uploads/" + name;
 
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodeImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodeImage;
+                Map<String, String> params = new HashMap<>();
+                params.put(KEY_NAME, name);
+                params.put(KEY_INGREDIENTES, ingredientes);
+                params.put(KEY_PREPARACION, preparacion);
+                params.put(KEY_REGION, region);
+                params.put(KEY_IMAGEN, url);
+                params.put(KEY_LIKE, name);
+                params.put(KEY_AVATAR, name);
+
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                String credentials = Base64.encodeToString(("cifuentes_estrada@hotmail.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", "Basic " + credentials);
+                return headers;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(uploadRequest);
     }
 
     @Override
@@ -130,7 +191,6 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
 
         if (requestCode == CAMARA_DATA && resultCode == RESULT_OK) {
@@ -139,6 +199,12 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             ivPictureRecipe.setImageBitmap(bmp);
         }
 
+        /**
+         * Activity for result de la subida de imagen - cifu
+         */
+        uploadingHelper.setResult(requestCode, resultCode, data);
+        linear.removeAllViews();
+        linear.addView(uploadingHelper.getLayout());
     }
 
     @Override
@@ -149,10 +215,11 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
                 startActivityForResult(takePic, CAMARA_DATA);
                 break;
             case R.id.btn_uploadpicture_addrecipe:
-                fileChooser();
+                //fileChooser();
+                enviarImagen();
                 break;
             case R.id.btn_add_recipe:
-                addRecipe();
+                enviarForulario();
                 break;
         }
     }
