@@ -8,17 +8,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
@@ -35,7 +33,6 @@ public class PostresActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private ListView lvPostres;
-    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,6 @@ public class PostresActivity extends AppCompatActivity {
         getSupportActionBar().setSubtitle("Select a recipe");
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestQueue = Volley.newRequestQueue(this);
     }
 
     private void setupAdapter(ArrayList<Categoria> categoria) {
@@ -98,7 +94,7 @@ public class PostresActivity extends AppCompatActivity {
                 return headers;
             }
         };
-        requestQueue.add(postresRequest);
+        AppController.getInstance().addToRequestQueue(postresRequest);
     }
 
     @Override

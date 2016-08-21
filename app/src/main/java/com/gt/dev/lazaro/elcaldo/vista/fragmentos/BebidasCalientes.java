@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCardView;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.modelo.DBManager;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
@@ -40,15 +41,11 @@ public class BebidasCalientes extends Fragment {
 
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private ListView lvCalientes;
-    DBManager dbManager;
     public static final String KEY_PICTURE = "picture";
-    private RequestQueue requestQueue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DBManager(getActivity());
-        requestQueue = Volley.newRequestQueue(getActivity());
         showCalientesList();
     }
 
@@ -117,7 +114,7 @@ public class BebidasCalientes extends Fragment {
                 return headers;
             }
         };
-        requestQueue.add(calientesRequest);
+        AppController.getInstance().addToRequestQueue(calientesRequest);
     }
 
 }

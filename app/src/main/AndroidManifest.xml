@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.gt.dev.lazaro.elcaldo.controlador.AppController"
+        android:name=".controlador.AppController"
         android:allowBackup="true"
         android:icon="@drawable/elcaldoicono"
         android:label="@string/app_name"
@@ -64,11 +64,7 @@
             android:label="Wizard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".vista.actividades.MainActivity"
-            android:label="@string/home"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".vista.actividades.ComoUsarActivity"
             android:label="Como usar"
@@ -84,21 +80,14 @@
             android:name=".vista.actividades.CreditosActivity"
             android:label="@string/creditos"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".vista.actividades.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+
         <activity
             android:name=".vista.actividades.OtrasComidasActivity"
             android:label="@string/otras_comidas"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".vista.actividades.DetalleComidaActivity"
-            android:label="@string/detalle_activity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".controlador.Preferencias"
             android:label="Preferencias"
@@ -116,17 +105,7 @@
             android:name=".vista.actividades.BebidasActivity"
             android:label="@string/bebidas_activity"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".vista.coffe.CafeMainActivity"
-            android:label="@string/title_activity_cafe_main"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".vista.coffe.BurdelActivity"
-            android:label="@string/title_activity_burdel"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".vista.coffe.CameraCoffeActivity" />
+
         <activity
             android:name=".vista.actividades.TabsMainActivity"
             android:label="@string/title_activity_tabs_main"

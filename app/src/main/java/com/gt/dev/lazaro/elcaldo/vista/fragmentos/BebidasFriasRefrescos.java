@@ -39,7 +39,6 @@ import java.util.Map;
  */
 public class BebidasFriasRefrescos extends Fragment {
 
-    DBManager dbManager;
     private ListView lista;
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private RequestQueue requestQueue;
@@ -47,7 +46,6 @@ public class BebidasFriasRefrescos extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DBManager(getActivity());
         requestQueue = Volley.newRequestQueue(getActivity());
         showFriasList();
     }

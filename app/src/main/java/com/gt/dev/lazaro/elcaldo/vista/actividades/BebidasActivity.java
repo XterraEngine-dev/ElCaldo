@@ -57,6 +57,7 @@ public class BebidasActivity extends AppCompatActivity {
             @Override
             public int getIndicatorColor(int position) {
                 return getResources().getColor(R.color.tabsScrollColor);
+                //return getColor(getResource);
             }
         });
 

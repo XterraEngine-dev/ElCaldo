@@ -24,7 +24,6 @@ import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainAdapter;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainClass;
-import com.gt.dev.lazaro.elcaldo.controlador.ConectivityReceiver;
 import com.gt.dev.lazaro.elcaldo.controlador.Preferencias;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.CaldosActivity;
@@ -32,7 +31,6 @@ import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.PostresActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TamalesActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TimeLineActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TopRecipesActivity;
-import com.gt.dev.lazaro.elcaldo.vista.coffe.CafeMainActivity;
 
 import java.util.ArrayList;
 
@@ -171,9 +169,6 @@ public class TabsMainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_recetassemana) {
             startActivity(new Intent(TabsMainActivity.this, TopRecipesActivity.class));
-        } else if (id == R.id.nav_cafe) {
-            startActivity(new Intent(TabsMainActivity.this, CafeMainActivity.class));
-
         } else if (id == R.id.nav_creditos) {
             startActivity(new Intent(TabsMainActivity.this, CreditosActivity.class));
 
