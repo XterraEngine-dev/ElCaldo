@@ -107,7 +107,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".vista.actividades.TabsMainActivity"
+            android:name=".vista.actividades.MainActivity"
             android:label="@string/title_activity_tabs_main"
             android:theme="@style/AppTheme" />
         <activity android:name=".vista.actividades.recetas.CaldosActivity" />

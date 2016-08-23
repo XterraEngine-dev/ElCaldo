@@ -48,10 +48,8 @@ public class MainAdapter extends BaseAdapter {
         convertView = inflater.inflate(R.layout.main_adapter_list, null);
         MainClass cat = categoria.get(position);
         ImageView picture = (ImageView) convertView.findViewById(R.id.iv_main_list);
-        TextView title = (TextView) convertView.findViewById(R.id.tv_main_title);
 
         picture.setBackgroundResource(cat.getPicture());
-        title.setText(cat.getTitle());
 
         return convertView;
     }

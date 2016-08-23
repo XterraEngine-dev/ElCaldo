@@ -3,8 +3,6 @@ package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,8 +26,6 @@ import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.uploaders.UploadingHelper;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,10 +34,11 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     private static final int CAMARA_DATA = 0;
     private Button btnUploadPicture, btnTakePicture, btnAddrecipe;
     private ImageView ivPictureRecipe;
-    private ImageButton avatar1, avatar2, avatar3, avatar4;
+    private ImageButton avatar1, avatar2, avatar3;
     private EditText etNickname, etRecipename, etIngredients, etPreparation;
     private String usuario, nombre, region;
     private ProgressDialog pDialog;
+    private TextView valor;
     private String TAG = AddRecipeActivity.class.getSimpleName();
 
     private String KEY_IAMGE = "imagen";
@@ -69,8 +67,8 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
-        InputStream is = getResources().openRawResource(R.raw.splashcaldo);
-        bmp = BitmapFactory.decodeStream(is);
+        //InputStream is = getResources().openRawResource(R.raw.splashcaldo);
+        //bmp = BitmapFactory.decodeStream(is);
         startVars();
     }
 
@@ -84,6 +82,8 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void startVars() {
+        linear = (LinearLayout) findViewById(R.id.linear_add_recipe);
+        valor = (TextView) findViewById(R.id.valor);
         //Button´s
         btnUploadPicture = (Button) findViewById(R.id.btn_uploadpicture_addrecipe);
         btnAddrecipe = (Button) findViewById(R.id.btn_add_recipe);
@@ -94,7 +94,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         avatar1 = (ImageButton) findViewById(R.id.avatar1_addrecipe);
         avatar2 = (ImageButton) findViewById(R.id.avatar2_addrecipe);
         avatar3 = (ImageButton) findViewById(R.id.avatar3_addrecipe);
-        avatar4 = (ImageButton) findViewById(R.id.avatar4_addrecipe);
+
         //EditText´s
         etNickname = (EditText) findViewById(R.id.et_nickname_addrecipe);
         etRecipename = (EditText) findViewById(R.id.et_recipename_addrecipe);
@@ -108,6 +108,10 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         btnUploadPicture.setOnClickListener(this);
         btnAddrecipe.setOnClickListener(this);
         btnTakePicture.setOnClickListener(this);
+
+        avatar1.setOnClickListener(this);
+        avatar2.setOnClickListener(this);
+        avatar3.setOnClickListener(this);
     }
 
     private void enviarImagen() {
@@ -149,7 +153,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
                 String preparacion = etPreparation.getText().toString().trim();
                 String region = etNickname.getText().toString().trim();
                 String like = etRecipename.getText().toString().trim();
-                String avatar = etRecipename.getText().toString().trim();
+                String avatar = valor.getText().toString().trim();
                 String url = "http://elcaldo.justiciayagt.com/uploads/" + name;
 
                 Map<String, String> params = new HashMap<>();
@@ -158,8 +162,8 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
                 params.put(KEY_PREPARACION, preparacion);
                 params.put(KEY_REGION, region);
                 params.put(KEY_IMAGEN, url);
-                params.put(KEY_LIKE, name);
-                params.put(KEY_AVATAR, name);
+                params.put(KEY_LIKE, like);
+                params.put(KEY_AVATAR, avatar);
 
                 return params;
             }
@@ -180,7 +184,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_UP_IMAGE && resultCode == RESULT_OK
+        /*if (requestCode == PICK_UP_IMAGE && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             Uri filePath = data.getData();
             try {
@@ -197,7 +201,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             Bundle cesta = data.getExtras();
             bmp = (Bitmap) cesta.get("data");
             ivPictureRecipe.setImageBitmap(bmp);
-        }
+        }*/
 
         /**
          * Activity for result de la subida de imagen - cifu
@@ -220,6 +224,27 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btn_add_recipe:
                 enviarForulario();
+                break;
+            case R.id.avatar1_addrecipe:
+                valor.setText("1");
+                Log.d(TAG, "AVATAR = " + valor.getText().toString());
+                avatar1.setBackgroundResource(R.drawable.algodones);
+                avatar2.setBackgroundResource(R.drawable.alboroto);
+                avatar3.setBackgroundResource(R.drawable.alboroto);
+                break;
+            case R.id.avatar2_addrecipe:
+                valor.setText("2");
+                Log.d(TAG, "AVARTAR = " + valor.getText().toString());
+                avatar2.setBackgroundResource(R.drawable.algodones);
+                avatar1.setBackgroundResource(R.drawable.alboroto);
+                avatar3.setBackgroundResource(R.drawable.alboroto);
+                break;
+            case R.id.avatar3_addrecipe:
+                valor.setText("3");
+                Log.d(TAG, "VALOR = " + valor.getText().toString());
+                avatar3.setBackgroundResource(R.drawable.algodones);
+                avatar1.setBackgroundResource(R.drawable.alboroto);
+                avatar2.setBackgroundResource(R.drawable.alboroto);
                 break;
         }
     }

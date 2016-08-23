@@ -160,12 +160,6 @@
                 android:layout_marginLeft="10dp"
                 android:background="@android:color/holo_green_dark" />
 
-            <ImageButton
-                android:id="@+id/avatar4_addrecipe"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:background="@android:color/holo_purple" />
         </LinearLayout>
 
         <Button
@@ -178,6 +172,12 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/valor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
     </LinearLayout>
 

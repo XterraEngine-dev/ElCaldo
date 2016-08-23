@@ -57,7 +57,7 @@ public class WizardActivity extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
         if (pref.getBoolean("activity_executed", false)) {
-            Intent intent = new Intent(WizardActivity.this, TabsMainActivity.class);
+            Intent intent = new Intent(WizardActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         } else {
@@ -107,7 +107,7 @@ public class WizardActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(WizardActivity.this, TabsMainActivity.class));
+                        startActivity(new Intent(WizardActivity.this, MainActivity.class));
                     }
                 });
 

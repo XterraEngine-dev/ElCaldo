@@ -1,7 +1,9 @@
 package com.gt.dev.lazaro.elcaldo.vista;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.View;
@@ -27,6 +29,7 @@ public class MyImageLayout extends ViewGroup {
         init(context);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MyImageLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);

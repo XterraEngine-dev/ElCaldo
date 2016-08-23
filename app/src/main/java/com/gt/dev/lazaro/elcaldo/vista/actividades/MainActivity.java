@@ -34,7 +34,7 @@ import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TopRecipesActivity;
 
 import java.util.ArrayList;
 
-public class TabsMainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener {
 
     FloatingActionButton fab;
@@ -59,7 +59,7 @@ public class TabsMainActivity extends AppCompatActivity
     }
 
     private void showAlertDialog(String title, String message, boolean status) {
-        AlertDialog alertDialog = new AlertDialog.Builder(TabsMainActivity.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle("No tiene conexión a internet");
         alertDialog.setMessage("Conectar a internet");
         alertDialog.show();
@@ -91,11 +91,16 @@ public class TabsMainActivity extends AppCompatActivity
 
         lista = (ListView) findViewById(R.id.lv_main);
 
-        categoria.add(new MainClass(getString(R.string.caldos_title), R.drawable.caldodegallina));
-        categoria.add(new MainClass(getString(R.string.tamales_title), R.drawable.tamalcolorado));
-        categoria.add(new MainClass(getString(R.string.postres_title), R.drawable.rellenitos));
-        categoria.add(new MainClass(getString(R.string.bebidas_activity), R.drawable.atoldeelote));
-        categoria.add(new MainClass(getString(R.string.cocina_usuario), R.drawable.cafe_banner_gt));
+        //Cardview de Caldos
+        categoria.add(new MainClass(R.drawable.caldos_broths_main_card));
+        //Cardview de tamales
+        categoria.add(new MainClass(R.drawable.tamales_cardview_main));
+        //Cardview de postres
+        categoria.add(new MainClass(R.drawable.desserts_cardview_main));
+        //Cardview de bebidas tipicas
+        categoria.add(new MainClass(R.drawable.bebidas_main_cardview_elcaldo));
+        //Cadview de cocina del usuario
+        categoria.add(new MainClass(R.drawable.kitchenuser_cardview_main));
 
         MainAdapter adapter = new MainAdapter(categoria, this);
         lista.setAdapter(adapter);
@@ -154,12 +159,12 @@ public class TabsMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_otras_comidas) {
-            startActivity(new Intent(TabsMainActivity.this, OtrasComidasActivity.class));
+            startActivity(new Intent(MainActivity.this, OtrasComidasActivity.class));
         } else if (id == R.id.nav_preferencias) {
-            startActivity(new Intent(TabsMainActivity.this, Preferencias.class));
+            startActivity(new Intent(MainActivity.this, Preferencias.class));
 
         } else if (id == R.id.nav_comousar) {
-            startActivity(new Intent(TabsMainActivity.this, ComoUsarActivity.class));
+            startActivity(new Intent(MainActivity.this, ComoUsarActivity.class));
 
         } else if (id == R.id.nav_website) {
             String urlWeb = "http://elcaldo.net84.net";
@@ -168,15 +173,46 @@ public class TabsMainActivity extends AppCompatActivity
             startActivity(iWeb);
 
         } else if (id == R.id.nav_recetassemana) {
-            startActivity(new Intent(TabsMainActivity.this, TopRecipesActivity.class));
+            startActivity(new Intent(MainActivity.this, TopRecipesActivity.class));
         } else if (id == R.id.nav_creditos) {
-            startActivity(new Intent(TabsMainActivity.this, CreditosActivity.class));
+            startActivity(new Intent(MainActivity.this, CreditosActivity.class));
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_main_elcaldo:
+                startActivity(new Intent(MainActivity.this, CamaraActivity.class));
+                break;
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 0:
+                startActivity(new Intent(MainActivity.this, CaldosActivity.class));
+                break;
+            case 1:
+                startActivity(new Intent(MainActivity.this, TamalesActivity.class));
+                break;
+            case 2:
+                startActivity(new Intent(MainActivity.this, PostresActivity.class));
+                break;
+            case 3:
+                startActivity(new Intent(MainActivity.this, BebidasActivity.class));
+                break;
+            case 4:
+                startActivity(new Intent(MainActivity.this, TimeLineActivity.class));
+                break;
+        }
     }
 
     @Override
@@ -187,35 +223,5 @@ public class TabsMainActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab_main_elcaldo:
-                startActivity(new Intent(TabsMainActivity.this, CamaraActivity.class));
-                break;
-        }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                startActivity(new Intent(TabsMainActivity.this, CaldosActivity.class));
-                break;
-            case 1:
-                startActivity(new Intent(TabsMainActivity.this, TamalesActivity.class));
-                break;
-            case 2:
-                startActivity(new Intent(TabsMainActivity.this, PostresActivity.class));
-                break;
-            case 3:
-                startActivity(new Intent(TabsMainActivity.this, BebidasActivity.class));
-                break;
-            case 4:
-                startActivity(new Intent(TabsMainActivity.this, TimeLineActivity.class));
-                break;
-        }
     }
 }

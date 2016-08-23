@@ -7,43 +7,22 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        app:cardCornerRadius="15dp"
         app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/accent_color"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_main_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="tittle"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold|italic" />
 
             <ImageView
                 android:id="@+id/iv_main_list"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@android:color/black" />
+                android:layout_height="180dp"></ImageView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="@drawable/telar4" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
