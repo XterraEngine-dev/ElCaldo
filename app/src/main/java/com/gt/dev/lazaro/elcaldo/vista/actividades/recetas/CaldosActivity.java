@@ -1,6 +1,7 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -18,6 +19,7 @@ import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
+import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
 import org.json.JSONArray;
@@ -39,6 +41,7 @@ public class CaldosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caldos);
+        verifyConnection();
         startVars();
         getCaldos();
     }
@@ -109,4 +112,27 @@ public class CaldosActivity extends AppCompatActivity {
         requestQueue.add(caldosRequest);
     }
 
+    private void showAlertDialog(String title, String message, boolean status) {
+        AlertDialog alertDialog = new AlertDialog.Builder(CaldosActivity.this).create();
+        alertDialog.setTitle("No tiene conexión a internet");
+        alertDialog.setMessage("Conectar a internet");
+        alertDialog.show();
+    }
+
+    private void verifyConnection() {
+        if (!ConexionVerify.isNetworkAvailable(this)) {
+            showAlertDialog("No tiene conexión a internet", "conectar a internet", true);
+            onStop();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

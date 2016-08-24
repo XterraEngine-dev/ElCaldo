@@ -1,6 +1,5 @@
 package com.gt.dev.lazaro.elcaldo.vista.fragmentos;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +7,6 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,9 +20,7 @@ import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCardView;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
-import com.gt.dev.lazaro.elcaldo.modelo.DBManager;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
-import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,25 +53,10 @@ public class BebidasFriasRefrescos extends Fragment {
 
         lista = (ListView) v.findViewById(R.id.lv_bebidas_frias);
 
-
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                CategoriaCardView categoria = (CategoriaCardView) parent.getItemAtPosition(position);
-
-                Bundle bundle = new Bundle();
-                bundle.putString(DetalleComidaScrollingActivity.NOMBRE_PLATO, categoria.getNombre());
-                bundle.putInt("llave", categoria.getImagen());
-
-                startActivity(new Intent(getActivity(), DetalleComidaScrollingActivity.class).putExtras(bundle));
-            }
-        });
-
         return v;
     }
 
-    private void setupAdapter(ArrayList<CategoriaCardView> catgoria) {
+    private void setupAdapter(ArrayList<CategoriaCardView> categoria) {
         this.lista.setAdapter(new AdaptadorCardView(categoria, getActivity()));
     }
 

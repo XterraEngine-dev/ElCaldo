@@ -56,20 +56,6 @@ public class BebidasCalientes extends Fragment {
 
         lvCalientes = (ListView) v.findViewById(R.id.lv_bebidas_calientes);
 
-
-        lvCalientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CategoriaCardView categoria = (CategoriaCardView) parent.getItemAtPosition(position);
-
-                Bundle bundle = new Bundle();
-                bundle.putInt("llave", categoria.getImagen());
-                bundle.putString(DetalleComidaScrollingActivity.NOMBRE_PLATO, categoria.getNombre());
-
-                startActivity(new Intent(getActivity(), DetalleComidaScrollingActivity.class).putExtras(bundle));
-            }
-        });
-
         return v;
     }
 

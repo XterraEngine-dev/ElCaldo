@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.ViewPagerAdapter2;
+import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.SlidingTabLayout;
 
 public class BebidasActivity extends AppCompatActivity {
@@ -39,6 +41,7 @@ public class BebidasActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         toolbar = (Toolbar) findViewById(R.id.tb_bebidas_activity);
         setSupportActionBar(toolbar);
+        verifyConnection();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setUpTabs();
         startAnalytics();
@@ -84,6 +87,20 @@ public class BebidasActivity extends AppCompatActivity {
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
         tracker.enableExceptionReporting(true);
+    }
+
+    private void showAlertDialog(String title, String message, boolean status) {
+        AlertDialog alertDialog = new AlertDialog.Builder(BebidasActivity.this).create();
+        alertDialog.setTitle("No tiene conexion a internet");
+        alertDialog.setMessage("Conectar a internet");
+        alertDialog.show();
+    }
+
+    private void verifyConnection() {
+        if (!ConexionVerify.isNetworkAvailable(this)) {
+            showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
+            onStop();
+        }
     }
 
 }

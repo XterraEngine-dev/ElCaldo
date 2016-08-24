@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -21,6 +22,7 @@ import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLine;
 import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLineAdapter;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
+import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
 import org.json.JSONArray;
@@ -48,6 +50,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_time_line3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        verifyConnection();
         startVars();
     }
 
@@ -127,4 +130,19 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
     }
+
+    private void showAlertDialog(String title, String message, boolean status) {
+        AlertDialog alertDialog = new AlertDialog.Builder(TimeLineActivity.this).create();
+        alertDialog.setTitle("No tiene conexión a internet");
+        alertDialog.setMessage("Conectar a internet");
+        alertDialog.show();
+    }
+
+    private void verifyConnection() {
+        if (!ConexionVerify.isNetworkAvailable(this)) {
+            showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
+            onStop();
+        }
+    }
+
 }
