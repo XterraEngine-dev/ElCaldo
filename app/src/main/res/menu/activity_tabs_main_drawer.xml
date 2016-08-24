@@ -8,6 +8,11 @@
             android:title="@string/otras_comidas" />
 
         <item
+            android:id="@+id/nav_recetassemana"
+            android:icon="@drawable/terminoscopy"
+            android:title="@string/recetas_semana_drawer" />
+
+        <item
             android:id="@+id/nav_preferencias"
             android:icon="@drawable/preferencias"
             android:title="@string/prefs" />
@@ -23,14 +28,7 @@
                 android:id="@+id/nav_website"
                 android:icon="@drawable/website"
                 android:title="@string/web_site" />
-            <item
-                android:id="@+id/nav_recetassemana"
-                android:icon="@drawable/terminoscopy"
-                android:title="@string/recetas_semana_drawer" />
-            <item
-                android:id="@+id/nav_cafe"
-                android:icon="@drawable/glass"
-                android:title="@string/elcafe" />
+
             <item
                 android:id="@+id/nav_creditos"
                 android:icon="@drawable/creditos"
