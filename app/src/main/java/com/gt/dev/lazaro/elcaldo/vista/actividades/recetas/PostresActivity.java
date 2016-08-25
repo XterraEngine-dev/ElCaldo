@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -34,7 +35,7 @@ public class PostresActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
-    private ListView lvPostres;
+    private GridView lvPostres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class PostresActivity extends AppCompatActivity {
     private void startVars() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_postres_activity);
         setSupportActionBar(toolbar);
-        lvPostres = (ListView) findViewById(R.id.lv_postres);
+        lvPostres = (GridView) findViewById(R.id.lv_postres);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.postres_title);
         getSupportActionBar().setSubtitle("Select a recipe");

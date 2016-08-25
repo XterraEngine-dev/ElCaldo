@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class TamalesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RequestQueue requestQueue;
     private ArrayList<Categoria> categoria = new ArrayList<>();
-    private ListView lvTamales;
+    private GridView lvTamales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class TamalesActivity extends AppCompatActivity {
 
     private void startVars() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_tamales_activity);
-        lvTamales = (ListView) findViewById(R.id.lv_tamales);
+        lvTamales = (GridView) findViewById(R.id.lv_tamales);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.tamales_title);

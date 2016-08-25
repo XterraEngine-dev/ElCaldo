@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -40,7 +41,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog pDialog;
     private String TAG = TimeLineActivity.class.getSimpleName();
     private String nombre, region, usuario;
-    private ListView lvTimeline;
+    private GridView lvTimeline;
     private ArrayList<TimeLine> categoria = new ArrayList<>();
 
     private String tag_json_obj = "jsonbj_req", tag_json_array = "jarray_req";
@@ -73,7 +74,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     private void startVars() {
         fab = (FloatingActionButton) findViewById(R.id.fab_timeline);
         fab.setOnClickListener(this);
-        lvTimeline = (ListView) findViewById(R.id.lv_timeline);
+        lvTimeline = (GridView) findViewById(R.id.lv_timeline);
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
         pDialog.setCancelable(false);
@@ -97,7 +98,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                         region = timeline.getString("region");
                         usuario = timeline.getString("like");
 
-                        categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.alboroto, R.drawable.elcaldoicono));
+                        categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.cerdo, R.drawable.cevichon));
                         setupAdater(categoria);
                         //hideporgressDialog();
                     }

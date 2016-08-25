@@ -18,5 +18,10 @@
     <color name="cafe_oscuro">#3E2723</color>
     <color name="cafe_claro">#4E342E</color>
 
+    //color para texto en gridview
+
+    <color name="background_footer">#90000000</color>
+
+
 
 </resources>

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -35,7 +36,7 @@ public class CaldosActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RequestQueue requestQueue;
     private ArrayList<Categoria> categoria = new ArrayList<>();
-    private ListView lvCaldos;
+    private GridView lvCaldos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class CaldosActivity extends AppCompatActivity {
 
     private void startVars() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_caldos_activity);
-        lvCaldos = (ListView) findViewById(R.id.lv_caldos);
+        lvCaldos = (GridView) findViewById(R.id.lv_caldos);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.caldos_title);
