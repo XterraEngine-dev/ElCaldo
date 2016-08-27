@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,6 +36,7 @@ public class PostresActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvPostres;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class PostresActivity extends AppCompatActivity {
     private void startVars() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_postres_activity);
         setSupportActionBar(toolbar);
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Cargando...");
+        pDialog.setCancelable(false);
         lvPostres = (GridView) findViewById(R.id.lv_postres);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.postres_title);
@@ -61,7 +65,20 @@ public class PostresActivity extends AppCompatActivity {
         this.lvPostres.setAdapter(new AdaptadorCategoria(categoria, this));
     }
 
+    private void showProgressDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
+    }
+
     private void getPostres() {
+
+        showProgressDialog();
+
         String url = Parametros.URL_SHOW_POSTRES;
 
         CustomRequest postresRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -78,6 +95,7 @@ public class PostresActivity extends AppCompatActivity {
                         int picture = R.drawable.rellenitos;
                         categoria.add(new Categoria(name, region, id, picture));
                         setupAdapter(categoria);
+                        hideProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -86,8 +104,8 @@ public class PostresActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideProgressDialog();
                 Log.d("ERROR RESPONSE", "POSTRESS REQUEST");
-
             }
         }) {
             @Override
@@ -125,4 +143,13 @@ public class PostresActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

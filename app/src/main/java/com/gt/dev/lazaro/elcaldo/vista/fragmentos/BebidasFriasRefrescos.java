@@ -1,9 +1,11 @@
 package com.gt.dev.lazaro.elcaldo.vista.fragmentos;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCardView;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
@@ -37,12 +40,10 @@ public class BebidasFriasRefrescos extends Fragment {
 
     private ListView lista;
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
-    private RequestQueue requestQueue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestQueue = Volley.newRequestQueue(getActivity());
         showFriasList();
     }
 
@@ -56,11 +57,13 @@ public class BebidasFriasRefrescos extends Fragment {
         return v;
     }
 
+
     private void setupAdapter(ArrayList<CategoriaCardView> categoria) {
         this.lista.setAdapter(new AdaptadorCardView(categoria, getActivity()));
     }
 
     private void showFriasList() {
+
         String url = Parametros.URL_SHOW_BEBIDAS_FRIAS;
 
         CustomRequest friasRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -85,6 +88,7 @@ public class BebidasFriasRefrescos extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("FRIAS", "ERROR = " + error.toString());
                 Toast.makeText(getActivity(), "Something its wrong", Toast.LENGTH_SHORT);
             }
         }) {
@@ -96,7 +100,7 @@ public class BebidasFriasRefrescos extends Fragment {
                 return headers;
             }
         };
-        requestQueue.add(friasRequest);
+        AppController.getInstance().addToRequestQueue(friasRequest);
     }
 
 }

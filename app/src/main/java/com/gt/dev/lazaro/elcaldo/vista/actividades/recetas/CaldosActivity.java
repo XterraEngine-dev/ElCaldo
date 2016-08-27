@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
@@ -37,6 +39,7 @@ public class CaldosActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvCaldos;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,19 @@ public class CaldosActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestQueue = Volley.newRequestQueue(this);
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Cargando...");
+        pDialog.setCancelable(false);
+    }
+
+    private void showProgressDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
     }
 
     @Override
@@ -75,6 +91,9 @@ public class CaldosActivity extends AppCompatActivity {
 
 
     private void getCaldos() {
+
+        showProgressDialog();
+
         String url = Parametros.URL_SHOW_CALDOS;
 
         CustomRequest caldosRequest = new CustomRequest(CustomRequest.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -91,6 +110,7 @@ public class CaldosActivity extends AppCompatActivity {
                         int picture = R.drawable.caldodegallina;
                         categoria.add(new Categoria(name, region, id, picture));
                         setupAdapter(categoria);
+                        hideProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -99,6 +119,7 @@ public class CaldosActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideProgressDialog();
                 VolleyLog.d("", "" + error.getMessage());
             }
         }) {
@@ -110,7 +131,7 @@ public class CaldosActivity extends AppCompatActivity {
                 return headers;
             }
         };
-        requestQueue.add(caldosRequest);
+        AppController.getInstance().addToRequestQueue(caldosRequest);
     }
 
     private void showAlertDialog(String title, String message, boolean status) {

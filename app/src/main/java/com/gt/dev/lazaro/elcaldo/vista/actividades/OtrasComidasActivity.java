@@ -1,10 +1,12 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ public class OtrasComidasActivity extends AppCompatActivity {
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private Toolbar toolbar;
     private FloatingActionButton boton;
+    private ProgressDialog pDialog;
 
     /**
      * @param savedInstanceState
@@ -53,9 +56,22 @@ public class OtrasComidasActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         verifyConnection();
         lista = (ListView) findViewById(R.id.lv4);
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Cargando...");
+        pDialog.setCancelable(false);
 
         showOtrasList();
         //startArrayList();
+    }
+
+    private void showProgressDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
     }
 
     @Override
@@ -69,6 +85,9 @@ public class OtrasComidasActivity extends AppCompatActivity {
     }
 
     private void showOtrasList() {
+
+        showProgressDialog();
+
         String url = Parametros.URL_SHOW_OTRAS;
 
         CustomRequest jreq = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -85,6 +104,7 @@ public class OtrasComidasActivity extends AppCompatActivity {
                         int picture = R.drawable.elcaldoicono;
                         categoria.add(new Categoria(name, region, id, picture));
                         setupAdapter(categoria);
+                        hideProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -93,7 +113,9 @@ public class OtrasComidasActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideProgressDialog();
                 Toast.makeText(OtrasComidasActivity.this, "Something its wrong", Toast.LENGTH_SHORT).show();
+                Log.d("ERROR OTRAS", error.toString());
             }
         }) {
             @Override
@@ -125,4 +147,13 @@ public class OtrasComidasActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

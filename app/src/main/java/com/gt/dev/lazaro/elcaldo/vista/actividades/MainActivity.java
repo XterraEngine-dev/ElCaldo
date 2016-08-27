@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity
         lista.setAdapter(adapter);
 
         lista.setOnItemClickListener(this);
+
     }
 
     private void startAnalytics() {
@@ -118,7 +121,6 @@ public class MainActivity extends AppCompatActivity
         tracker.enableAutoActivityTracking(true);
         tracker.enableExceptionReporting(true);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -224,4 +226,5 @@ public class MainActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
     }
+
 }

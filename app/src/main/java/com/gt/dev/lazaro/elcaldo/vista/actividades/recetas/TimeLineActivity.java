@@ -82,7 +82,9 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getnewRecipes() {
-        //showProgresDialog();
+
+        showProgresDialog();
+
         String url = Parametros.URL_SHOW_TMELINE;
 
         CustomRequest timelineRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -100,7 +102,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
 
                         categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.cerdo, R.drawable.cevichon));
                         setupAdater(categoria);
-                        //hideporgressDialog();
+                        hideporgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,9 +111,9 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideporgressDialog();
                 VolleyLog.d(TAG, "ERROR: " + error.getMessage());
                 Log.d("ERROR RESPONSE", "ERROR: " + error.getMessage());
-                hideporgressDialog();
             }
         }) {
             @Override
@@ -156,5 +158,15 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

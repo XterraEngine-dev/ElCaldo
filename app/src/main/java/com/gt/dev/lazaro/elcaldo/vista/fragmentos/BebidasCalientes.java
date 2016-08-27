@@ -1,10 +1,12 @@
 package com.gt.dev.lazaro.elcaldo.vista.fragmentos;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,17 +55,18 @@ public class BebidasCalientes extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_bebidas_calientes, container, false);
-
         lvCalientes = (ListView) v.findViewById(R.id.lv_bebidas_calientes);
 
         return v;
     }
+
 
     private void setupAdapter(ArrayList<CategoriaCardView> categoria) {
         this.lvCalientes.setAdapter(new AdaptadorCardView(categoria, getActivity()));
     }
 
     private void showCalientesList() {
+
         String url = Parametros.URL_SHOW_BEBIDAS_CALIENTES;
 
         CustomRequest calientesRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -89,7 +92,7 @@ public class BebidasCalientes extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("BEBIDAS", "Errro = " + error.toString());
             }
         }) {
             @Override
