@@ -1,6 +1,5 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -45,21 +43,41 @@ public class MainActivity extends AppCompatActivity
     private ListView lista;
     private ArrayList<MainClass> categoria = new ArrayList<>();
 
+    /**
+     * Compatibilidad con versiones inferiores al api 21
+     *
+     * @param newBase
+     */
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         MultiDex.install(this);
     }
 
+    /**
+     * Metodo donde se crea todas nuestras variables, constantes, metodos, etc.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs_main);
+        //Inicializamos Analytics
         startAnalytics();
+        //Inicializamos las variables y metodos
         startVars();
+        //Verficamos la conexiòn a internet llamando a nuestro metodo
         verifyConnection();
     }
 
+    /**
+     * Metodo para mostrar una dialog de alerta por la falta de internet
+     *
+     * @param title
+     * @param message
+     * @param status
+     */
     private void showAlertDialog(String title, String message, boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle("No tiene conexión a internet");
@@ -67,6 +85,9 @@ public class MainActivity extends AppCompatActivity
         alertDialog.show();
     }
 
+    /**
+     * Metodo donde hacemos la verificacion de conexión a internet
+     */
     private void verifyConnection() {
         if (!ConexionVerify.isNetworkAvailable(this)) {
             showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
@@ -74,14 +95,20 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Metodo donde instanciamos e iniclaizamo slas variables y widgets
+     */
     private void startVars() {
 
+        //FloatingActionButton starts
         fab = (FloatingActionButton) findViewById(R.id.fab_main_elcaldo);
         fab.setOnClickListener(this);
 
+        //Toolbar starts
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //NavDrawer starts
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -91,6 +118,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Listview starts
         lista = (ListView) findViewById(R.id.lv_main);
 
         //Cardview de Caldos
@@ -111,17 +139,24 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Metodo inicializador para Google Analytics
+     */
     private void startAnalytics() {
         //Analytics
         googleAnalytics = GoogleAnalytics.getInstance(this);
         googleAnalytics.setLocalDispatchPeriod(1800);
 
+        //Tracker starts
         tracker = googleAnalytics.newTracker("UA-69747362-1");
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
         tracker.enableExceptionReporting(true);
     }
 
+    /**
+     * Metodo cuando presiona el boton de back de la UI de Android el usuario.
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -132,6 +167,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Inflando el menu de ElCaldo
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -139,6 +180,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Metodo nativo de selección de item
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -186,7 +233,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
+    /**
+     * Seteamos un listener para cada boton
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -196,6 +247,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Seteamos un listener a cada item de la lista y hacia donde apunta cada intento
+     *
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
@@ -217,11 +276,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Metodo cuando el usuario regresa a esta actividad
+     */
     @Override
     protected void onResume() {
         super.onResume();
     }
 
+    /**
+     * Metodo cuando entre la actividad en pausa-background
+     */
     @Override
     protected void onPause() {
         super.onPause();

@@ -44,36 +44,62 @@ public class OtrasComidasActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
 
     /**
-     * @param savedInstanceState
+     * @param savedInstanceState Metodo nativo inicilazador de cada metodo y variable
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        startVars();
+        showOtrasList();
+    }
+
+    /**
+     * Metodo que inicializa e instancea las variables, widgets, metodos, etc.
+     */
+    private void startVars() {
         setContentView(R.layout.activity_otras_comidas);
+
+        //Seteamos el toolbar
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Llamamos al metodo para la verificaciòn de internet
         verifyConnection();
+
+        //Casteamos la lista
         lista = (ListView) findViewById(R.id.lv4);
+
+        //Iniciamos e instanciamos el progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
         pDialog.setCancelable(false);
-
-        showOtrasList();
-        //startArrayList();
     }
 
+    /**
+     * Muestra el ProgressDialog
+     */
     private void showProgressDialog() {
+        //Si pDialog es distinto de isShowing entonces lo muestra -> show
         if (!pDialog.isShowing())
             pDialog.show();
     }
 
+    /**
+     * Oculta el progressDialog
+     */
     private void hideProgressDialog() {
+        //Si pDialog se esta mostrando -> isShowing entonces ocultarlo -> hide
         if (pDialog.isShowing())
             pDialog.hide();
     }
 
+    /**
+     * Metodo donde indicamos la acciòn de cada item
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -84,15 +110,22 @@ public class OtrasComidasActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Muestra la lista de otras comidas
+     */
     private void showOtrasList() {
 
         showProgressDialog();
 
+        //Obtenemos el URL de la clase parametros
         String url = Parametros.URL_SHOW_OTRAS;
 
+        //Lllamamos a nuestra clase Customizada para los json request
         CustomRequest jreq = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                //capturaremos nuestro JsonArray en un try-catch para asegurarnos de su
+                //traida de data y tambien si no es asi.
                 try {
                     JSONArray jsonArray = response.getJSONArray("otras");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -118,6 +151,11 @@ public class OtrasComidasActivity extends AppCompatActivity {
                 Log.d("ERROR OTRAS", error.toString());
             }
         }) {
+            /**
+             * Validamos credenciales para realizar transacciòn con basic auth
+             * @return
+             * @throws AuthFailureError
+             */
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
@@ -129,10 +167,22 @@ public class OtrasComidasActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(jreq);
     }
 
+    /**
+     * Metodo donde setamos el adaptador a utilizar en la lista
+     *
+     * @param categoria
+     */
     private void setupAdapter(ArrayList<Categoria> categoria) {
         this.lista.setAdapter(new AdaptadorCategoria(categoria, this));
     }
 
+    /**
+     * Alert Dialog para mostrar la falta de conexiòn a internet
+     *
+     * @param title
+     * @param message
+     * @param status
+     */
     private void showAlertDialog(String title, String message, boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(OtrasComidasActivity.this).create();
         alertDialog.setTitle("No tiene conexión a internet");
@@ -140,6 +190,9 @@ public class OtrasComidasActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    /**
+     * Metodo donde valida la conexiòn a internet
+     */
     private void verifyConnection() {
         if (!ConexionVerify.isNetworkAvailable(this)) {
             showAlertDialog("Sin conexion a internet", "Debes conectarte a una red de internet", true);
@@ -147,11 +200,17 @@ public class OtrasComidasActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Cuando entra en pausa la actividad-background
+     */
     @Override
     protected void onPause() {
         super.onPause();
     }
 
+    /**
+     * Cuando la actividad vuelve a la acciòn :D
+     */
     @Override
     protected void onResume() {
         super.onResume();

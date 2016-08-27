@@ -21,10 +21,7 @@ import java.util.ArrayList;
  */
 public class CreditosActivity extends AppCompatActivity {
 
-    private Button boton;
     private Toolbar toolbar;
-    private ListView lista;
-    private ArrayList<CategoriaCreditos> categoria;
 
     /**
      * onCreate
@@ -42,6 +39,12 @@ public class CreditosActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * Que hara cada item seleccionado
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

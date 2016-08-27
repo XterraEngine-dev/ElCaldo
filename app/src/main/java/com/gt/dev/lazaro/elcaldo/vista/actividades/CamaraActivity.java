@@ -47,7 +47,10 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_camara);
         Toast.makeText(CamaraActivity.this, R.string.toast_shot, Toast.LENGTH_LONG).show();
 
+        //Llamamos al metodo que inicailzia e instancea variables metodos, widgets, etc.
         iniciaVars();
+
+        //llamamos metodo que inicia api de Google Analytics
         startAnalytics();
 
         InputStream is = getResources().openRawResource(R.raw.splashcaldo);
@@ -68,7 +71,6 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
     }
 
     /**
@@ -133,11 +135,16 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Iniciamos las constantes y variables para el
+     * manejo de Google Analytics
+     */
     private void startAnalytics() {
         //Analytics
         googleAnalytics = GoogleAnalytics.getInstance(this);
         googleAnalytics.setLocalDispatchPeriod(1800);
 
+        //Iniciamos y seteamos datos a nuestro tracker
         tracker = googleAnalytics.newTracker("UA-69747362-1");
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);

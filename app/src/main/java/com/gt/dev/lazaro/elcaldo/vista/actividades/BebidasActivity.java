@@ -24,6 +24,7 @@ public class BebidasActivity extends AppCompatActivity {
     private ViewPagerAdapter2 adapter;
     private SlidingTabLayout tabs;
     CharSequence Titles[] = {"Bebidas calientes", "Bebidas frías"};
+    //CharSequence Titles[] = {getString(R.string.bebidas_calientes), getString(R.string.bebidas_frias)};
     int Numboftabs = 2;
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
