@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import java.util.Map;
  */
 public class BebidasFriasRefrescos extends Fragment {
 
-    private ListView lista;
+    private GridView lista;
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
 
     @Override
@@ -52,7 +53,7 @@ public class BebidasFriasRefrescos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_bebidas_frias, container, false);
 
-        lista = (ListView) v.findViewById(R.id.lv_bebidas_frias);
+        lista = (GridView) v.findViewById(R.id.lv_bebidas_frias);
 
         return v;
     }

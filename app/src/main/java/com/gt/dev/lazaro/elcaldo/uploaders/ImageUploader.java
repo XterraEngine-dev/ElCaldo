@@ -62,7 +62,7 @@ public class ImageUploader {
         DataOutputStream dos = new DataOutputStream(bos);
         try {
 
-            String nombreFoto = AddRecipeActivity.getVariable();
+            String nombreFoto = AddRecipeActivity.getNombreImagenUrl();
             dos.writeBytes(twoHyphens + boundary + lineEnd);
             dos.writeBytes("Content-Disposition: form-data; name=\""+fileObjName+"\"; filename=\"" + nombreFoto + "\"" + lineEnd);
             dos.writeBytes(lineEnd);

@@ -100,7 +100,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                         region = timeline.getString("region");
                         usuario = timeline.getString("like");
 
-                        categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.cerdo, R.drawable.cevichon));
+                        categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.atoldeelote, R.drawable.cafe_banner_gt));
                         setupAdater(categoria);
                         hideporgressDialog();
                     }

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,16 +32,18 @@ import java.util.Map;
 
 public class AddRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //Variables de Cifu
+    private static String nombreImagenUrl = null;
     private static final int CAMARA_DATA = 0;
     private Button btnUploadPicture, btnTakePicture, btnAddrecipe;
-    private ImageView ivPictureRecipe;
+    private ImageView mImageView;
     private ImageButton avatar1, avatar2, avatar3;
     private EditText etNickname, etRecipename, etIngredients, etPreparation;
     private String usuario, nombre, region;
     private ProgressDialog pDialog;
     private TextView valor;
-    private String TAG = AddRecipeActivity.class.getSimpleName();
 
+    private String TAG = AddRecipeActivity.class.getSimpleName();
     private String KEY_IAMGE = "imagen";
     private String KEY_NAME = "nombre";
     private String KEY_INGREDIENTES = "ingredientes";
@@ -50,18 +53,16 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     private String KEY_SUBIR = "upload";
     private String KEY_LIKE = "like";
     private String KEY_AVATAR = "avatar";
+    private String UPLOAD_URL = "http://elcaldo.justiciayagt.com/timeline";
 
-    private String UPLOAD_URL = "http//elcaldo.justiciayagt.com/timeline";
+    RelativeLayout linearLayout;
 
-    LinearLayout linear;
     UploadingHelper uploadingHelper;
-
-    private Bitmap bitmap, bmp;
 
     private int PICK_UP_IMAGE = 1;
 
-    //Variables de Cifu
-    private static String variable = null;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +78,19 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
      *
      * @return
      */
-    public static String getVariable() {
-        return variable;
+    public static String getNombreImagenUrl() {
+        return nombreImagenUrl;
     }
 
     private void startVars() {
-        linear = (LinearLayout) findViewById(R.id.linear_add_recipe);
+
         valor = (TextView) findViewById(R.id.valor);
         //Button´s
         btnUploadPicture = (Button) findViewById(R.id.btn_uploadpicture_addrecipe);
         btnAddrecipe = (Button) findViewById(R.id.btn_add_recipe);
         btnTakePicture = (Button) findViewById(R.id.btn_takerecipe_addrecipe);
         //ImageView´s
-        ivPictureRecipe = (ImageView) findViewById(R.id.iv_recipe_addrecipe);
+        mImageView = (ImageView) findViewById(R.id.iv_recipe_addrecipe);
         //ImageButton´s
         avatar1 = (ImageButton) findViewById(R.id.avatar1_addrecipe);
         avatar2 = (ImageButton) findViewById(R.id.avatar2_addrecipe);
@@ -120,12 +121,12 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
          */
         EditText traerImagen = (EditText) findViewById(R.id.et_recipename_addrecipe);
 
-        variable = traerImagen.getText().toString();
+        nombreImagenUrl = traerImagen.getText().toString();
 
         /**
          * Dispara a API Subir.php donde revise el post de la immagen
          */
-        String url = "http//elcaldo.justiciayagt.com/Subir.php";
+        String url = "http://elcaldo.justiciayagt.com/Subir.php";
         uploadingHelper = new UploadingHelper(this, url);
         uploadingHelper.startActivityForImagePick();
         uploadingHelper.getClass();
@@ -177,6 +178,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             }
         };
 
+
         AppController.getInstance().addToRequestQueue(uploadRequest);
     }
 
@@ -203,24 +205,63 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             ivPictureRecipe.setImageBitmap(bmp);
         }*/
 
+
+
+
         /**
-         * Activity for result de la subida de imagen - cifu
+         * SWICH PARA USO DE CAMARA O GALERIA
          */
-        uploadingHelper.setResult(requestCode, resultCode, data);
-        linear.removeAllViews();
-        linear.addView(uploadingHelper.getLayout());
+
+        switch (requestCode){
+
+            case 1:
+
+                /**
+                 * Activity for result CAMARA  -devCifuentes
+                 */
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    mImageView.setImageBitmap(imageBitmap);
+
+
+                break;
+
+
+            case 2:
+
+
+                /**
+                 * Activity for result GALERIA -devCifuentes
+                 */
+
+                uploadingHelper.setResult(requestCode, resultCode, data);
+                linearLayout.removeAllViews();
+                linearLayout.addView(uploadingHelper.getLayout());
+                break;
+
+        }
+
+
+
+    }
+
+    private void tomarFoto() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_takerecipe_addrecipe:
-                Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePic, CAMARA_DATA);
-                break;
+
             case R.id.btn_uploadpicture_addrecipe:
                 //fileChooser();
                 enviarImagen();
+                break;
+            case R.id.btn_takerecipe_addrecipe:
+                tomarFoto();
                 break;
             case R.id.btn_add_recipe:
                 enviarForulario();
