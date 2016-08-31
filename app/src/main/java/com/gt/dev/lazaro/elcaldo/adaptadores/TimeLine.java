@@ -5,14 +5,14 @@ package com.gt.dev.lazaro.elcaldo.adaptadores;
  */
 public class TimeLine {
 
-    private String username, recipename, region, likes;
-    private int avatar, picture;
+    private String username, recipename, region, like,picture;
+    private int avatar;
 
-    public TimeLine(String username, String recipename, String region, String likes, int avatar, int picture) {
+    public TimeLine(String username, String recipename, String region, String likes, String picture, int avatar) {
         this.username = username;
         this.recipename = recipename;
         this.region = region;
-        this.likes = likes;
+        this.like = likes;
         this.avatar = avatar;
         this.picture = picture;
     }
@@ -42,11 +42,11 @@ public class TimeLine {
     }
 
     public String getLikes() {
-        return likes;
+        return like;
     }
 
     public void setLikes(String likes) {
-        this.likes = likes;
+        this.like = likes;
     }
 
     public int getAvatar() {
@@ -57,11 +57,11 @@ public class TimeLine {
         this.avatar = avatar;
     }
 
-    public int getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(int picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 }

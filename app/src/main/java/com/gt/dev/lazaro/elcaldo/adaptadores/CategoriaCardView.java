@@ -7,9 +7,9 @@ public class CategoriaCardView {
 
     private String nombre;
     private String lugar;
-    private int imagen;
+    private String imagen;
 
-    public CategoriaCardView(String nombre, String lugar, int imagen) {
+    public CategoriaCardView(String nombre, String lugar, String imagen) {
         this.nombre = nombre;
         this.lugar = lugar;
         this.imagen = imagen;
@@ -31,11 +31,11 @@ public class CategoriaCardView {
         this.lugar = lugar;
     }
 
-    public int getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(int imagen) {
+    public void setImagen(String  imagen) {
         this.imagen = imagen;
     }
 }

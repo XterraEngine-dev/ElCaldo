@@ -7,14 +7,14 @@ public class ArrayBuscador {
     private String titulo;
     private String subtitulo;
     private String id;
-    private int imagen;
+    private String imagen;
 
     /**
      * @param titulo
      * @param subtitulo
      * @param imagen
      */
-    public ArrayBuscador(String titulo, String subtitulo, String id, int imagen) {
+    public ArrayBuscador(String titulo, String subtitulo, String id, String imagen) {
         super();
         this.titulo = titulo;
         this.subtitulo = subtitulo;
@@ -50,11 +50,11 @@ public class ArrayBuscador {
         this.id = id;
     }
 
-    public int getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(int imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 }

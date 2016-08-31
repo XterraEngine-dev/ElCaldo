@@ -78,8 +78,8 @@ public class BebidasFriasRefrescos extends Fragment {
                         String name = frias.getString("nombre");
                         String region = frias.getString("region");
                         String id = frias.getString("id");
-                        int picture = R.drawable.elcaldoicono;
-                        categoria.add(new CategoriaCardView(name, region, picture));
+                        String imagen = frias.getString("imagen");
+                        categoria.add(new CategoriaCardView(name, region, imagen));
                         setupAdapter(categoria);
                     }
                 } catch (JSONException e) {

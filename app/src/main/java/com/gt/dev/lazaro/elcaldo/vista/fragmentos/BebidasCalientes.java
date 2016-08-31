@@ -80,10 +80,10 @@ public class BebidasCalientes extends Fragment {
 
                         String name = calientes.getString("nombre");
                         String region = calientes.getString("region");
+                        String imagen = calientes.getString ("imagen");
                         String id = calientes.getString("id");
 
-                        int picture = R.drawable.elcaldoicono;
-                        categoria.add(new CategoriaCardView(name, region, picture));
+                        categoria.add(new CategoriaCardView(name, region, imagen));
                         setupAdapter(categoria);
                     }
                 } catch (JSONException e) {

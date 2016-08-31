@@ -108,7 +108,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
                         String name = nombre.getString("nombre");
                         String region = nombre.getString("region");
                         String id = nombre.getString("id");
-                        int picture = R.drawable.cevichon;
+                        String picture = nombre.getString("imagen");
                         buscador.add(new ArrayBuscador(name, region, id, picture));
                         setupAdapter(buscador);
                     }
@@ -155,7 +155,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
     }
 
     /**
-     * Cuando el texto cambia limpia el adaptador
+     * C
      * @param newText
      * @return
      */

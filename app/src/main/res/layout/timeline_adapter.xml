@@ -15,12 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/iv_plate_timeline"
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_image_height"
             android:scaleType="centerCrop"
-            tools:src="@drawable/cafe_banner_gt" />
+            />
 
         <TextView
            android:background="@color/background_footer"
@@ -75,7 +75,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/article_subheading"
+            android:textSize="@dimen/article_titles"
             android:layout_toRightOf="@+id/iv_username_timeline"
             android:layout_toEndOf="@+id/iv_username_timeline" />
 

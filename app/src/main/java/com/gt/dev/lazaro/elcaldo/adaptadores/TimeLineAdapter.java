@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,8 @@ public class TimeLineAdapter extends BaseAdapter {
     private ArrayList<TimeLine> categoria;
     LayoutInflater inflater;
     Context contexto;
-    private ImageView ivAvatar, ivPicture;
+    private ImageView ivAvatar;
+    private NetworkImageView ivPicture;
     private TextView tvUsername, tvRecipename, tvRegion, tvLikes;
 
     public TimeLineAdapter(ArrayList<TimeLine> cat, Context con) {
@@ -50,14 +53,14 @@ public class TimeLineAdapter extends BaseAdapter {
         TimeLine cat = categoria.get(position);
 
         ivAvatar = (ImageView) convertView.findViewById(R.id.iv_username_timeline);
-        ivPicture = (ImageView) convertView.findViewById(R.id.iv_plate_timeline);
+        ivPicture = (NetworkImageView) convertView.findViewById(R.id.iv_plate_timeline);
         tvUsername = (TextView) convertView.findViewById(R.id.tv_username_timeline);
         tvRegion = (TextView) convertView.findViewById(R.id.tv_region_timeline);
         tvRecipename = (TextView) convertView.findViewById(R.id.tv_platename_timeline);
         tvLikes = (TextView) convertView.findViewById(R.id.tv_likes_timeline);
 
         ivAvatar.setBackgroundResource(cat.getAvatar());
-        ivPicture.setBackgroundResource(cat.getPicture());
+        ivPicture.setImageUrl(cat.getPicture(), VolleySingleton.getInstance().getImageLoader());
 
         tvUsername.setText(cat.getUsername());
         tvRecipename.setText(cat.getRecipename());

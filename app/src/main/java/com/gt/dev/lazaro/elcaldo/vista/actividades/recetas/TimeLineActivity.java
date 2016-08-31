@@ -40,7 +40,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     private FloatingActionButton fab;
     private ProgressDialog pDialog;
     private String TAG = TimeLineActivity.class.getSimpleName();
-    private String nombre, region, usuario;
+    private String nombre, region, usuario,imagen,like,avatar;
     private GridView lvTimeline;
     private ArrayList<TimeLine> categoria = new ArrayList<>();
 
@@ -98,9 +98,12 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
 
                         nombre = timeline.getString("nombre");
                         region = timeline.getString("region");
-                        usuario = timeline.getString("like");
+                        imagen = timeline.getString("imagen");
+                        usuario = timeline.getString("unombre");
+                        like   = timeline.getString("like");
+                        avatar = timeline.getString("avatar");
 
-                        categoria.add(new TimeLine(usuario, nombre, region, region, R.drawable.atoldeelote, R.drawable.cafe_banner_gt));
+                        categoria.add(new TimeLine(usuario, nombre, region, like ,imagen, R.drawable.atoldeelote));
                         setupAdater(categoria);
                         hideporgressDialog();
                     }
