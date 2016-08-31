@@ -16,6 +16,7 @@ import com.gt.dev.lazaro.elcaldo.utilidades.LruBitmapCache;
  */
 public class AppController extends Application {
 
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -23,6 +24,7 @@ public class AppController extends Application {
     }
 
     public static final String TAG = AppController.class.getSimpleName();
+
 
     private RequestQueue mRequesstQueue;
     private ImageLoader mImageLoader;
@@ -68,6 +70,9 @@ public class AppController extends Application {
         if (mRequesstQueue != null) {
             mRequesstQueue.cancelAll(tag);
         }
+    }
+    public static Context getAppContext() {
+        return mInstance.getApplicationContext();
     }
 
 }

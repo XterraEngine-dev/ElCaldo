@@ -95,7 +95,7 @@ public class TamalesActivity extends AppCompatActivity {
                         String name = tamales.getString("nombre");
                         String region = tamales.getString("region");
                         String id = tamales.getString("id");
-                        int picture = R.drawable.tamalcolorado;
+                        String picture = tamales.getString("imagen");
                         categoria.add(new Categoria(name, region, id, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();

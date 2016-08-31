@@ -16,12 +16,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
+import com.gt.dev.lazaro.elcaldo.uploaders.ImageUploader;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
@@ -40,6 +42,7 @@ public class CaldosActivity extends AppCompatActivity {
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvCaldos;
     private ProgressDialog pDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,10 @@ public class CaldosActivity extends AppCompatActivity {
         String url = Parametros.URL_SHOW_CALDOS;
 
         CustomRequest caldosRequest = new CustomRequest(CustomRequest.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+
+
+
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -107,7 +114,7 @@ public class CaldosActivity extends AppCompatActivity {
                         String name = caldos.getString("nombre");
                         String region = caldos.getString("region");
                         String id = caldos.getString("id");
-                        int picture = R.drawable.caldodegallina;
+                        String picture = caldos.getString("imagen");
                         categoria.add(new Categoria(name, region, id, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();

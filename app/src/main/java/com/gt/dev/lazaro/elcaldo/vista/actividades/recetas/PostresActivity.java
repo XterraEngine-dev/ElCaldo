@@ -92,7 +92,7 @@ public class PostresActivity extends AppCompatActivity {
                         String name = postres.getString("nombre");
                         String region = postres.getString("region");
                         String id = postres.getString("id");
-                        int picture = R.drawable.rellenitos;
+                        String picture = postres.getString("imagen");
                         categoria.add(new Categoria(name, region, id, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();

@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
 
 import java.util.ArrayList;
 
@@ -59,11 +61,11 @@ public class AdaptadorCategoria extends BaseAdapter {
 
         convertView = inflater.inflate(R.layout.adaptador_lista, null);
         Categoria cat = categoria.get(position);
-        ImageView img = (ImageView) convertView.findViewById(R.id.imagen);
+        NetworkImageView img = (NetworkImageView) convertView.findViewById(R.id.imagen);
         TextView titulo = (TextView) convertView.findViewById(R.id.titulo);
         TextView subtitulo = (TextView) convertView.findViewById(R.id.subtitulo);
 
-        img.setBackgroundResource(cat.getImagen());
+        img.setImageUrl(cat.getImagen(), VolleySingleton.getInstance().getImageLoader());
         titulo.setText(cat.getTitulo());
         subtitulo.setText(cat.getSubtitulo());
 

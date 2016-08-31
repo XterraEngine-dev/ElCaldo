@@ -134,7 +134,7 @@ public class OtrasComidasActivity extends AppCompatActivity {
                         String name = otras.getString("nombre");
                         String region = otras.getString("region");
                         String id = otras.getString("id");
-                        int picture = R.drawable.elcaldoicono;
+                        String picture = otras.getString("imagen");
                         categoria.add(new Categoria(name, region, id, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();
