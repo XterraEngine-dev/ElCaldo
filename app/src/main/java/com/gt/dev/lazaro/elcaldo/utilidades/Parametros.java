@@ -16,4 +16,5 @@ public class Parametros {
     public static final String URL_SHOW_TOP = "http://elcaldo.justiciyagt.com/top";
     public static final String URL_SEARCH = "http://elcaldo.justiciayagt.com/buscar";
 
+    public static final String URL_SHOW_BUSCAR ="http://elcaldo.justiciayagt.com/buscar";
 }

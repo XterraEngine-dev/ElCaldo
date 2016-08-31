@@ -68,7 +68,6 @@
             android:label="Wizard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
         <activity
             android:name=".vista.actividades.ComoUsarActivity"
             android:label="Como usar"
@@ -79,19 +78,16 @@
             android:label="@string/camara_activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".vista.actividades.CreditosActivity"
             android:label="@string/creditos"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".vista.actividades.OtrasComidasActivity"
             android:label="@string/otras_comidas"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".controlador.Preferencias"
             android:label="Preferencias"
@@ -109,7 +105,6 @@
             android:name=".vista.actividades.BebidasActivity"
             android:label="@string/bebidas_activity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".vista.actividades.MainActivity"
             android:label="@string/title_activity_tabs_main"
@@ -126,6 +121,10 @@
             android:name=".vista.actividades.recetas.AddRecipeActivity"
             android:label="Nueva receta"
             android:theme="@style/Base.Theme.AppCompat.Dialog.FixedSize" />
+        <activity
+            android:name=".vista.actividades.Buscador"
+            android:label="@string/title_activity_buscador"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

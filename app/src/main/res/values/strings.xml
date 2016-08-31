@@ -156,5 +156,6 @@
 
     <string name="recetas_semana_drawer">Recetas de la semana</string>
     <string name="title_activity_time_line">TimeLineActivity</string>
+    <string name="title_activity_buscador">Buscador</string>
 </resources>
 

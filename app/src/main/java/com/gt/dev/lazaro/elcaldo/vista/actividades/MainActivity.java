@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.tabs_main, menu);
+        //getMenuInflater().inflate(R.menu.tabs_main, menu);
         return true;
     }
 
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_main_elcaldo:
-                startActivity(new Intent(MainActivity.this, CamaraActivity.class));
+                startActivity(new Intent(MainActivity.this, Buscador.class));
                 break;
         }
     }

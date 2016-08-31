@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".vista.actividades.MainActivity">
+    android:background="@color/cardview_dark_background"
+    tools:context="com.gt.dev.lazaro.elcaldo.vista.actividades.Buscador">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,14 +22,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_tabs_main" />
+    <include layout="@layout/content_buscador" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_main_elcaldo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_search_white_48dp" />
+
 
 </android.support.design.widget.CoordinatorLayout>

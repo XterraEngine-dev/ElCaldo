@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.gt.dev.lazaro.elcaldo.vista.actividades.Buscador"
+    tools:showIn="@layout/activity_buscador"
+
+    >
+
+
+    <GridView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/listBuscar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:numColumns="2"
+        android:verticalSpacing="2dp"
+        android:horizontalSpacing="2dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:verticalScrollbarPosition="right"
+        android:scrollbars="vertical"/>
+
+
+
+</LinearLayout>
