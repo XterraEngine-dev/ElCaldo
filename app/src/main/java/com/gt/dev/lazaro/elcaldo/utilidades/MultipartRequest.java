@@ -9,7 +9,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import java.util.Map;
-
 public class MultipartRequest extends Request<NetworkResponse> {
 
     private final Response.Listener<NetworkResponse> mListener;

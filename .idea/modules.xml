@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ElCaldo.iml" filepath="$PROJECT_DIR$/ElCaldo.iml" />
       <module fileurl="file://$PROJECT_DIR$/ElCaldo24.iml" filepath="$PROJECT_DIR$/ElCaldo24.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ElCaldoMaster.iml" filepath="$PROJECT_DIR$/ElCaldoMaster.iml" />
       <module fileurl="file://$PROJECT_DIR$/ElCaldoPermor.iml" filepath="$PROJECT_DIR$/ElCaldoPermor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

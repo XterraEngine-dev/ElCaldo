@@ -21,10 +21,12 @@ import java.util.HashMap;
 public class ImageUploader {
 
     private String url;
+
+    private String fileName="tempImage";
+
     private Bitmap bitmap;
+
     private String fileObjName = "uploaded_file";
-
-
 
     public void setFileObjName(String fileObjName) {
         this.fileObjName = fileObjName;
@@ -32,22 +34,18 @@ public class ImageUploader {
 
     private HashMap<String,String> headers = new HashMap<>();
 
-    public ImageUploader(String url, Bitmap bitmap){
+    public ImageUploader(String url,Bitmap bitmap){
         this.url = url;
         this.bitmap = bitmap;
-
     }
 
-
-
-    public ImageUploader(String url, Bitmap bitmap, HashMap<String,String> headers){
+    public ImageUploader(String url,Bitmap bitmap,HashMap<String,String> headers){
         this.url = url;
         this.bitmap = bitmap;
         this.headers = headers;
     }
 
     public void uploadImage(final OnImageUploadComplete onImageUploadComplete){
-
 
         final String twoHyphens = "--";
         final String lineEnd = "\r\n";
@@ -67,7 +65,6 @@ public class ImageUploader {
             dos.writeBytes("Content-Disposition: form-data; name=\""+fileObjName+"\"; filename=\"" + nombreFoto + "\"" + lineEnd);
             dos.writeBytes(lineEnd);
 
-
             ByteArrayInputStream fileInputStream = new ByteArrayInputStream(fileData);
             int bytesAvailable = fileInputStream.available();
 
@@ -75,6 +72,7 @@ public class ImageUploader {
             int bufferSize = Math.min(bytesAvailable, maxBufferSize);
             byte[] buffer = new byte[bufferSize];
 
+            // read file and write it into form...
             int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
             while (bytesRead > 0) {
@@ -114,5 +112,4 @@ public class ImageUploader {
         }
 
     }
-
 }
