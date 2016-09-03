@@ -26,7 +26,8 @@ import java.util.Queue;
 /**
  * Created by Lazarus on 20/08/2016.
  */
-public class UploadingHelper implements OnImageUploadComplete {
+public class UploadingHelper implements OnImageUploadComplete{
+
     Activity activity;
 
     public static final String TAG = UploadingHelper.class.getSimpleName();
@@ -36,7 +37,6 @@ public class UploadingHelper implements OnImageUploadComplete {
     private String url = "";
 
     private String fileObjName = "uploaded_file";
-
 
     private MyImageLayout myImageLayout;
 
@@ -71,11 +71,9 @@ public class UploadingHelper implements OnImageUploadComplete {
 
 
     public void startActivityForImagePick(){
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.putExtra("",true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
@@ -138,8 +136,6 @@ public class UploadingHelper implements OnImageUploadComplete {
 
     private Bitmap getBitmapFromUri(Uri uri) throws IOException {
 
-
-
         ParcelFileDescriptor parcelFileDescriptor = activity.getContentResolver().openFileDescriptor(uri, "r");
         try {
             FileDescriptor fileDescriptor;
@@ -199,4 +195,5 @@ public class UploadingHelper implements OnImageUploadComplete {
         return myImageLayout;
 
     }
+
 }

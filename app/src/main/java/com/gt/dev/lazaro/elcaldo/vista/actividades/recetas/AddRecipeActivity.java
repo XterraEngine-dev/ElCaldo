@@ -26,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.uploaders.UploadingHelper;
+import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,13 +39,14 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     private Button btnUploadPicture, btnTakePicture, btnAddrecipe;
     private ImageView mImageView;
     private ImageButton avatar1, avatar2, avatar3;
-    private EditText etNickname, etRecipename, etIngredients, etPreparation;
+    private EditText etNickname, etRecipename, etIngredients, etPreparation, etRegion;
     private String usuario, nombre, region;
     private ProgressDialog pDialog;
     private TextView valor;
 
     private String TAG = AddRecipeActivity.class.getSimpleName();
     private String KEY_IAMGE = "imagen";
+    private String Key_UNAME = "unombre";
     private String KEY_NAME = "nombre";
     private String KEY_INGREDIENTES = "ingredientes";
     private String KEY_PREPARACION = "preparacion";
@@ -59,15 +61,16 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
 
     UploadingHelper uploadingHelper;
 
-    private int PICK_UP_IMAGE = 1;
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    static final int REQUEST_IMAGE_CAPTURE = 2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+        VolleySingleton.getInstance().init(getApplicationContext());
         //InputStream is = getResources().openRawResource(R.raw.splashcaldo);
         //bmp = BitmapFactory.decodeStream(is);
         startVars();
@@ -97,10 +100,15 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         avatar3 = (ImageButton) findViewById(R.id.avatar3_addrecipe);
 
         //EditText´s
+
         etNickname = (EditText) findViewById(R.id.et_nickname_addrecipe);
         etRecipename = (EditText) findViewById(R.id.et_recipename_addrecipe);
         etIngredients = (EditText) findViewById(R.id.et_ingredients_addrecip);
         etPreparation = (EditText) findViewById(R.id.et_preparation_addrecipe);
+        etRegion = (EditText)findViewById(R.id.et_ingresa_region);
+
+        linearLayout = (RelativeLayout) findViewById(R.id.rl_mainImage);
+
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
@@ -115,22 +123,6 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         avatar3.setOnClickListener(this);
     }
 
-    private void enviarImagen() {
-        /**
-         * Obtiene el string de EditText
-         */
-        EditText traerImagen = (EditText) findViewById(R.id.et_recipename_addrecipe);
-
-        nombreImagenUrl = traerImagen.getText().toString();
-
-        /**
-         * Dispara a API Subir.php donde revise el post de la immagen
-         */
-        String url = "http://elcaldo.justiciayagt.com/Subir.php";
-        uploadingHelper = new UploadingHelper(this, url);
-        uploadingHelper.startActivityForImagePick();
-        uploadingHelper.getClass();
-    }
 
     private void enviarForulario() {
         StringRequest uploadRequest = new StringRequest(Request.Method.POST, UPLOAD_URL, new Response.Listener<String>() {
@@ -149,15 +141,17 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
+                String uname = etNickname.getText().toString().trim();
                 String name = etRecipename.getText().toString().trim();
                 String ingredientes = etIngredients.getText().toString().trim();
                 String preparacion = etPreparation.getText().toString().trim();
-                String region = etNickname.getText().toString().trim();
+                String region = etRegion.getText().toString().trim();
                 String like = etRecipename.getText().toString().trim();
                 String avatar = valor.getText().toString().trim();
                 String url = "http://elcaldo.justiciayagt.com/uploads/" + name;
 
                 Map<String, String> params = new HashMap<>();
+                params.put(Key_UNAME,uname);
                 params.put(KEY_NAME, name);
                 params.put(KEY_INGREDIENTES, ingredientes);
                 params.put(KEY_PREPARACION, preparacion);
@@ -185,62 +179,9 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        /*if (requestCode == PICK_UP_IMAGE && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
-            try {
-                //Getting the Bitmap from the Gallery
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //Setting the bitmap to the imageview
-                ivPictureRecipe.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (requestCode == CAMARA_DATA && resultCode == RESULT_OK) {
-            Bundle cesta = data.getExtras();
-            bmp = (Bitmap) cesta.get("data");
-            ivPictureRecipe.setImageBitmap(bmp);
-        }*/
-
-
-
-
-        /**
-         * SWICH PARA USO DE CAMARA O GALERIA
-         */
-
-        switch (requestCode){
-
-            case 1:
-
-                /**
-                 * Activity for result CAMARA  -devCifuentes
-                 */
-                    Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    mImageView.setImageBitmap(imageBitmap);
-
-
-                break;
-
-
-            case 2:
-
-
-                /**
-                 * Activity for result GALERIA -devCifuentes
-                 */
-
-                uploadingHelper.setResult(requestCode, resultCode, data);
-                linearLayout.removeAllViews();
-                linearLayout.addView(uploadingHelper.getLayout());
-                break;
-
-        }
-
+        uploadingHelper.setResult(resultCode,requestCode,data);
+        linearLayout.removeAllViews();
+        linearLayout.addView(uploadingHelper.getLayout());
 
 
     }
@@ -257,8 +198,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
 
             case R.id.btn_uploadpicture_addrecipe:
-                //fileChooser();
-                enviarImagen();
+               enviarImagen();
                 break;
             case R.id.btn_takerecipe_addrecipe:
                 tomarFoto();
@@ -288,5 +228,23 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
                 avatar2.setBackgroundResource(R.drawable.alboroto);
                 break;
         }
+    }
+
+    private void enviarImagen() {
+        /**
+         * Obtiene el string de EditText
+         */
+        EditText traerImagen = (EditText) findViewById(R.id.et_recipename_addrecipe);
+
+        nombreImagenUrl = traerImagen.getText().toString();
+
+        /**
+         * Dispara a API Subir.php donde revise el post de la immagen
+         */
+
+
+        String url = "http://elcaldo.justiciayagt.com/Subir.php";
+        uploadingHelper = new UploadingHelper(this,url);
+        uploadingHelper.startActivityForImagePick();
     }
 }
