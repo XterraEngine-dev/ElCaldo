@@ -1,13 +1,16 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -26,6 +29,7 @@ import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.uploaders.ImageUploader;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,13 +39,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CaldosActivity extends AppCompatActivity {
+public class CaldosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private Toolbar toolbar;
     private RequestQueue requestQueue;
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvCaldos;
     private ProgressDialog pDialog;
+    String idPlate;
 
 
     @Override
@@ -66,6 +71,7 @@ public class CaldosActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
         pDialog.setCancelable(false);
+        lvCaldos.setOnItemClickListener(this);
     }
 
     private void showProgressDialog() {
@@ -102,8 +108,6 @@ public class CaldosActivity extends AppCompatActivity {
         CustomRequest caldosRequest = new CustomRequest(CustomRequest.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
 
-
-
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -113,9 +117,11 @@ public class CaldosActivity extends AppCompatActivity {
 
                         String name = caldos.getString("nombre");
                         String region = caldos.getString("region");
-                        String id = caldos.getString("id");
+                        String ingredientes = caldos.getString("ingredientes");
+                        String preparacion = caldos.getString("preparacion");
+                        idPlate = caldos.getString("id");
                         String picture = caldos.getString("imagen");
-                        categoria.add(new Categoria(name, region, id, picture));
+                        categoria.add(new Categoria(name, region, ingredientes, preparacion, idPlate, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();
                     }
@@ -163,5 +169,18 @@ public class CaldosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Categoria cat = (Categoria) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("nombre", cat.getTitulo());
+        bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        //bundle.putInt("picture", picture);
+        startActivity(new Intent(CaldosActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
     }
 }

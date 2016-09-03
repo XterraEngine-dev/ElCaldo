@@ -7,11 +7,15 @@ public class CategoriaCardView {
 
     private String nombre;
     private String lugar;
+    private String ingredientes;
+    private String preparacion;
     private String imagen;
 
-    public CategoriaCardView(String nombre, String lugar, String imagen) {
+    public CategoriaCardView(String nombre, String lugar, String ingredientes, String preparacion, String imagen) {
         this.nombre = nombre;
         this.lugar = lugar;
+        this.ingredientes = ingredientes;
+        this.preparacion = preparacion;
         this.imagen = imagen;
     }
 
@@ -31,11 +35,27 @@ public class CategoriaCardView {
         this.lugar = lugar;
     }
 
+    public String getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public String getPreparacion() {
+        return preparacion;
+    }
+
+    public void setPreparacion(String preparacion) {
+        this.preparacion = preparacion;
+    }
+
     public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(String  imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 }

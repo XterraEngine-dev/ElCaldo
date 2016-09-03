@@ -1,6 +1,7 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +25,7 @@ import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostresActivity extends AppCompatActivity {
+public class PostresActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -59,6 +63,7 @@ public class PostresActivity extends AppCompatActivity {
         getSupportActionBar().setSubtitle("Select a recipe");
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        lvPostres.setOnItemClickListener(this);
     }
 
     private void setupAdapter(ArrayList<Categoria> categoria) {
@@ -91,9 +96,11 @@ public class PostresActivity extends AppCompatActivity {
 
                         String name = postres.getString("nombre");
                         String region = postres.getString("region");
+                        String ingredientes = postres.getString("ingredientes");
+                        String preparacion = postres.getString("preparacion");
                         String id = postres.getString("id");
                         String picture = postres.getString("imagen");
-                        categoria.add(new Categoria(name, region, id, picture));
+                        categoria.add(new Categoria(name, region, ingredientes, preparacion, id, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();
                     }
@@ -151,5 +158,18 @@ public class PostresActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Categoria cat = (Categoria) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("nombre", cat.getTitulo());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+
+        startActivity(new Intent(PostresActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
     }
 }

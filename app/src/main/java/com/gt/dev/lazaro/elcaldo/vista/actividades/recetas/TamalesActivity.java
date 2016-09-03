@@ -1,6 +1,7 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TamalesActivity extends AppCompatActivity {
+public class TamalesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -52,6 +56,7 @@ public class TamalesActivity extends AppCompatActivity {
     private void startVars() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_tamales_activity);
         lvTamales = (GridView) findViewById(R.id.lv_tamales);
+        lvTamales.setOnItemClickListener(this);
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
         pDialog.setCancelable(false);
@@ -94,9 +99,11 @@ public class TamalesActivity extends AppCompatActivity {
 
                         String name = tamales.getString("nombre");
                         String region = tamales.getString("region");
+                        String ingredientes = tamales.getString("ingredientes");
+                        String preparacion = tamales.getString("preparacion");
                         String id = tamales.getString("id");
                         String picture = tamales.getString("imagen");
-                        categoria.add(new Categoria(name, region, id, picture));
+                        categoria.add(new Categoria(name, region, ingredientes, preparacion, id, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();
                     }
@@ -155,5 +162,18 @@ public class TamalesActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Categoria cat = (Categoria) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("nombre", cat.getTitulo());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+
+        startActivity(new Intent(TamalesActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
     }
 }

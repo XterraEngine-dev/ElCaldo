@@ -1,6 +1,7 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,7 +38,7 @@ import java.util.Map;
 /**
  * Created by Fernnado Lazaro
  */
-public class OtrasComidasActivity extends AppCompatActivity {
+public class OtrasComidasActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView lista;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -69,6 +72,7 @@ public class OtrasComidasActivity extends AppCompatActivity {
 
         //Casteamos la lista
         lista = (ListView) findViewById(R.id.lv4);
+        lista.setOnItemClickListener(this);
 
         //Iniciamos e instanciamos el progress dialog
         pDialog = new ProgressDialog(this);
@@ -134,8 +138,10 @@ public class OtrasComidasActivity extends AppCompatActivity {
                         String name = otras.getString("nombre");
                         String region = otras.getString("region");
                         String id = otras.getString("id");
+                        String ingredientes = otras.getString("ingredientes");
+                        String preparacion = otras.getString("preparacion");
                         String picture = otras.getString("imagen");
-                        categoria.add(new Categoria(name, region, id, picture));
+                        categoria.add(new Categoria(name, region, ingredientes, preparacion, id, picture));
                         setupAdapter(categoria);
                         hideProgressDialog();
                     }
@@ -214,5 +220,17 @@ public class OtrasComidasActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Categoria cat = (Categoria) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("nombre", cat.getTitulo());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+
+        startActivity(new Intent(OtrasComidasActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
     }
 }

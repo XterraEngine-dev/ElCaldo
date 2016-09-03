@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,26 +17,41 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaDetalleComida;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
+import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.modelo.DBManager;
 import com.gt.dev.lazaro.elcaldo.modelo.Plato;
 import com.gt.dev.lazaro.elcaldo.modelo.SaveSharedPreferences;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetalleComidaScrollingActivity extends AppCompatActivity {
 
-    public static final String NOMBRE_PLATO = "platocomida";
+    public static final String NOMBRE_PLATO = "plato";
     public static final String IMAGEN = "img";
     private ArrayList<CategoriaDetalleComida> categoria;
-    private String nombrePlato;
+    private String idPlato, urlPlato, ingredientes, preparacion, nombre;
     private int imagenPlato;
-    private TextView tvNuevo, tvNuevo2;
+    private TextView tvIngredientes, tvPreparacion;
     private boolean works;
     private CollapsingToolbarLayout toolbarLayout;
     private Button shareTweet;
@@ -48,7 +65,6 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
         startVars();
         getSource();
         startFacebookApi();
-        cargarPlato();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_detalle_scrolling);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,25 +80,31 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        tvNuevo = (TextView) findViewById(R.id.tvNuevo);
-        tvNuevo2 = (TextView) findViewById(R.id.tvNuevo2);
+        tvIngredientes = (TextView) findViewById(R.id.tvNuevo);
+        tvPreparacion = (TextView) findViewById(R.id.tvNuevo2);
 
     }
 
     private void getSource() {
         Bundle bundle = getIntent().getExtras();
-        nombrePlato = bundle.getString(NOMBRE_PLATO);
-        //imagenPlato = bundle.getInt(NOMBRE_PLATO);
-        imagenPlato = bundle.getInt("llave");
-        toolbarLayout.setBackgroundResource(imagenPlato);
-        toolbarLayout.setTitle(nombrePlato);
+
+        nombre = bundle.getString("nombre");
+        ingredientes = bundle.getString("ingredientes");
+        preparacion = bundle.getString("preparacion");
+
+        toolbarLayout.setTitle(nombre);
+        tvIngredientes.setText(ingredientes);
+        tvPreparacion.setText(preparacion);
+
+        //imagenPlato = bundle.getInt("picture");
+
     }
 
     private void startFacebookApi() {
 
         //Facebook api
 
-        ShareLinkContent content = new ShareLinkContent.Builder().setContentTitle(nombrePlato).setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.gt.dev.lazaro.elcaldo")).build();
+        ShareLinkContent content = new ShareLinkContent.Builder().setContentTitle(nombre).setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.gt.dev.lazaro.elcaldo")).build();
         ShareButton shareButton = (ShareButton) findViewById(R.id.fb_share_button);
         shareButton.setShareContent(content);
         shareButton.setOnClickListener(new View.OnClickListener() {
@@ -93,28 +115,12 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
         });
     }
 
-    private void cargarPlato() {
-        DBManager manager = new DBManager(this);
-
-        Plato plato = manager.selectPlato(nombrePlato);
-
-        if (plato != null) {
-            //CategoriaDetalleComida detallePlato = new CategoriaDetalleComida(plato.getNombre(), plato.getIngredientes(), plato.getPreparacion(), imagenPlato);
-            //ArrayList data = new ArrayList<CategoriaDetalleComida>();
-            //data.add(detallePlato);
-            //adaptador(data);
-            tvNuevo.setText(plato.getIngredientes());
-            tvNuevo2.setText(plato.getPreparacion());
-        } else
-            Toast.makeText(DetalleComidaScrollingActivity.this, R.string.conexion_fallida, Toast.LENGTH_SHORT).show();
-    }
-
     private void compartirPlato() {
 
         Intent intentCompartir = new Intent(Intent.ACTION_SEND);
         intentCompartir.setType("text/plain");
         intentCompartir.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.detalle_compartir_title));
-        intentCompartir.putExtra(Intent.EXTRA_TEXT, getString(R.string.detalle_nombre_plato_title) + nombrePlato + "\n" +
+        intentCompartir.putExtra(Intent.EXTRA_TEXT, getString(R.string.detalle_nombre_plato_title) + nombre.trim() + "\n" +
                 getString(R.string.detalle_departamento_title) + "Ciudad de Guatemala" + "\n" +
                 getString(R.string.via) + " https://play.google.com/store/apps/details?id=com.gt.dev.lazaro.elcaldo");
 
@@ -135,7 +141,7 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.abFav:
-                SaveSharedPreferences.setPlatoName(this, nombrePlato);
+                SaveSharedPreferences.setPlatoName(this, toolbarLayout.getTitle().toString().trim());
                 //SharedPreferences to save the data of all the favorites recipes from the user.
                 String dale = SaveSharedPreferences.getPlatoName(this);
 

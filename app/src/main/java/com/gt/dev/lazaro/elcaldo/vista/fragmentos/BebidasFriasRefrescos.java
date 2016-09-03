@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ import java.util.Map;
 /**
  * Created by root on 20/03/16.
  */
-public class BebidasFriasRefrescos extends Fragment {
+public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnItemClickListener {
 
     private GridView lista;
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
@@ -54,6 +55,7 @@ public class BebidasFriasRefrescos extends Fragment {
         View v = inflater.inflate(R.layout.tab_bebidas_frias, container, false);
 
         lista = (GridView) v.findViewById(R.id.lv_bebidas_frias);
+        lista.setOnItemClickListener(this);
 
         return v;
     }
@@ -77,9 +79,10 @@ public class BebidasFriasRefrescos extends Fragment {
 
                         String name = frias.getString("nombre");
                         String region = frias.getString("region");
-                        String id = frias.getString("id");
+                        String ingredientes = frias.getString("ingredientes");
+                        String preparacion = frias.getString("preparacion");
                         String imagen = frias.getString("imagen");
-                        categoria.add(new CategoriaCardView(name, region, imagen));
+                        categoria.add(new CategoriaCardView(name, ingredientes, preparacion, region, imagen));
                         setupAdapter(categoria);
                     }
                 } catch (JSONException e) {
@@ -104,4 +107,14 @@ public class BebidasFriasRefrescos extends Fragment {
         AppController.getInstance().addToRequestQueue(friasRequest);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CategoriaCardView cat = (CategoriaCardView) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("nombre", cat.getNombre());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+    }
 }

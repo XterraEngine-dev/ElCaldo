@@ -40,7 +40,7 @@ import java.util.Map;
 /**
  * Created by root on 20/03/16.
  */
-public class BebidasCalientes extends Fragment {
+public class BebidasCalientes extends Fragment implements AdapterView.OnItemClickListener {
 
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private GridView lvCalientes;
@@ -57,6 +57,7 @@ public class BebidasCalientes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_bebidas_calientes, container, false);
         lvCalientes = (GridView) v.findViewById(R.id.lv_bebidas_calientes);
+        lvCalientes.setOnItemClickListener(this);
 
         return v;
     }
@@ -80,10 +81,11 @@ public class BebidasCalientes extends Fragment {
 
                         String name = calientes.getString("nombre");
                         String region = calientes.getString("region");
-                        String imagen = calientes.getString ("imagen");
-                        String id = calientes.getString("id");
+                        String ingredientes = calientes.getString("ingredientes");
+                        String preparacion = calientes.getString("preparacion");
+                        String imagen = calientes.getString("imagen");
 
-                        categoria.add(new CategoriaCardView(name, region, imagen));
+                        categoria.add(new CategoriaCardView(name, region, ingredientes, preparacion, imagen));
                         setupAdapter(categoria);
                     }
                 } catch (JSONException e) {
@@ -107,4 +109,16 @@ public class BebidasCalientes extends Fragment {
         AppController.getInstance().addToRequestQueue(calientesRequest);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CategoriaCardView cat = (CategoriaCardView) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("nombre", cat.getNombre());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+
+        startActivity(new Intent(getActivity(), DetalleComidaScrollingActivity.class).putExtras(bundle));
+    }
 }
