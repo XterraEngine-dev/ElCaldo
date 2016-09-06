@@ -12,14 +12,18 @@ import android.view.MenuItem;
 import android.widget.GridView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorBuscar;
 import com.gt.dev.lazaro.elcaldo.adaptadores.ArrayBuscador;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
@@ -35,9 +39,9 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     /**
      * Variables de buscador
+     *
      * @param savedInstanceState
      */
-    private RequestQueue requestQueue;
     private ArrayList<ArrayBuscador> buscador = new ArrayList<>();
     private GridView lvBuscar;
     public static String consultaApi;
@@ -59,12 +63,12 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     private void setupVars() {
         lvBuscar = (GridView) findViewById(R.id.listBuscar);
-        searchView =(SearchView)findViewById(R.id.action_search);
-        requestQueue = Volley.newRequestQueue(this);
+        searchView = (SearchView) findViewById(R.id.action_search);
     }
 
     /**
      * Menu de busqueda
+     *
      * @param menu
      * @return
      */
@@ -82,6 +86,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     /**
      * Adaptador
+     *
      * @param buscador
      */
     private void setupAdapter(ArrayList<ArrayBuscador> buscador) {
@@ -103,7 +108,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
                     JSONObject jsonObject = response.getJSONObject("nombre");
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
 
-                    for (int i = 0; i <  jsonArray.length(); i++) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject nombre = jsonArray.getJSONObject(i);
                         String name = nombre.getString("nombre");
                         String region = nombre.getString("region");
@@ -130,24 +135,29 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
                 return headers;
             }
         };
-        requestQueue.add(caldosRequest);
+        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        caldosRequest.setRetryPolicy(policy);
+        AppController.getInstance().addToRequestQueue(caldosRequest);
     }
 
     /**
      * Cuando el texto es ingresado ejecuta la busqueda
+     *
      * @param query
      * @return
      */
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        Log.i("search","ingreso texto");
+        Log.i("search", "ingreso texto");
 
         // Ver que URL esta consultando
-        Log.i("url",""+consultaApi);
+        Log.i("url", "" + consultaApi);
 
         // Crea el URL para la consulta
-        consultaApi = Parametros.URL_SHOW_BUSCAR +"/"+ query;
+        consultaApi = Parametros.URL_SHOW_BUSCAR + "/" + query;
 
         // Crea la consulta por metodo get a API restful
         getBuscador();
@@ -156,14 +166,15 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     /**
      * C
+     *
      * @param newText
      * @return
      */
     @Override
     public boolean onQueryTextChange(String newText) {
-        Log.i("search","ingreso cambio texto");
+        Log.i("search", "ingreso cambio texto");
 
-       //Cuando el texto cambia el Array se limpia para nueva consulta
+        //Cuando el texto cambia el Array se limpia para nueva consulta
         buscador.clear();
         return false;
     }
