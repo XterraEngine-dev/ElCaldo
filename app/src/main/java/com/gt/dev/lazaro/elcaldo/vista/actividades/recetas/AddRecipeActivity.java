@@ -40,7 +40,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     private ImageView mImageView;
     private ImageButton avatar1, avatar2, avatar3;
     private EditText etNickname, etRecipename, etIngredients, etPreparation, etRegion;
-    private String usuario, nombre, region;
+    private String usuario, nombre, region, avatarValue;
     private ProgressDialog pDialog;
     private TextView valor;
 
@@ -60,7 +60,6 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     RelativeLayout linearLayout;
 
     UploadingHelper uploadingHelper;
-
 
 
     static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -105,7 +104,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         etRecipename = (EditText) findViewById(R.id.et_recipename_addrecipe);
         etIngredients = (EditText) findViewById(R.id.et_ingredients_addrecip);
         etPreparation = (EditText) findViewById(R.id.et_preparation_addrecipe);
-        etRegion = (EditText)findViewById(R.id.et_ingresa_region);
+        etRegion = (EditText) findViewById(R.id.et_ingresa_region);
 
         linearLayout = (RelativeLayout) findViewById(R.id.rl_mainImage);
 
@@ -151,7 +150,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
                 String url = "http://elcaldo.justiciayagt.com/uploads/" + name;
 
                 Map<String, String> params = new HashMap<>();
-                params.put(Key_UNAME,uname);
+                params.put(Key_UNAME, uname);
                 params.put(KEY_NAME, name);
                 params.put(KEY_INGREDIENTES, ingredientes);
                 params.put(KEY_PREPARACION, preparacion);
@@ -179,7 +178,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        uploadingHelper.setResult(resultCode,requestCode,data);
+        uploadingHelper.setResult(resultCode, requestCode, data);
         linearLayout.removeAllViews();
         linearLayout.addView(uploadingHelper.getLayout());
 
@@ -198,7 +197,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
 
             case R.id.btn_uploadpicture_addrecipe:
-               enviarImagen();
+                enviarImagen();
                 break;
             case R.id.btn_takerecipe_addrecipe:
                 tomarFoto();
@@ -209,23 +208,17 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             case R.id.avatar1_addrecipe:
                 valor.setText("1");
                 Log.d(TAG, "AVATAR = " + valor.getText().toString());
-                avatar1.setBackgroundResource(R.drawable.algodones);
-                avatar2.setBackgroundResource(R.drawable.alboroto);
-                avatar3.setBackgroundResource(R.drawable.alboroto);
+                avatar1.setBackgroundResource(R.drawable.checkicon);
                 break;
             case R.id.avatar2_addrecipe:
                 valor.setText("2");
                 Log.d(TAG, "AVARTAR = " + valor.getText().toString());
-                avatar2.setBackgroundResource(R.drawable.algodones);
-                avatar1.setBackgroundResource(R.drawable.alboroto);
-                avatar3.setBackgroundResource(R.drawable.alboroto);
+                avatar2.setBackgroundResource(R.drawable.checkicon);
                 break;
             case R.id.avatar3_addrecipe:
                 valor.setText("3");
                 Log.d(TAG, "VALOR = " + valor.getText().toString());
-                avatar3.setBackgroundResource(R.drawable.algodones);
-                avatar1.setBackgroundResource(R.drawable.alboroto);
-                avatar2.setBackgroundResource(R.drawable.alboroto);
+                avatar3.setBackgroundResource(R.drawable.checkicon);
                 break;
         }
     }
@@ -244,7 +237,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
 
 
         String url = "http://elcaldo.justiciayagt.com/Subir.php";
-        uploadingHelper = new UploadingHelper(this,url);
+        uploadingHelper = new UploadingHelper(this, url);
         uploadingHelper.startActivityForImagePick();
     }
 }
