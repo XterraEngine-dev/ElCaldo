@@ -6,10 +6,12 @@ package com.gt.dev.lazaro.elcaldo.adaptadores;
 public class MainClass {
 
     private int picture;
+    private String title;
 
-    public MainClass(int picture) {
+    public MainClass(int picture, String title) {
         super();
         this.picture = picture;
+        this.title = title;
     }
 
     public int getPicture() {
@@ -19,4 +21,13 @@ public class MainClass {
     public void setPicture(int picture) {
         this.picture = picture;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }

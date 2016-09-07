@@ -139,7 +139,8 @@
     <string name="via_app_elcafe">- Vía aplicación ElCaldo</string>
     <string name="share_pic_coffe">Compartir imagen del café</string>
     <string name="learn_about_coffee">Aprendamos de café</string>
-    <string name="dev_about">Fundador y desarrollador</string>
+    <string name="dev_about">CEO y desarrollador</string>
+    <string name="dev_about_cifu">CTO y desarrollador</string>
     <string name="agrada_text">Cuando fusiónamos la tecnología con la cultura, nace un bebé llamado innovación</string>
 
     //DetalleScrollingActivity

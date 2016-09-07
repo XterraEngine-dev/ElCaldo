@@ -122,15 +122,15 @@ public class MainActivity extends AppCompatActivity
         lista = (ListView) findViewById(R.id.lv_main);
 
         //Cardview de Caldos
-        categoria.add(new MainClass(R.drawable.caldos_broths_main_card));
+        categoria.add(new MainClass(R.drawable.caldos_broths_main_card, getString(R.string.caldos_title)));
         //Cardview de tamales
-        categoria.add(new MainClass(R.drawable.tamales_cardview_main));
+        categoria.add(new MainClass(R.drawable.tamales_cardview_main, getString(R.string.tamales_title)));
         //Cardview de postres
-        categoria.add(new MainClass(R.drawable.desserts_cardview_main));
+        categoria.add(new MainClass(R.drawable.desserts_cardview_main, getString(R.string.postres_title)));
         //Cardview de bebidas tipicas
-        categoria.add(new MainClass(R.drawable.bebidas_main_cardview_elcaldo));
+        categoria.add(new MainClass(R.drawable.bebidas_main_cardview_elcaldo, getString(R.string.bebidas)));
         //Cadview de cocina del usuario
-        categoria.add(new MainClass(R.drawable.kitchenuser_cardview_main));
+        categoria.add(new MainClass(R.drawable.kitchenuser_cardview_main, getString(R.string.cocina_usuario)));
 
         MainAdapter adapter = new MainAdapter(categoria, this);
         lista.setAdapter(adapter);
