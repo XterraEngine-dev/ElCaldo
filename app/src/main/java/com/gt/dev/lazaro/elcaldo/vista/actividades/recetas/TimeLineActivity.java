@@ -15,8 +15,10 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -40,7 +42,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     private FloatingActionButton fab;
     private ProgressDialog pDialog;
     private String TAG = TimeLineActivity.class.getSimpleName();
-    private String nombre, region, usuario,imagen,like,avatar;
+    private String nombre, region, usuario, imagen, like, avatar;
     private GridView lvTimeline;
     private ArrayList<TimeLine> categoria = new ArrayList<>();
 
@@ -100,10 +102,10 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                         region = timeline.getString("region");
                         imagen = timeline.getString("imagen");
                         usuario = timeline.getString("unombre");
-                        like   = timeline.getString("like");
+                        like = timeline.getString("like");
                         avatar = timeline.getString("avatar");
 
-                        categoria.add(new TimeLine(usuario, nombre, region, like ,imagen, R.drawable.atoldeelote));
+                        categoria.add(new TimeLine(usuario, nombre, region, like, imagen, R.drawable.atoldeelote));
                         setupAdater(categoria);
                         hideporgressDialog();
                     }
@@ -127,6 +129,8 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                 return headers;
             }
         };
+        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        timelineRequest.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(timelineRequest, tag_json_obj);
     }
 

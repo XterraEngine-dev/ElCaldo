@@ -15,8 +15,10 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
@@ -144,6 +146,8 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
                 return headers;
             }
         };
+        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        caldosRequest.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(caldosRequest);
     }
 

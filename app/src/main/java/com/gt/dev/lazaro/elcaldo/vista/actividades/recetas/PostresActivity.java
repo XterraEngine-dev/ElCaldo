@@ -15,8 +15,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
@@ -123,6 +125,8 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
                 return headers;
             }
         };
+        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        postresRequest.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(postresRequest);
     }
 

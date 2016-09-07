@@ -16,9 +16,11 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
@@ -127,6 +129,8 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
                 return headers;
             }
         };
+        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        tamalesRequest.setRetryPolicy(policy);
         AppController.getInstance().addToRequestQueue(tamalesRequest);
     }
 
