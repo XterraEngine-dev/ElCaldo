@@ -57,14 +57,13 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
         toolbar = (Toolbar) findViewById(R.id.toolbar_postres_activity);
         setSupportActionBar(toolbar);
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Cargando...");
+        pDialog.setMessage(getString(R.string.message_dialog));
         pDialog.setCancelable(false);
         lvPostres = (GridView) findViewById(R.id.lv_postres);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.postres_title);
-        getSupportActionBar().setSubtitle("Select a recipe");
+        getSupportActionBar().setSubtitle(getString(R.string.select_recipe));
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         lvPostres.setOnItemClickListener(this);
     }
 
@@ -142,14 +141,14 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
 
     private void showAlertDialog(String title, String message, boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(PostresActivity.this).create();
-        alertDialog.setTitle("No tiene conexión a internet");
-        alertDialog.setMessage("Conectar a internet");
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
         alertDialog.show();
     }
 
     private void verifyConnection() {
         if (!ConexionVerify.isNetworkAvailable(this)) {
-            showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
+            showAlertDialog(getString(R.string.title_not_connection), getString(R.string.message_not_connection), true);
             onStop();
         }
     }

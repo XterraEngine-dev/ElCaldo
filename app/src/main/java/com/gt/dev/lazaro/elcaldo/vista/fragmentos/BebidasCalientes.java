@@ -47,21 +47,41 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private GridView lvCalientes;
     public static final String KEY_PICTURE = "picture";
+    private ProgressDialog pDialog;
+
+    public BebidasCalientes() {
+        //Debe estar vacio el constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showCalientesList();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_bebidas_calientes, container, false);
+
         lvCalientes = (GridView) v.findViewById(R.id.lv_bebidas_calientes);
         lvCalientes.setOnItemClickListener(this);
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage(getString(R.string.message_dialog));
+        pDialog.setCancelable(false);
+
+        showCalientesList();
 
         return v;
+    }
+
+    private void showProgressDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
     }
 
 
@@ -70,6 +90,8 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
     }
 
     private void showCalientesList() {
+
+        showProgressDialog();
 
         String url = Parametros.URL_SHOW_BEBIDAS_CALIENTES;
 
@@ -89,6 +111,8 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
 
                         categoria.add(new CategoriaCardView(name, region, ingredientes, preparacion, imagen));
                         setupAdapter(categoria);
+
+                        hideProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -97,6 +121,7 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideProgressDialog();
                 Log.e("BEBIDAS", "Errro = " + error.toString());
             }
         }) {

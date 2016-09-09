@@ -5,13 +5,16 @@ package com.gt.dev.lazaro.elcaldo.adaptadores;
  */
 public class TimeLine {
 
-    private String username, recipename, region, like,picture;
+    private String username, recipename, region, ingredientes, preparacion, id, like, picture;
     private int avatar;
 
-    public TimeLine(String username, String recipename, String region, String likes, String picture, int avatar) {
+    public TimeLine(String username, String recipename, String region, String ingredientes, String preparacion, String id, String likes, String picture, int avatar) {
         this.username = username;
         this.recipename = recipename;
         this.region = region;
+        this.ingredientes = ingredientes;
+        this.preparacion = preparacion;
+        this.id = id;
         this.like = likes;
         this.avatar = avatar;
         this.picture = picture;
@@ -40,6 +43,31 @@ public class TimeLine {
     public void setRegion(String region) {
         this.region = region;
     }
+
+    public String getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public String getPreparacion() {
+        return preparacion;
+    }
+
+    public void setPreparacion(String preparacion) {
+        this.preparacion = preparacion;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getLikes() {
         return like;

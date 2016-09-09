@@ -44,11 +44,15 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
 
     private GridView lista;
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
+    private ProgressDialog pDialog;
+
+    public BebidasFriasRefrescos() {
+        //Debe estar vacio el constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showFriasList();
     }
 
     @Nullable
@@ -59,15 +63,32 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
         lista = (GridView) v.findViewById(R.id.lv_bebidas_frias);
         lista.setOnItemClickListener(this);
 
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage(getString(R.string.message_dialog));
+        pDialog.setCancelable(false);
+
+        showFriasList();
+
         return v;
     }
 
+    private void showProgressDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
+    }
 
     private void setupAdapter(ArrayList<CategoriaCardView> categoria) {
         this.lista.setAdapter(new AdaptadorCardView(categoria, getActivity()));
     }
 
     private void showFriasList() {
+
+        showProgressDialog();
 
         String url = Parametros.URL_SHOW_BEBIDAS_FRIAS;
 
@@ -86,6 +107,8 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
                         String imagen = frias.getString("imagen");
                         categoria.add(new CategoriaCardView(name, ingredientes, preparacion, region, imagen));
                         setupAdapter(categoria);
+
+                        hideProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -94,6 +117,7 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideProgressDialog();
                 Log.e("FRIAS", "ERROR = " + error.toString());
                 Toast.makeText(getActivity(), "Something its wrong", Toast.LENGTH_SHORT);
             }

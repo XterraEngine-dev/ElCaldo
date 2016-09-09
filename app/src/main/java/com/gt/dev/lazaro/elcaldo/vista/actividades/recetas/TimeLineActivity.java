@@ -11,8 +11,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -37,12 +37,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TimeLineActivity extends AppCompatActivity implements View.OnClickListener {
+public class TimeLineActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private FloatingActionButton fab;
     private ProgressDialog pDialog;
     private String TAG = TimeLineActivity.class.getSimpleName();
-    private String nombre, region, usuario, imagen, like, avatar;
+    private String nombre, region, ingredientes, preparacion, usuario, imagen, like, avatar, id;
     private GridView lvTimeline;
     private ArrayList<TimeLine> categoria = new ArrayList<>();
 
@@ -77,8 +77,9 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         fab = (FloatingActionButton) findViewById(R.id.fab_timeline);
         fab.setOnClickListener(this);
         lvTimeline = (GridView) findViewById(R.id.lv_timeline);
+        lvTimeline.setOnItemClickListener(this);
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Cargando...");
+        pDialog.setMessage(getString(R.string.message_dialog));
         pDialog.setCancelable(false);
         getnewRecipes();
     }
@@ -100,12 +101,15 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
 
                         nombre = timeline.getString("nombre");
                         region = timeline.getString("region");
+                        ingredientes = timeline.getString("ingredientes");
+                        preparacion = timeline.getString("preparacion");
                         imagen = timeline.getString("imagen");
                         usuario = timeline.getString("unombre");
                         like = timeline.getString("like");
+                        id = timeline.getString("id");
                         avatar = timeline.getString("avatar");
 
-                        categoria.add(new TimeLine(usuario, nombre, region, like, imagen, R.drawable.atoldeelote));
+                        categoria.add(new TimeLine(usuario, nombre, region, ingredientes, preparacion, id, like, imagen, R.drawable.atoldeelote));
                         setupAdater(categoria);
                         hideporgressDialog();
                     }
@@ -145,14 +149,14 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
 
     private void showAlertDialog(String title, String message, boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(TimeLineActivity.this).create();
-        alertDialog.setTitle("No tiene conexión a internet");
-        alertDialog.setMessage("Conectar a internet");
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
         alertDialog.show();
     }
 
     private void verifyConnection() {
         if (!ConexionVerify.isNetworkAvailable(this)) {
-            showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
+            showAlertDialog(getString(R.string.title_not_connection), getString(R.string.message_not_connection), true);
             onStop();
         }
     }
@@ -175,5 +179,31 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        //Inicializamos cat para obtener las variables y sus varoles segun el seleccionado.
+        TimeLine cat = (TimeLine) parent.getItemAtPosition(position);
+
+        //Instanceamos nuestra canasta para
+        //almacenar cada uno de nuestros parametros.
+        Bundle bundle = new Bundle();
+
+        //Seteamos a nuestra canasta cada uno de sus parametros con
+        //sus respectivos key y value.
+        bundle.putString("recipename", cat.getRecipename());
+        bundle.putString("region", cat.getRegion());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("username", cat.getUsername());
+        bundle.putString("like", cat.getLikes());
+        bundle.putString("id", cat.getId());
+        bundle.putString("imagen", cat.getPicture());
+        bundle.putInt("avatar", cat.getAvatar());
+
+        //Realizamos el intento al detalle mandando todos nuestros parametros en la canasta.
+        startActivity(new Intent(TimeLineActivity.this, DetalleTimeLineActivity.class).putExtras(bundle));
     }
 }

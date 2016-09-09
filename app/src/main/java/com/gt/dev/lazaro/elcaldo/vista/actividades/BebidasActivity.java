@@ -2,7 +2,11 @@ package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.multidex.MultiDex;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,16 +20,17 @@ import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.ViewPagerAdapter2;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.SlidingTabLayout;
+import com.gt.dev.lazaro.elcaldo.vista.fragmentos.BebidasCalientes;
+import com.gt.dev.lazaro.elcaldo.vista.fragmentos.BebidasFriasRefrescos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BebidasActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private ViewPager pager;
-    private ViewPagerAdapter2 adapter;
-    private SlidingTabLayout tabs;
-    CharSequence Titles[] = {"Bebidas calientes", "Bebidas frías"};
-    //CharSequence Titles[] = {getString(R.string.bebidas_calientes), getString(R.string.bebidas_frias)};
-    int Numboftabs = 2;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
 
@@ -39,8 +44,7 @@ public class BebidasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bebidas);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        toolbar = (Toolbar) findViewById(R.id.tb_bebidas_activity);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_bebidas);
         setSupportActionBar(toolbar);
         verifyConnection();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,24 +53,12 @@ public class BebidasActivity extends AppCompatActivity {
     }
 
     private void setUpTabs() {
-        adapter = new ViewPagerAdapter2(getSupportFragmentManager(), Titles, Numboftabs);
 
-        pager = (ViewPager) findViewById(R.id.pager_bebidas);
-        pager.setAdapter(adapter);
+        viewPager = (ViewPager) findViewById(R.id.vp_bebidas);
+        setViewPager(viewPager);
 
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs_bebidas);
-
-        tabs.setDistributeEvenly(true);
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
-                //return getColor(getResource);
-            }
-        });
-
-        //seteando viewpager para las slidestabs
-        tabs.setViewPager(pager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs_bebidas);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -92,15 +84,52 @@ public class BebidasActivity extends AppCompatActivity {
 
     private void showAlertDialog(String title, String message, boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(BebidasActivity.this).create();
-        alertDialog.setTitle("No tiene conexion a internet");
-        alertDialog.setMessage("Conectar a internet");
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
         alertDialog.show();
     }
 
     private void verifyConnection() {
         if (!ConexionVerify.isNetworkAvailable(this)) {
-            showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
+            showAlertDialog(getString(R.string.title_not_connection), getString(R.string.message_not_connection), true);
             onStop();
+        }
+    }
+
+    private void setViewPager(ViewPager viewPager) {
+        ViewPagerAdapterDrinks adapter = new ViewPagerAdapterDrinks(getSupportFragmentManager());
+        adapter.addFragment(new BebidasCalientes(), getString(R.string.bebidas_calientes));
+        adapter.addFragment(new BebidasFriasRefrescos(), getString(R.string.bebidas_frias));
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapterDrinks extends FragmentPagerAdapter {
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentListTitle = new ArrayList<>();
+
+        public ViewPagerAdapterDrinks(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentListTitle.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentListTitle.get(position);
         }
     }
 

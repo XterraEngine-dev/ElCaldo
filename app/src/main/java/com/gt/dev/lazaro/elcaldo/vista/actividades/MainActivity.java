@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.tabs_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -191,11 +191,24 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+
+            case R.id.preferencias:
+                startActivity(new Intent(MainActivity.this, Preferencias.class));
+                break;
+
+            case R.id.creditos:
+                startActivity(new Intent(MainActivity.this, CreditosActivity.class));
+                break;
+
+            case R.id.btnCamara:
+                startActivity(new Intent(MainActivity.this, CamaraActivity.class));
+                break;
+
+            case R.id.salir:
+                finish();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

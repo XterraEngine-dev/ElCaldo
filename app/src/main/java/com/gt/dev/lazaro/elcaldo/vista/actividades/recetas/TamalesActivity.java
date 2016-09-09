@@ -60,14 +60,13 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
         lvTamales = (GridView) findViewById(R.id.lv_tamales);
         lvTamales.setOnItemClickListener(this);
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Cargando...");
+        pDialog.setMessage(getString(R.string.message_dialog));
         pDialog.setCancelable(false);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.tamales_title);
-        getSupportActionBar().setSubtitle("Select a recipe");
+        getSupportActionBar().setSubtitle(getString(R.string.select_recipe));
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     private void showProgressDialog() {
@@ -146,14 +145,14 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
 
     private void showAlertDialog(String title, String message, boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(TamalesActivity.this).create();
-        alertDialog.setTitle("No tiene conexión a internet");
-        alertDialog.setMessage("Conectar a internet");
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
         alertDialog.show();
     }
 
     private void verifyConnection() {
         if (!ConexionVerify.isNetworkAvailable(this)) {
-            showAlertDialog("No tiene conexión a internet", "Conectar a internet", true);
+            showAlertDialog(getString(R.string.title_not_connection), getString(R.string.message_not_connection), true);
             onStop();
         }
     }

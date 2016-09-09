@@ -153,4 +153,17 @@
     <string name="postres_title">Desserts</string>
 
     <string name="recetas_semana_drawer">Recipes of the week</string>
+
+
+    //DEtalleTimeLineActivity
+    <string name="receta_tab_title">Recipe</string>
+    <string name="comentario_tab_title">Comments</string>
+
+
+    //Dialogs
+    <string name="title_not_connection">You do not have internet access</string>
+    <string name="message_not_connection">You must be connected to a network with internet</string>
+    <string name="message_dialog">Loading recipes...</string>
+
+    <string name="select_recipe">Select a recipe</string>
 </resources>
