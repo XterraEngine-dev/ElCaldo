@@ -66,7 +66,7 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_detalle_timeline:
-                startActivity(new Intent(DetalleTimeLineActivity.this, AddComentTimeline.class));
+                startActivity(new Intent(DetalleTimeLineActivity.this, AddCommentActivity.class));
                 break;
         }
     }

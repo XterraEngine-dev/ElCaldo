@@ -18,7 +18,8 @@ public class RecetaTimeLine extends Fragment {
 
     private TextView tvRecipename, tvRegion, tvIngredientes, tvPreparacion;
     private NetworkImageView niPicture;
-    private String recipename, region, ingredientes, preparacion, picture;
+    private String recipename, region, ingredientes, preparacion, picture, id;
+    private static String idComentariosReceta = null;
 
     public RecetaTimeLine() {
         //Requiere que el constructor este vacio.
@@ -47,6 +48,7 @@ public class RecetaTimeLine extends Fragment {
     private void getSource() {
         Bundle bundle = getActivity().getIntent().getExtras();
 
+        id = bundle.getString("id");
         recipename = bundle.getString("recipename");
         region = bundle.getString("region");
         ingredientes = bundle.getString("ingredientes");
@@ -57,6 +59,14 @@ public class RecetaTimeLine extends Fragment {
         tvRegion.setText(region);
         tvIngredientes.setText(ingredientes);
         tvPreparacion.setText(preparacion);
+        idComentariosReceta=id;
+
     }
+
+    public static String getIdComentariosReceta() {
+        return idComentariosReceta;
+    }
+
+
 
 }

@@ -25,6 +25,8 @@ import com.gt.dev.lazaro.elcaldo.adaptadores.ComentAdapter;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.AddRecipeActivity;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.DetalleTimeLineActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +41,7 @@ import java.util.Map;
  */
 public class ComentarioTimeLine extends Fragment {
 
-    private TextView tvUsername, tvLikes;
+    private TextView tvUsername, tvLikes, tvId, tvIdComentario;
     private ImageView ivAvatar;
     private ListView lvComents;
     private String id, username, likes;
@@ -58,15 +60,16 @@ public class ComentarioTimeLine extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.comentario_detalle_timeline, container, false);
+
         lvComents = (ListView) v.findViewById(R.id.lv_detailtime);
-        tvUsername = (TextView) v.findViewById(R.id.tv_username_detailtime);
-        tvLikes = (TextView) v.findViewById(R.id.tv_likes_detailtime);
-        ivAvatar = (ImageView) v.findViewById(R.id.iv_avatar_detailtime);
-        getSource();
+        tvUsername = (TextView) v.findViewById(R.id.tv_name_comentdetail);
+        tvId =(TextView)v.findViewById(R.id.tv_id);
+        tvIdComentario =(TextView)v.findViewById(R.id.tv_idComentario);
+        //getSource();
         showComents();
         return v;
     }
-
+/*
     private void getSource() {
         Bundle bundle = getActivity().getIntent().getExtras();
 
@@ -74,23 +77,25 @@ public class ComentarioTimeLine extends Fragment {
         username = bundle.getString("username");
         likes = bundle.getString("like");
 
-        tvUsername.setText(username);
-        tvLikes.setText(likes);
-    }
+    }*/
 
     private void setupAdapter(ArrayList<Coment> categoria) {
         this.lvComents.setAdapter(new ComentAdapter(categoria, getActivity()));
     }
 
     private void showComents() {
-        String url = Parametros.URL_SHOW_COMENT + "/" + "75";
+
+        String idComentarioVar = RecetaTimeLine.getIdComentariosReceta();
+
+        String url = Parametros.URL_SHOW_COMENT + "/" + idComentarioVar;
 
         CustomRequest comentRequest = new CustomRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("RESPONSE", response.toString());
                 try {
-                    JSONArray jsonArray = response.getJSONArray("data");
+                    JSONObject jsonObject =response.getJSONObject("id_comentario");
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject coment = jsonArray.getJSONObject(i);
@@ -100,7 +105,7 @@ public class ComentarioTimeLine extends Fragment {
                         String comentario = coment.getString("comentario");
                         String idTimeline = coment.getString("id_timeline");
 
-                        categoria.add(new Coment(usuario, comentario));
+                        categoria.add(new Coment(id,usuario, comentario,idTimeline));
                         setupAdapter(categoria);
                     }
                 } catch (JSONException e) {

@@ -129,7 +129,10 @@
             android:label="@string/title_activity_buscador"
             android:theme="@style/AppTheme" />
         <activity android:name=".vista.actividades.recetas.DetalleTimeLineActivity" />
-        <activity android:name=".vista.actividades.recetas.AddComentTimeline"></activity>
+        <activity
+            android:name=".vista.actividades.recetas.AddComentTimeline"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".vista.actividades.recetas.AddCommentActivity"></activity>
     </application>
 
 </manifest>
