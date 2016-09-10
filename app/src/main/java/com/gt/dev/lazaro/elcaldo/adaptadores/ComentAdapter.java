@@ -19,7 +19,7 @@ public class ComentAdapter extends BaseAdapter {
     private ArrayList<Coment> categoria;
     LayoutInflater inflater;
     Context contexto;
-    private TextView tvUsername, tvComent, tvId, tvIdComentario;
+    private TextView tvUsername, tvComent;
 
     public ComentAdapter(ArrayList<Coment> cat, Context con) {
         this.categoria = cat;
@@ -49,13 +49,9 @@ public class ComentAdapter extends BaseAdapter {
         Coment cat = categoria.get(position);
         tvUsername = (TextView) convertView.findViewById(R.id.tv_name_comentdetail);
         tvComent = (TextView) convertView.findViewById(R.id.tv_coment_comentdetail);
-        tvId =(TextView)convertView.findViewById(R.id.tv_id);
-        tvIdComentario=(TextView)convertView.findViewById(R.id.tv_idComentario);
 
-        tvId.setText(cat.getId());
         tvUsername.setText(cat.getUsername());
         tvComent.setText(cat.getComent());
-        tvIdComentario.setText(cat.getIdTimeline());
 
         return convertView;
     }

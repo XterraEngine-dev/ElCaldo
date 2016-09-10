@@ -10,7 +10,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
@@ -45,6 +43,7 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvTamales;
     private ProgressDialog pDialog;
+    private Request.Priority priority;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,9 +126,15 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
         RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         tamalesRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(tamalesRequest);
     }
 

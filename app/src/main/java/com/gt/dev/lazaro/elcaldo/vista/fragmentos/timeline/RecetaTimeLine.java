@@ -19,7 +19,7 @@ public class RecetaTimeLine extends Fragment {
     private TextView tvRecipename, tvRegion, tvIngredientes, tvPreparacion;
     private NetworkImageView niPicture;
     private String recipename, region, ingredientes, preparacion, picture, id;
-    private static String idComentariosReceta = null;
+    private static String idComentariosReceta;
 
     public RecetaTimeLine() {
         //Requiere que el constructor este vacio.

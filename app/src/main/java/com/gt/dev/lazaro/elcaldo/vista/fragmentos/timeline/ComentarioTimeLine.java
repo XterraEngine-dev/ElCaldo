@@ -46,6 +46,7 @@ public class ComentarioTimeLine extends Fragment {
     private ListView lvComents;
     private String id, username, likes;
     private ArrayList<Coment> categoria = new ArrayList<>();
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
     public ComentarioTimeLine() {
         //Constructor debe estar vacio
@@ -63,21 +64,10 @@ public class ComentarioTimeLine extends Fragment {
 
         lvComents = (ListView) v.findViewById(R.id.lv_detailtime);
         tvUsername = (TextView) v.findViewById(R.id.tv_name_comentdetail);
-        tvId =(TextView)v.findViewById(R.id.tv_id);
-        tvIdComentario =(TextView)v.findViewById(R.id.tv_idComentario);
         //getSource();
         showComents();
         return v;
     }
-/*
-    private void getSource() {
-        Bundle bundle = getActivity().getIntent().getExtras();
-
-        id = bundle.getString("id");
-        username = bundle.getString("username");
-        likes = bundle.getString("like");
-
-    }*/
 
     private void setupAdapter(ArrayList<Coment> categoria) {
         this.lvComents.setAdapter(new ComentAdapter(categoria, getActivity()));
@@ -94,7 +84,7 @@ public class ComentarioTimeLine extends Fragment {
             public void onResponse(JSONObject response) {
                 Log.d("RESPONSE", response.toString());
                 try {
-                    JSONObject jsonObject =response.getJSONObject("id_comentario");
+                    JSONObject jsonObject = response.getJSONObject("id_comentario");
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
 
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -105,7 +95,7 @@ public class ComentarioTimeLine extends Fragment {
                         String comentario = coment.getString("comentario");
                         String idTimeline = coment.getString("id_timeline");
 
-                        categoria.add(new Coment(id,usuario, comentario,idTimeline));
+                        categoria.add(new Coment(usuario, comentario, id, idTimeline));
                         setupAdapter(categoria);
                     }
                 } catch (JSONException e) {
@@ -125,9 +115,15 @@ public class ComentarioTimeLine extends Fragment {
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
         RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         comentRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(comentRequest);
     }
 

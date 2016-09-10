@@ -28,6 +28,7 @@ public class AppController extends Application {
 
     private RequestQueue mRequesstQueue;
     private ImageLoader mImageLoader;
+    private Request.Priority priority;
 
     private static AppController mInstance;
 
@@ -66,11 +67,16 @@ public class AppController extends Application {
         getRequestQueue().add(req);
     }
 
+    public void setPriority(Request.Priority priority) {
+        this.priority = priority;
+    }
+
     public void cancelPendingRequests(Object tag) {
         if (mRequesstQueue != null) {
             mRequesstQueue.cancelAll(tag);
         }
     }
+
     public static Context getAppContext() {
         return mInstance.getApplicationContext();
     }

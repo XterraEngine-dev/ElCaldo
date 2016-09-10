@@ -43,6 +43,7 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvPostres;
     private ProgressDialog pDialog;
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +124,15 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
         RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         postresRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(postresRequest);
     }
 

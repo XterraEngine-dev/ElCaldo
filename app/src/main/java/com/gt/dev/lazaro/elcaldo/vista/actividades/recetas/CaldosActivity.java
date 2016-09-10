@@ -9,26 +9,23 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
-import com.gt.dev.lazaro.elcaldo.uploaders.ImageUploader;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
@@ -49,6 +46,7 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
     private GridView lvCaldos;
     private ProgressDialog pDialog;
     String idPlate;
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
 
     @Override
@@ -108,7 +106,6 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
 
         CustomRequest caldosRequest = new CustomRequest(CustomRequest.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -144,9 +141,15 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
-        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         caldosRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(caldosRequest);
     }
 

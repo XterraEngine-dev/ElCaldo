@@ -45,6 +45,7 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
     private GridView lista;
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private ProgressDialog pDialog;
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
     public BebidasFriasRefrescos() {
         //Debe estar vacio el constructor
@@ -129,9 +130,15 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
         RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         friasRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(friasRequest);
     }
 

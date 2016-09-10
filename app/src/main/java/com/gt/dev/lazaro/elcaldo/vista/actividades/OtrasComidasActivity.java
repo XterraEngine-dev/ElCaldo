@@ -47,6 +47,7 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
     private Toolbar toolbar;
     private FloatingActionButton boton;
     private ProgressDialog pDialog;
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
     /**
      * @param savedInstanceState Metodo nativo inicilazador de cada metodo y variable
@@ -171,9 +172,15 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
         RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jreq.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(jreq);
     }
 

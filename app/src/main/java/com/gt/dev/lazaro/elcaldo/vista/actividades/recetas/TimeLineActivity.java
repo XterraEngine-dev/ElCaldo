@@ -45,6 +45,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     private String nombre, region, ingredientes, preparacion, usuario, imagen, like, avatar, id;
     private GridView lvTimeline;
     private ArrayList<TimeLine> categoria = new ArrayList<>();
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
     private String tag_json_obj = "jsonbj_req", tag_json_array = "jarray_req";
 
@@ -132,9 +133,15 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
         RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         timelineRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(timelineRequest, tag_json_obj);
     }
 

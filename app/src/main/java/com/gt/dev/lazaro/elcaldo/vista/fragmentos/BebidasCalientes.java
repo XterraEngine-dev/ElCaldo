@@ -12,22 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCardView;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
-import com.gt.dev.lazaro.elcaldo.modelo.DBManager;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
@@ -48,6 +44,7 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
     private GridView lvCalientes;
     public static final String KEY_PICTURE = "picture";
     private ProgressDialog pDialog;
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
     public BebidasCalientes() {
         //Debe estar vacio el constructor
@@ -132,9 +129,15 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
         RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         calientesRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(calientesRequest);
     }
 
