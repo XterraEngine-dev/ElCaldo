@@ -73,8 +73,7 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    //Cuando finaliza los 2 segundos iniciamos con WizardActivity
-                    startActivity(new Intent(SplashActivity.this, WizardActivity.class));
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 }
             }
         };

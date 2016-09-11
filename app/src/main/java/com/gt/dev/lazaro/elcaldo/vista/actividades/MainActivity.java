@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.multidex.MultiDex;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -31,6 +33,8 @@ import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.PostresActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TamalesActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TimeLineActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TopRecipesActivity;
+import com.stephentuso.welcome.WelcomeScreenHelper;
+import com.stephentuso.welcome.ui.WelcomeActivity;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     public static Tracker tracker;
     private ListView lista;
     private ArrayList<MainClass> categoria = new ArrayList<>();
+    WelcomeScreenHelper welcomeScreen;
 
     /**
      * Compatibilidad con versiones inferiores al api 21
@@ -63,10 +68,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs_main);
+
         //Inicializamos Analytics
         startAnalytics();
         //Inicializamos las variables y metodos
         startVars();
+
+        welcomeScreen = new WelcomeScreenHelper(this, CaldoWelcomeActivity.class);
+        welcomeScreen.show(savedInstanceState);
+
         //Verficamos la conexiòn a internet llamando a nuestro metodo
         verifyConnection();
     }
@@ -226,7 +236,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, Preferencias.class));
 
         } else if (id == R.id.nav_comousar) {
-            startActivity(new Intent(MainActivity.this, ComoUsarActivity.class));
+            Toast.makeText(MainActivity.this, "Como usar activity", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_website) {
             String urlWeb = "http://elcaldo.net84.net";
@@ -287,6 +297,26 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, TimeLineActivity.class));
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == WelcomeScreenHelper.DEFAULT_WELCOME_SCREEN_REQUEST) {
+            String welcomeKey = data.getStringExtra(WelcomeActivity.WELCOME_SCREEN_KEY);
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(MainActivity.this, "completed", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        welcomeScreen.onSaveInstanceState(outState);
     }
 
     /**

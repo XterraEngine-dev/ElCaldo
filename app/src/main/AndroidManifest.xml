@@ -18,7 +18,7 @@
     <application
         android:name=".controlador.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/elcaldoicono"
+        android:icon="@drawable/iconoapp"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <meta-data
@@ -67,16 +67,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".vista.actividades.WizardActivity"
-            android:label="Wizard"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".vista.actividades.ComoUsarActivity"
-            android:label="Como usar"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
             android:name=".vista.actividades.CamaraActivity"
             android:label="@string/camara_activity"
             android:screenOrientation="portrait"
@@ -96,10 +86,6 @@
             android:label="Preferencias"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity
-            android:name=".vista.actividades.DetalleComidaScrollingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".vista.actividades.BebidasActivity"
             android:label="@string/bebidas_activity"
@@ -142,7 +128,13 @@
             android:name=".vista.actividades.recetas.AddCommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat.Dialog.FixedSize" />
-        <activity android:name=".vista.actividades.DetailRecipeActivity"></activity>
+        <activity
+            android:name=".vista.actividades.DetailRecipeActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".vista.actividades.CaldoWelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeScreenBaseTheme"></activity>
     </application>
 
 </manifest>

@@ -11,40 +11,38 @@
         android:transitionName="" />
 
     <LinearLayout
-        android:background="@color/background_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/background_footer"
         android:orientation="vertical">
 
         <TextView
-            android:text="Titulo"
             android:id="@+id/titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:textStyle="bold|italic"
-            android:maxLines="1"
-            android:paddingTop="16dp"
-            android:textSize="36sp"
+            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text="Titulo"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold|italic" />
 
         <TextView
-            android:text="subtitulo"
             android:id="@+id/subtitulo"
-            android:layout_width="386dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="28sp"
-            android:maxLines="1"
-            android:paddingLeft="16dp"
             android:paddingBottom="10dp"
-            android:textStyle="bold|italic"
+            android:paddingLeft="16dp"
+            android:text="subtitulo"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textSize="28sp"
+            android:textStyle="bold|italic" />
 
     </LinearLayout>
 </FrameLayout>

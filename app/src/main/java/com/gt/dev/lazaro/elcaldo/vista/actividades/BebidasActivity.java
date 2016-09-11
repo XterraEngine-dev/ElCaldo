@@ -12,14 +12,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
-import com.gt.dev.lazaro.elcaldo.adaptadores.ViewPagerAdapter2;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
-import com.gt.dev.lazaro.elcaldo.utilidades.SlidingTabLayout;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.BebidasCalientes;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.BebidasFriasRefrescos;
 
