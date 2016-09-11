@@ -41,10 +41,7 @@ import java.util.Map;
  */
 public class ComentarioTimeLine extends Fragment {
 
-    private TextView tvUsername, tvLikes, tvId, tvIdComentario;
-    private ImageView ivAvatar;
     private ListView lvComents;
-    private String id, username, likes;
     private ArrayList<Coment> categoria = new ArrayList<>();
     private Request.Priority priority = Request.Priority.IMMEDIATE;
 
@@ -63,7 +60,6 @@ public class ComentarioTimeLine extends Fragment {
         View v = inflater.inflate(R.layout.comentario_detalle_timeline, container, false);
 
         lvComents = (ListView) v.findViewById(R.id.lv_detailtime);
-        tvUsername = (TextView) v.findViewById(R.id.tv_name_comentdetail);
         //getSource();
         showComents();
         return v;

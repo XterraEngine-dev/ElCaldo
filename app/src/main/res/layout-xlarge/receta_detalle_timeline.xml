@@ -11,51 +11,51 @@
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/ni_detalle_timeline"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
+            android:layout_height="500dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/tv_recipename_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Recipename"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/tv_region_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Region"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/tv_ingredientes_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Ingredientes"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/tv_preparacion_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Preparacion"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="25dp" />
+                android:layout_height="50dp" />
         </LinearLayout>
     </LinearLayout>
 

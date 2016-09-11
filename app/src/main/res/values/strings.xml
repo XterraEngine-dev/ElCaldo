@@ -169,5 +169,16 @@
     <string name="message_dialog">Cargando recetas...</string>
 
     <string name="select_recipe">Selecciona una receta</string>
+
+    //AddComentActivity
+    <string name="comment_done">Gracias por comentar!</string>
+    <string name="comment_error">Intentalo de nuevo</string>
+    <string name="valida_campos">Debes llenar los campos requeridos</string>
+    <string name="comment_button">Comentar</string>
+    <string name="ingresa_nickcname">Ingresa tu nickname</string>
+    <string name="ingresa_comment">Ingresa tu comentario</string>
+    <string name="example_nickname">Ej. Fulanito</string>
+    <string name="exmaple_comment">Ej. Esta receta esta buenisima!</string>
+    <string name="comment_sending">Registrando tu comentario...</string>
 </resources>
 

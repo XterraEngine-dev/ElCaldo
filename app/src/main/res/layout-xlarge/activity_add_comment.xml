@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ingresa_nickcname"
-            android:textSize="20sp" />
+            android:textSize="40sp" />
 
         <EditText
             android:id="@+id/et_nickname_addcoment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/example_nickname"
-            android:textSize="20sp" />
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/tv_comentario_addcoment"
@@ -32,19 +32,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/ingresa_comment"
-            android:textSize="20sp" />
+            android:textSize="40sp" />
 
         <EditText
             android:id="@+id/et_comentario_addcoment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/exmaple_comment"
-            android:textSize="20sp" />
+            android:textSize="36sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -53,28 +53,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
                 android:text="@string/comment_button"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
 
             <View
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
 
             <Button
                 android:id="@+id/btn_cancel_addcoment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
                 android:text="@string/cancelar"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="40sp" />
         </LinearLayout>
     </LinearLayout>
 
