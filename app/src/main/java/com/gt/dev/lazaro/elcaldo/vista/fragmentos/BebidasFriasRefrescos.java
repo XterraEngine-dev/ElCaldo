@@ -1,6 +1,7 @@
 package com.gt.dev.lazaro.elcaldo.vista.fragmentos;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetailRecipeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -151,5 +153,8 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
         bundle.putString("nombre", cat.getNombre());
         bundle.putString("ingredientes", cat.getIngredientes());
         bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("region", cat.getLugar());
+
+        startActivity(new Intent(getActivity(), DetailRecipeActivity.class));
     }
 }

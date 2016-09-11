@@ -241,7 +241,8 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
         bundle.putString("nombre", cat.getTitulo());
         bundle.putString("ingredientes", cat.getIngredientes());
         bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("region", cat.getSubtitulo());
 
-        startActivity(new Intent(OtrasComidasActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
+        startActivity(new Intent(OtrasComidasActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
 }

@@ -25,7 +25,7 @@ import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
-import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetailRecipeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -150,7 +150,8 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
         bundle.putString("nombre", cat.getNombre());
         bundle.putString("ingredientes", cat.getIngredientes());
         bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("region", cat.getLugar());
 
-        startActivity(new Intent(getActivity(), DetalleComidaScrollingActivity.class).putExtras(bundle));
+        startActivity(new Intent(getActivity(), DetailRecipeActivity.class).putExtras(bundle));
     }
 }

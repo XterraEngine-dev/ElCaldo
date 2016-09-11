@@ -27,6 +27,7 @@ import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetailRecipeActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
 import org.json.JSONArray;
@@ -181,7 +182,8 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
         bundle.putString("nombre", cat.getTitulo());
         bundle.putString("ingredientes", cat.getIngredientes());
         bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("region", cat.getSubtitulo());
 
-        startActivity(new Intent(TamalesActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
+        startActivity(new Intent(TamalesActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
 }

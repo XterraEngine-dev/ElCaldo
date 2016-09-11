@@ -10,7 +10,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -27,7 +26,7 @@ import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
-import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetailRecipeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -179,7 +178,8 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
         bundle.putString("nombre", cat.getTitulo());
         bundle.putString("ingredientes", cat.getIngredientes());
         bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("region", cat.getSubtitulo());
 
-        startActivity(new Intent(PostresActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
+        startActivity(new Intent(PostresActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
 }

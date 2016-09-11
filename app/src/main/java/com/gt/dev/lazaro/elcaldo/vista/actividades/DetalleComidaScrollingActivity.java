@@ -8,8 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,32 +15,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.NetworkImageView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaDetalleComida;
-import com.gt.dev.lazaro.elcaldo.controlador.AppController;
-import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
-import com.gt.dev.lazaro.elcaldo.modelo.DBManager;
-import com.gt.dev.lazaro.elcaldo.modelo.Plato;
 import com.gt.dev.lazaro.elcaldo.modelo.SaveSharedPreferences;
-import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DetalleComidaScrollingActivity extends AppCompatActivity {
 
@@ -50,7 +31,7 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
     public static final String IMAGEN = "img";
     private ArrayList<CategoriaDetalleComida> categoria;
     private String idPlato, urlPlato, ingredientes, preparacion, nombre;
-    private int imagenPlato;
+    private int picture;
     private TextView tvIngredientes, tvPreparacion;
     private boolean works;
     private CollapsingToolbarLayout toolbarLayout;
@@ -91,13 +72,12 @@ public class DetalleComidaScrollingActivity extends AppCompatActivity {
         nombre = bundle.getString("nombre");
         ingredientes = bundle.getString("ingredientes");
         preparacion = bundle.getString("preparacion");
+        picture = bundle.getInt("imagen");
 
+        toolbarLayout.setBackgroundResource(picture);
         toolbarLayout.setTitle(nombre);
         tvIngredientes.setText(ingredientes);
         tvPreparacion.setText(preparacion);
-
-        //imagenPlato = bundle.getInt("picture");
-
     }
 
     private void startFacebookApi() {

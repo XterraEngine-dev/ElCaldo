@@ -96,7 +96,6 @@
             android:label="Preferencias"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog" />
-
         <activity
             android:name=".vista.actividades.DetalleComidaScrollingActivity"
             android:screenOrientation="portrait"
@@ -139,11 +138,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".vista.actividades.recetas.DetalleTimeLineActivity" />
-
         <activity
             android:name=".vista.actividades.recetas.AddCommentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.AppCompat.Dialog.FixedSize"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Dialog.FixedSize" />
+        <activity android:name=".vista.actividades.DetailRecipeActivity"></activity>
     </application>
 
 </manifest>

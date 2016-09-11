@@ -28,6 +28,7 @@ import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.DetailRecipeActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.DetalleComidaScrollingActivity;
 
 import org.json.JSONArray;
@@ -45,7 +46,8 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvCaldos;
     private ProgressDialog pDialog;
-    String idPlate;
+    private int imagen;
+    String idPlate, picture;
     private Request.Priority priority = Request.Priority.IMMEDIATE;
 
 
@@ -186,7 +188,10 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
         bundle.putString("nombre", cat.getTitulo());
         bundle.putString("preparacion", cat.getPreparacion());
         bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("imagen", cat.getImagen());
+        bundle.putString("region", cat.getSubtitulo());
+
         //bundle.putInt("picture", picture);
-        startActivity(new Intent(CaldosActivity.this, DetalleComidaScrollingActivity.class).putExtras(bundle));
+        startActivity(new Intent(CaldosActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
 }
