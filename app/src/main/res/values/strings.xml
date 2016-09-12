@@ -180,5 +180,16 @@
     <string name="example_nickname">Ej. Fulanito</string>
     <string name="exmaple_comment">Ej. Esta receta esta buenisima!</string>
     <string name="comment_sending">Registrando tu comentario...</string>
+
+
+    //ElCaldoWelcomeActivity
+    <string name="title_addrecipes_wizard">¡AGREGA TUS RECETAS!</string>
+    <string name="text_addrecipes_wizard">Ahora podras agregar tus propias recetas y compartirla con tus amigos.</string>
+    <string name="title_interaction_recipes_wizard">¡INTERACTUA CON OTRAS RECETAS!</string>
+    <string name="text_interaction_recipes_wizard">Comenta, puntea y comparte las recetas de otros usuarios</string>
+    <string name="title_recipes_week_wizard">¡RECETAS DE LA SEMANA!</string>
+    <string name="text_recipes_week">Cada semana te mosrareos las recetas más populares que han subido los usuarios.</string>
+
+
 </resources>
 

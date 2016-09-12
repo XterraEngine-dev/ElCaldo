@@ -176,4 +176,13 @@
     <string name="example_nickname">Ex. Fulanito</string>
     <string name="exmaple_comment">Ex. This recipe is so delicious</string>
     <string name="comment_sending">Registering your comment...</string>
+
+    //CaldoWelcomeActivity
+
+    <string name="title_addrecipes_wizard">ADD YOUR RECIPES!</string>
+    <string name="text_addrecipes_wizard">Now you can add your own recipes and share it with your friends.</string>
+    <string name="title_interaction_recipes_wizard">¡INTERACT WITH OTHER RECIPES!</string>
+    <string name="text_interaction_recipes_wizard">Comment, dots and share recipes from other users.</string>
+    <string name="title_recipes_week_wizard">¡RECIPES OF THE WEEK!</string>
+    <string name="text_recipes_week">Every week we will show you the most popular recipes that have risen users.</string>
 </resources>

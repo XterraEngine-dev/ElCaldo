@@ -13,10 +13,10 @@ public class CaldoWelcomeActivity extends WelcomeActivity {
     protected WelcomeScreenConfiguration configuration() {
         return new WelcomeScreenBuilder(this)
                 .theme(R.style.CustomWelcomeScreenTheme)
-                .titlePage(R.drawable.pn2, getString(R.string.email), R.color.orange_background)
-                .basicPage(R.drawable.navdrawer, "Agrega tus recetas!", "Ahora podras agregar tus propias recetas y compartirla con tus amigos!", R.color.red_background)
-                .parallaxPage(R.layout.parallax_example, "Interactua con los demas", "Comenta, puntea y comparte las recetas de otros usuarios", R.color.purple_background, 0.2f, 2f)
-                .basicPage(R.drawable.socialnetwork, "Recetas de la semana", "Cada semana te mostraremos las recetas más populares que han subido los usuarios", R.color.blue_background)
+                .titlePage(R.drawable.caldoicon_white, getString(R.string.email), R.color.orange_background)
+                .basicPage(R.drawable.tamales_cardview_main, getString(R.string.title_addrecipes_wizard), getString(R.string.text_addrecipes_wizard), R.color.red_background)
+                .parallaxPage(R.layout.parallax_example, getString(R.string.title_interaction_recipes_wizard), getString(R.string.text_interaction_recipes_wizard), R.color.purple_background, 0.2f, 2f)
+                .basicPage(R.drawable.plato, getString(R.string.recetas_semana_drawer), getString(R.string.text_recipes_week), R.color.blue_background)
                 .swipeToDismiss(true)
                 .exitAnimation(android.R.anim.fade_out)
                 .build();
