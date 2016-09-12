@@ -108,7 +108,7 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
                         String ingredientes = frias.getString("ingredientes");
                         String preparacion = frias.getString("preparacion");
                         String imagen = frias.getString("imagen");
-                        categoria.add(new CategoriaCardView(name, ingredientes, preparacion, region, imagen));
+                        categoria.add(new CategoriaCardView(name, region, preparacion, ingredientes, imagen));
                         setupAdapter(categoria);
 
                         hideProgressDialog();
@@ -128,7 +128,7 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                String credentials = Base64.encodeToString(("cifuentes_estrada@hotmail.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                String credentials = Base64.encodeToString(("dev@elcaldogt.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }

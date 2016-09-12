@@ -165,7 +165,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                String credentials = Base64.encodeToString(("cifuentes_estrada@hotmail.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                String credentials = Base64.encodeToString(("dev@elcaldogt.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
@@ -236,7 +236,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
          */
 
 
-        String url = "http://elcaldo.justiciayagt.com/Subir.php";
+        String url = "http://dev@elcaldogt.com/Subir.php";
         uploadingHelper = new UploadingHelper(this, url);
         uploadingHelper.startActivityForImagePick();
     }

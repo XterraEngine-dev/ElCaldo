@@ -130,7 +130,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                String credentials = Base64.encodeToString(("cifuentes_estrada@hotmail.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                String credentials = Base64.encodeToString(("dev@elcaldogt.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
