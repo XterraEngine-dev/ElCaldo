@@ -3,13 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.gt.dev.lazaro.elcaldo.vista.vista.actividades.DetalleComidaScrollingActivity">
     <item
-        android:id="@+id/abAcercade"
-        android:orderInCategory="100"
-        android:title="@string/creditos"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/abFav"
-        android:icon="@drawable/favorito"
+        android:id="@+id/detail_shared_recipe"
+        android:icon="@drawable/shareicon"
         android:checkable="false"
         android:orderInCategory="100"
         android:title="Favorito"

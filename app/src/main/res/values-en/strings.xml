@@ -84,7 +84,7 @@
     <string name="toast_shot">Take a photo of your dish!</string>
     <string name="comparte_camara">So I will take my typical dish friends! :D</string>
     <string name="comparte_imagen">Share picture of the dish</string>
-    <string name="comparte_plato">Share a tipical dish</string>
+    <string name="comparte_plato">Share tipical dish</string>
 
     <string name="via">- Vía ElCaldo App</string>
 
@@ -142,8 +142,8 @@
 
     //DetalleScrollingActivity
     <string name="detalle_compartir_title">Share on social networks</string>
-    <string name="detalle_nombre_plato_title">Name plate :</string>
-    <string name="detalle_departamento_title">State :</string>
+    <string name="detalle_nombre_plato_title">¡Hi! I share this plate: </string>
+    <string name="detalle_departamento_title">State: </string>
 
 
     //Titutlos Main

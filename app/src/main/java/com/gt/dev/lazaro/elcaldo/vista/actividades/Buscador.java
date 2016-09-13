@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.android.volley.AuthFailureError;
@@ -35,7 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Buscador extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class Buscador extends AppCompatActivity implements SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
 
     /**
      * Variables de buscador
@@ -63,6 +66,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     private void setupVars() {
         lvBuscar = (GridView) findViewById(R.id.listBuscar);
+        lvBuscar.setOnItemClickListener(this);
         searchView = (SearchView) findViewById(R.id.action_search);
     }
 
@@ -112,9 +116,11 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
                         JSONObject nombre = jsonArray.getJSONObject(i);
                         String name = nombre.getString("nombre");
                         String region = nombre.getString("region");
+                        String ingredientes = nombre.getString("ingredientes");
+                        String preparacion = nombre.getString("preparacion");
                         String id = nombre.getString("id");
                         String picture = nombre.getString("imagen");
-                        buscador.add(new ArrayBuscador(name, region, id, picture));
+                        buscador.add(new ArrayBuscador(name, region, ingredientes, preparacion, id, picture));
                         setupAdapter(buscador);
                     }
                 } catch (JSONException e) {
@@ -177,5 +183,20 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         //Cuando el texto cambia el Array se limpia para nueva consulta
         buscador.clear();
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ArrayBuscador cat = (ArrayBuscador) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("nombre", cat.getTitulo());
+        bundle.putString("region", cat.getSubtitulo());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("imagen", cat.getImagen());
+
+        startActivity(new Intent(Buscador.this, DetailRecipeActivity.class).putExtras(bundle));
     }
 }

@@ -150,6 +150,7 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
         bundle.putString("nombre", cat.getNombre());
         bundle.putString("ingredientes", cat.getIngredientes());
         bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("imagen", cat.getImagen());
         bundle.putString("region", cat.getLugar());
 
         startActivity(new Intent(getActivity(), DetailRecipeActivity.class).putExtras(bundle));

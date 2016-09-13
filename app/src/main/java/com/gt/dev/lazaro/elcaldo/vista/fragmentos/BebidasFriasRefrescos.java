@@ -154,7 +154,8 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
         bundle.putString("ingredientes", cat.getIngredientes());
         bundle.putString("preparacion", cat.getPreparacion());
         bundle.putString("region", cat.getLugar());
+        bundle.putString("imagen", cat.getImagen());
 
-        startActivity(new Intent(getActivity(), DetailRecipeActivity.class));
+        startActivity(new Intent(getActivity(), DetailRecipeActivity.class).putExtras(bundle));
     }
 }

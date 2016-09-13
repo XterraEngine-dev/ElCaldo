@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -25,6 +27,7 @@ public class DetailRecipeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private String title, region;
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
 
@@ -39,6 +42,7 @@ public class DetailRecipeActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_detail_recipe);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitleRecipe();
 
         viewPager = (ViewPager) findViewById(R.id.vp_detail_recipe);
         setViewPager(viewPager);
@@ -47,12 +51,31 @@ public class DetailRecipeActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    private void setTitleRecipe() {
+        Bundle bundle = getIntent().getExtras();
+
+        title = bundle.getString("nombre");
+        region = bundle.getString("region");
+        getSupportActionBar().setTitle(title);
+    }
+
     private void setViewPager(ViewPager pager) {
         ViewPagerAdapterDetail adapter = new ViewPagerAdapterDetail(getSupportFragmentManager());
         adapter.addFragment(new Ingredientes(), getString(R.string.ingreidientes));
         adapter.addFragment(new Preparacion(), getString(R.string.preparacion));
         adapter.addFragment(new InfoRecipe(), "Info");
-        viewPager.setAdapter(adapter);
+        pager.setAdapter(adapter);
+    }
+
+    private void shareRecipe() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.detalle_compartir_title));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.detalle_nombre_plato_title) + title + "\n"
+                + getString(R.string.detalle_departamento_title) + region + "\n"
+                + getString(R.string.via) + " https://play.google.com/store/apps/details?id=com.gt.dev.lazaro.elcaldo");
+
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.comparte_plato)));
     }
 
     class ViewPagerAdapterDetail extends FragmentPagerAdapter {
@@ -91,7 +114,16 @@ public class DetailRecipeActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.detail_shared_recipe:
+                shareRecipe();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalle_comida_scrolling, menu);
+        return true;
     }
 }
