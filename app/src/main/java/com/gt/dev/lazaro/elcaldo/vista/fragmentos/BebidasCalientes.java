@@ -19,6 +19,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCardView;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
@@ -42,9 +44,11 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
 
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private GridView lvCalientes;
-    public static final String KEY_PICTURE = "picture";
     private ProgressDialog pDialog;
     private Request.Priority priority = Request.Priority.IMMEDIATE;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
 
     public BebidasCalientes() {
         //Debe estar vacio el constructor
@@ -67,8 +71,22 @@ public class BebidasCalientes extends Fragment implements AdapterView.OnItemClic
         pDialog.setCancelable(false);
 
         showCalientesList();
+        setAnalytics();
 
         return v;
+    }
+
+    private void setAnalytics() {
+        //GoogleAnalytics instance
+        googleAnalytics = GoogleAnalytics.getInstance(getActivity());
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void showProgressDialog() {

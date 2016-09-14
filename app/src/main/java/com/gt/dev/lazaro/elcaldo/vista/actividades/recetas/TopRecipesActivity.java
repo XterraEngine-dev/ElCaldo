@@ -7,19 +7,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
 public class TopRecipesActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ProgressDialog pDialog;
 
+    //Analytics vars
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startVars();
         verifyConnection();
+        setAnalytics();
     }
 
     private void startVars() {
@@ -30,6 +39,18 @@ public class TopRecipesActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
         pDialog.setCancelable(false);
+    }
+
+    private void setAnalytics() {
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(18000);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void showProgressDialog() {

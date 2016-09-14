@@ -19,6 +19,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
@@ -43,6 +45,9 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     private GridView lvPostres;
     private ProgressDialog pDialog;
     private Request.Priority priority = Request.Priority.IMMEDIATE;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
         verifyConnection();
         startVars();
         getPostres();
+        setAnalytics();
     }
 
     private void startVars() {
@@ -65,6 +71,18 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
         getSupportActionBar().setSubtitle(getString(R.string.select_recipe));
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
         lvPostres.setOnItemClickListener(this);
+    }
+
+    private void setAnalytics() {
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void setupAdapter(ArrayList<Categoria> categoria) {
@@ -160,16 +178,6 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Categoria cat = (Categoria) parent.getItemAtPosition(position);
 
@@ -182,4 +190,15 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
 
         startActivity(new Intent(PostresActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 }

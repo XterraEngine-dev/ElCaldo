@@ -21,6 +21,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
@@ -45,10 +47,12 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvCaldos;
     private ProgressDialog pDialog;
-    private int imagen;
-    String idPlate, picture;
+    private String idPlate;
     private Request.Priority priority = Request.Priority.IMMEDIATE;
 
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
         verifyConnection();
         startVars();
         getCaldos();
+        setAnalytics();
     }
 
     private void startVars() {
@@ -72,6 +77,19 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
         pDialog.setMessage(getString(R.string.message_dialog));
         pDialog.setCancelable(false);
         lvCaldos.setOnItemClickListener(this);
+    }
+
+    private void setAnalytics() {
+        //Google Analytcis instances
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void showProgressDialog() {
@@ -169,16 +187,6 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Categoria cat = (Categoria) parent.getItemAtPosition(position);
 
@@ -193,4 +201,15 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
         //bundle.putInt("picture", picture);
         startActivity(new Intent(CaldosActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 }

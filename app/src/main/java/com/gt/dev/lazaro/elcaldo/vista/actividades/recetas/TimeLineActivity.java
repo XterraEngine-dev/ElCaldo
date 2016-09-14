@@ -21,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLine;
 import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLineAdapter;
@@ -47,6 +49,11 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<TimeLine> categoria = new ArrayList<>();
     private Request.Priority priority = Request.Priority.IMMEDIATE;
 
+    //GoogleAnalytics vars
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
+
     private String tag_json_obj = "jsonbj_req", tag_json_array = "jarray_req";
 
     @Override
@@ -58,6 +65,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         verifyConnection();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         startVars();
+        setAnalytics();
     }
 
     private void setupAdater(ArrayList<TimeLine> categoria) {
@@ -83,6 +91,19 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         pDialog.setMessage(getString(R.string.message_dialog));
         pDialog.setCancelable(false);
         getnewRecipes();
+    }
+
+    private void setAnalytics() {
+        //Google Analytics intances
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void getnewRecipes() {
@@ -179,16 +200,6 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         //Inicializamos cat para obtener las variables y sus varoles segun el seleccionado.
@@ -213,4 +224,15 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         //Realizamos el intento al detalle mandando todos nuestros parametros en la canasta.
         startActivity(new Intent(TimeLineActivity.this, DetalleTimeLineActivity.class).putExtras(bundle));
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 }

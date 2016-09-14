@@ -20,6 +20,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
@@ -49,6 +51,11 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
     private ProgressDialog pDialog;
     private Request.Priority priority = Request.Priority.IMMEDIATE;
 
+    //GoogleAnalytics var
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
+
     /**
      * @param savedInstanceState Metodo nativo inicilazador de cada metodo y variable
      */
@@ -57,6 +64,7 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         startVars();
         showOtrasList();
+        setAnalytics();
     }
 
     /**
@@ -79,8 +87,20 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
 
         //Iniciamos e instanciamos el progress dialog
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Cargando...");
+        pDialog.setMessage(getString(R.string.message_dialog));
         pDialog.setCancelable(false);
+    }
+
+    private void setAnalytics() {
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     /**
@@ -202,8 +222,8 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
      */
     private void showAlertDialog(String title, String message, boolean status) {
         AlertDialog alertDialog = new AlertDialog.Builder(OtrasComidasActivity.this).create();
-        alertDialog.setTitle("No tiene conexión a internet");
-        alertDialog.setMessage("Conectese a una red de internet");
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
         alertDialog.show();
     }
 
@@ -212,9 +232,23 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
      */
     private void verifyConnection() {
         if (!ConexionVerify.isNetworkAvailable(this)) {
-            showAlertDialog("Sin conexion a internet", "Debes conectarte a una red de internet", true);
+            showAlertDialog(getString(R.string.title_not_connection), getString(R.string.message_not_connection), true);
             onStop();
         }
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Categoria cat = (Categoria) parent.getItemAtPosition(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("nombre", cat.getTitulo());
+        bundle.putString("ingredientes", cat.getIngredientes());
+        bundle.putString("preparacion", cat.getPreparacion());
+        bundle.putString("region", cat.getSubtitulo());
+
+        startActivity(new Intent(OtrasComidasActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
 
     /**
@@ -231,18 +265,5 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Categoria cat = (Categoria) parent.getItemAtPosition(position);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("nombre", cat.getTitulo());
-        bundle.putString("ingredientes", cat.getIngredientes());
-        bundle.putString("preparacion", cat.getPreparacion());
-        bundle.putString("region", cat.getSubtitulo());
-
-        startActivity(new Intent(OtrasComidasActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
 }

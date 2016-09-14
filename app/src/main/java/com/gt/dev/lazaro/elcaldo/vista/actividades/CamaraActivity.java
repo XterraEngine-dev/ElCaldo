@@ -16,8 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
 import java.io.InputStream;
 
@@ -35,6 +37,7 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
     private Bitmap bmp;
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
+    private String keyTracker;
 
     /**
      * onCreate
@@ -86,6 +89,11 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
                 startActivityForResult(tomartPic, CAMARA_DATA);
                 break;
             case R.id.btnImagen:
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("CameraActivity")
+                        .setAction("Share picture")
+                        .setLabel("Sharing picture from CameraActivity")
+                        .build());
                 if (bmp != null) {
 
                     String elBitmap = MediaStore.Images.Media.insertImage(getContentResolver(), bmp, "zoquelo", null);
@@ -145,10 +153,20 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         googleAnalytics.setLocalDispatchPeriod(1800);
 
         //Iniciamos y seteamos datos a nuestro tracker
-        tracker = googleAnalytics.newTracker("UA-69747362-1");
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+        tracker = googleAnalytics.newTracker(keyTracker);
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
         tracker.enableExceptionReporting(true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

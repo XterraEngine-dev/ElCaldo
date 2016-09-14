@@ -148,4 +148,14 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

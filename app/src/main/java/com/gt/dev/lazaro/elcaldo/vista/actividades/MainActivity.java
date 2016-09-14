@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,12 +23,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.gt.dev.lazaro.elcaldo.AnalyticsTrackers;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainAdapter;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainClass;
 import com.gt.dev.lazaro.elcaldo.controlador.Preferencias;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.CaldosActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.PostresActivity;
 import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.TamalesActivity;
@@ -44,20 +48,10 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab;
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
+    private String keyTracker;
     private ListView lista;
     private ArrayList<MainClass> categoria = new ArrayList<>();
     WelcomeScreenHelper welcomeScreen;
-
-    /**
-     * Compatibilidad con versiones inferiores al api 21
-     *
-     * @param newBase
-     */
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(newBase);
-        MultiDex.install(this);
-    }
 
     /**
      * Metodo donde se crea todas nuestras variables, constantes, metodos, etc.
@@ -158,7 +152,8 @@ public class MainActivity extends AppCompatActivity
         googleAnalytics.setLocalDispatchPeriod(1800);
 
         //Tracker starts
-        tracker = googleAnalytics.newTracker("UA-69747362-1");
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+        tracker = googleAnalytics.newTracker(keyTracker);
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
         tracker.enableExceptionReporting(true);
@@ -282,6 +277,10 @@ public class MainActivity extends AppCompatActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
+                tracker.send(new HitBuilders.EventBuilder().setCategory("caldos")
+                        .setAction("intento")
+                        .setLabel("Este es una prueba de eventos con analytics")
+                        .build());
                 startActivity(new Intent(MainActivity.this, CaldosActivity.class));
                 break;
             case 1:

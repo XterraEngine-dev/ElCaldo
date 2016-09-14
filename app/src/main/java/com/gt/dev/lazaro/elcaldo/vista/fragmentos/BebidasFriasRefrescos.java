@@ -23,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCardView;
 import com.gt.dev.lazaro.elcaldo.adaptadores.CategoriaCardView;
@@ -48,6 +50,9 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
     private ArrayList<CategoriaCardView> categoria = new ArrayList<>();
     private ProgressDialog pDialog;
     private Request.Priority priority = Request.Priority.IMMEDIATE;
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
 
     public BebidasFriasRefrescos() {
         //Debe estar vacio el constructor
@@ -71,8 +76,21 @@ public class BebidasFriasRefrescos extends Fragment implements AdapterView.OnIte
         pDialog.setCancelable(false);
 
         showFriasList();
+        setAnalytics();
 
         return v;
+    }
+
+    private void setAnalytics() {
+        googleAnalytics = GoogleAnalytics.getInstance(getActivity());
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void showProgressDialog() {

@@ -13,8 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.detail.InfoRecipe;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.detail.Ingredientes;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.detail.Preparacion;
@@ -28,14 +30,18 @@ public class DetailRecipeActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private String title, region;
+
+    //GoogleAnalytics vars
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
+    private String keyTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_recipe);
         startVars();
+        setAnalytics();
     }
 
     private void startVars() {
@@ -49,6 +55,19 @@ public class DetailRecipeActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_detail_recipe);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void setAnalytics() {
+        //GoogleAnalytics instance
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void setTitleRecipe() {
@@ -115,6 +134,11 @@ public class DetailRecipeActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.detail_shared_recipe:
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("DetailRecipeActivity")
+                        .setAction("Share Recipe")
+                        .setLabel("Sharing recipe from DetailRecipe")
+                        .build());
                 shareRecipe();
                 break;
         }
@@ -125,5 +149,15 @@ public class DetailRecipeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detalle_comida_scrolling, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }

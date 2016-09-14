@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -16,13 +17,12 @@ import android.widget.GridView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorBuscar;
 import com.gt.dev.lazaro.elcaldo.adaptadores.ArrayBuscador;
@@ -49,6 +49,12 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
     private GridView lvBuscar;
     public static String consultaApi;
     private SearchView searchView;
+    private ProgressDialog pDialog;
+
+    //GoogleAnalytics vars
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +63,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupVars();
-
+        setAnalytics();
     }
 
     /**
@@ -68,6 +74,33 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         lvBuscar = (GridView) findViewById(R.id.listBuscar);
         lvBuscar.setOnItemClickListener(this);
         searchView = (SearchView) findViewById(R.id.action_search);
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage(getString(R.string.message_dialog));
+        pDialog.setCancelable(false);
+    }
+
+    private void setAnalytics() {
+        //Analytics instance
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
+    }
+
+    private void showProgressDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
+        ;
     }
 
     /**
@@ -103,6 +136,8 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     private void getBuscador() {
 
+        showProgressDialog();
+
         CustomRequest caldosRequest = new CustomRequest(CustomRequest.Method.GET, consultaApi, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -122,6 +157,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
                         String picture = nombre.getString("imagen");
                         buscador.add(new ArrayBuscador(name, region, ingredientes, preparacion, id, picture));
                         setupAdapter(buscador);
+                        hideProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -130,6 +166,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideProgressDialog();
                 VolleyLog.d("", "" + error.getMessage());
             }
         }) {
@@ -198,5 +235,15 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         bundle.putString("imagen", cat.getImagen());
 
         startActivity(new Intent(Buscador.this, DetailRecipeActivity.class).putExtras(bundle));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

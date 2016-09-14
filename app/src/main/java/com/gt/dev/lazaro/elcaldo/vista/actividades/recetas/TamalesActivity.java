@@ -20,6 +20,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorCategoria;
 import com.gt.dev.lazaro.elcaldo.adaptadores.Categoria;
@@ -43,7 +45,12 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
     private ArrayList<Categoria> categoria = new ArrayList<>();
     private GridView lvTamales;
     private ProgressDialog pDialog;
-    private Request.Priority priority;
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
+
+    //Analytics vars
+    public static GoogleAnalytics googleAnalytics;
+    public static Tracker tracker;
+    private String keyTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,7 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
         verifyConnection();
         startVars();
         getTamales();
+        setAnalytics();
     }
 
     private void startVars() {
@@ -66,6 +74,19 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
         getSupportActionBar().setTitle(R.string.tamales_title);
         getSupportActionBar().setSubtitle(getString(R.string.select_recipe));
         getSupportActionBar().setIcon(R.drawable.otrascomidas);
+    }
+
+    private void setAnalytics() {
+        //Google Analytics instances
+        googleAnalytics = GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(1800);
+
+        keyTracker = Parametros.TRACKER_ANALYTICS;
+
+        tracker = googleAnalytics.newTracker(keyTracker);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.enableExceptionReporting(true);
     }
 
     private void showProgressDialog() {
@@ -163,16 +184,6 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Categoria cat = (Categoria) parent.getItemAtPosition(position);
 
@@ -185,4 +196,15 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
 
         startActivity(new Intent(TamalesActivity.this, DetailRecipeActivity.class).putExtras(bundle));
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
 }

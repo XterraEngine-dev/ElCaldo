@@ -1,9 +1,7 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.BebidasCalientes;
@@ -28,14 +24,6 @@ public class BebidasActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    public static GoogleAnalytics googleAnalytics;
-    public static Tracker tracker;
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(newBase);
-        MultiDex.install(this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +34,6 @@ public class BebidasActivity extends AppCompatActivity {
         verifyConnection();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setUpTabs();
-        startAnalytics();
     }
 
     private void setUpTabs() {
@@ -66,17 +53,6 @@ public class BebidasActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void startAnalytics() {
-        //Analytics
-        googleAnalytics = GoogleAnalytics.getInstance(this);
-        googleAnalytics.setLocalDispatchPeriod(1800);
-
-        tracker = googleAnalytics.newTracker("UA-69747362-1");
-        tracker.enableAdvertisingIdCollection(true);
-        tracker.enableAutoActivityTracking(true);
-        tracker.enableExceptionReporting(true);
     }
 
     private void showAlertDialog(String title, String message, boolean status) {
@@ -130,4 +106,13 @@ public class BebidasActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }
