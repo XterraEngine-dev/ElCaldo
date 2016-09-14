@@ -113,19 +113,6 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/bt_segundo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|bottom"
-                    android:layout_marginBottom="@dimen/text_margin"
-                    android:layout_marginLeft="@dimen/text_margin"
-                    android:layout_marginRight="@dimen/text_margin"
-                    android:background="@color/white"
-                    android:text="Siguiente"
-                    android:textColor="@color/blue_background"
-                    android:textSize="18sp" />
-
 
             </LinearLayout>
 
@@ -161,4 +148,29 @@
         </FrameLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/btn_receta_adelante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:background="@color/white"
+        android:text="Siguiente"
+        android:textColor="@color/blue_background"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_receta_atras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:background="@color/white"
+        android:text="Atras"
+        android:textColor="@color/blue_background"
+        android:textSize="18sp" />
 </FrameLayout>

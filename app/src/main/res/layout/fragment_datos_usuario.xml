@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.gt.dev.lazaro.elcaldo.vista.fragmentos.receta.DatosUsuario">
 
     <LinearLayout
@@ -11,10 +11,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:background="@color/background_footer"
-            android:textSize="24sp"
             android:layout_width="match_parent"
-            android:layout_height="106dp" />
+            android:layout_height="106dp"
+            android:background="@color/background_footer"
+            android:textSize="24sp" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/wUsuario"
@@ -23,7 +23,7 @@
             android:layout_marginTop="26dp">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/et_usuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|top"
@@ -37,94 +37,125 @@
         </android.support.design.widget.TextInputLayout>
 
         <TextView
-            android:layout_marginTop="56dp"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="56dp"
             android:text="Seleccione un avatar"
-            android:id="@+id/textView4"
-            android:layout_gravity="center_horizontal" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
 
     </LinearLayout>
 
     <ImageButton
-        android:scaleType="centerCrop"
-        android:id="@+id/bUno"
-        android:src="@drawable/avatar1"
-        android:elevation="5dp"
+
+        android:id="@+id/avatar_uno"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="16dp"
-        android:layout_width="64dp"
-        android:background="@color/white"
         android:layout_marginTop="60dp"
-        android:layout_height="64dp"
-        android:layout_gravity="left|center_vertical" />
+        android:background="@color/white"
+        android:elevation="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar1" />
 
 
     <ImageButton
-        android:scaleType="centerCrop"
-        android:id="@+id/bDos"
-        android:src="@drawable/avatar2"
-        android:elevation="5dp"
-
+        android:id="@+id/avatar_dos"
         android:layout_width="64dp"
-        android:background="@color/white"
-        android:layout_marginTop="60dp"
         android:layout_height="64dp"
-        android:layout_gravity="center|center_vertical" />
-    <ImageButton
-        android:scaleType="centerCrop"
-        android:id="@+id/bTres"
-        android:src="@drawable/avatar3"
+        android:layout_gravity="center|center_vertical"
+        android:layout_marginTop="60dp"
+        android:background="@color/white"
         android:elevation="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar2" />
+
+    <ImageButton
+        android:id="@+id/avatar_tres"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="right|center_vertical"
         android:layout_marginRight="16dp"
-        android:layout_width="64dp"
-        android:background="@color/white"
         android:layout_marginTop="60dp"
-        android:layout_height="64dp"
-        android:layout_gravity="right|center_vertical" />
+        android:background="@color/white"
+        android:elevation="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar3" />
 
     <Button
+        android:id="@+id/btn_siguiente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Siguiente"
-        android:textSize="18sp"
-        android:background="@color/white"
-        android:textColor="@color/blue_background"
-        android:id="@+id/btn_siguiente"
+        android:layout_gravity="right|bottom"
         android:layout_marginBottom="@dimen/text_margin"
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_marginRight="@dimen/text_margin"
-        android:layout_gravity="right|bottom" />
+        android:background="@color/white"
+        android:text="Siguiente"
+        android:textColor="@color/blue_background"
+        android:textSize="18sp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_uno"
-        android:elevation="5dp"
-        app:backgroundTint="@color/blue_background"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="left|top"
         android:layout_marginLeft="16dp"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="left|top" />
+        android:layout_marginTop="16dp"
+        android:elevation="5dp"
+        android:src="@drawable/ic_uno"
+        app:backgroundTint="@color/blue_background" />
 
     <android.support.design.widget.FloatingActionButton
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="16dp"
-        app:backgroundTint="@color/cardview_dark_background"
+
+        android:elevation="4dp"
         android:src="@drawable/ic_dos"
-        android:elevation="4dp"
-
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center_horizontal|top" />
+        app:backgroundTint="@color/cardview_dark_background" />
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_marginTop="16dp"
-        app:backgroundTint="@color/cardview_dark_background"
-        android:src="@drawable/ic_tres"
-        android:elevation="4dp"
-        android:layout_marginRight="16dp"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_gravity="right|top" />
+        android:layout_gravity="right|top"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:elevation="4dp"
+        android:src="@drawable/ic_tres"
+        app:backgroundTint="@color/cardview_dark_background" />
+
+    <ImageView
+        android:visibility="invisible"
+        android:background="@drawable/ic_cheack"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/cheak_uno"
+        android:layout_gravity="left|center_vertical"
+        />
+
+    <ImageView
+        android:visibility="invisible"
+        android:background="@drawable/ic_cheack"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/cheak_tres"
+        android:layout_gravity="right|center_vertical" />
+    <ImageView
+        android:visibility="invisible"
+        android:background="@drawable/ic_cheack"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/cheak_dos"
+        android:layout_gravity="center|center_vertical" />
 
 
 </FrameLayout>
