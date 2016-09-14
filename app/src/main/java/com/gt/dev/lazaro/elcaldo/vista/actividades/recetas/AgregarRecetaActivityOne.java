@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,8 +36,9 @@ public class AgregarRecetaActivityOne extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_datos_usuario);
-
         iniciarVars();
+
+
     }
 
     private void iniciarVars() {
@@ -84,9 +86,12 @@ public class AgregarRecetaActivityOne extends AppCompatActivity implements View.
 
             case R.id.btn_siguiente:
 
-                if (etUsuario.getText().toString().isEmpty()) {
-                    Log.i(TAG_UNO, "ingrese nombre usuario");
-                    Toast.makeText(getBaseContext(), "ingrese nombre usuario", Toast.LENGTH_LONG).show();
+                String nombreUsuario = this.etUsuario.getText().toString();
+
+                if (TextUtils.isEmpty(nombreUsuario)) {
+                    etUsuario.setError("Introduce nombre usuario");
+
+
                     if (avatarValor == null) {
                         Log.i(TAG_UNO, "seleccione avatar");
                         Toast.makeText(getBaseContext(), "Seleccione Avatar", Toast.LENGTH_LONG).show();
@@ -98,6 +103,7 @@ public class AgregarRecetaActivityOne extends AppCompatActivity implements View.
                     etUsuario.setText(nombreUsuario);
                     Log.i(TAG_UNO, "Obtubo datos" + nombreUsuario);
                     startActivity(new Intent(this, AgregarRecetaActivityTwo.class));
+                    this.finish();
 
                 }
 
@@ -148,6 +154,5 @@ public class AgregarRecetaActivityOne extends AppCompatActivity implements View.
         cheakThree.setVisibility(View.VISIBLE);
 
     }
-
 
 }

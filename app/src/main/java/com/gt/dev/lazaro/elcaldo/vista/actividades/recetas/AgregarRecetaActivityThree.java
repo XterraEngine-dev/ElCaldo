@@ -44,6 +44,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
                 break;
             case R.id.btn_imagen_atras:
                 startActivity(new Intent(this, AgregarRecetaActivityTwo.class));
+                this.finish();
                 break;
         }
 
