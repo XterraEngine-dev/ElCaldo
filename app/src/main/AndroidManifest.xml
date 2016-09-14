@@ -109,6 +109,15 @@
             android:name=".vista.actividades.recetas.TopRecipesActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".vista.actividades.recetas.AgregarRecetaActivityOne"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".vista.actividades.recetas.AgregarRecetaActivityTwo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".vista.actividades.recetas.AgregarRecetaActivityThree"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".vista.actividades.recetas.TimeLineActivity"
             android:label="@string/cocina_usuario"
             android:screenOrientation="portrait"
@@ -124,6 +133,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".vista.actividades.recetas.DetalleTimeLineActivity" />
+
         <activity
             android:name=".vista.actividades.recetas.AddCommentActivity"
             android:screenOrientation="portrait"

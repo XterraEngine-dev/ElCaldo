@@ -190,6 +190,11 @@
     <string name="title_recipes_week_wizard">¡RECETAS DE LA SEMANA!</string>
     <string name="text_recipes_week">Cada semana te mosrareos las recetas más populares que han subido los usuarios.</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="usuario_tab_title">usuario</string>
+    <string name="imagen_tab_title">imagen</string>
+
 
 </resources>
 

@@ -170,7 +170,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_timeline:
-                startActivity(new Intent(TimeLineActivity.this, AddRecipeActivity.class));
+                startActivity(new Intent(TimeLineActivity.this, AgregarRecetaActivityOne.class));
                 break;
         }
     }

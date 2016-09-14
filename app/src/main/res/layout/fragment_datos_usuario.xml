@@ -1,0 +1,130 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.gt.dev.lazaro.elcaldo.vista.fragmentos.receta.DatosUsuario">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:background="@color/background_footer"
+            android:textSize="24sp"
+            android:layout_width="match_parent"
+            android:layout_height="106dp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/wUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="16dp"
+                android:focusableInTouchMode="true"
+                android:hint="Nombre Usuario"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_marginTop="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Seleccione un avatar"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:scaleType="centerCrop"
+        android:id="@+id/bUno"
+        android:src="@drawable/avatar1"
+        android:elevation="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_width="64dp"
+        android:background="@color/white"
+        android:layout_marginTop="60dp"
+        android:layout_height="64dp"
+        android:layout_gravity="left|center_vertical" />
+
+
+    <ImageButton
+        android:scaleType="centerCrop"
+        android:id="@+id/bDos"
+        android:src="@drawable/avatar2"
+        android:elevation="5dp"
+
+        android:layout_width="64dp"
+        android:background="@color/white"
+        android:layout_marginTop="60dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center|center_vertical" />
+    <ImageButton
+        android:scaleType="centerCrop"
+        android:id="@+id/bTres"
+        android:src="@drawable/avatar3"
+        android:elevation="5dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="64dp"
+        android:background="@color/white"
+        android:layout_marginTop="60dp"
+        android:layout_height="64dp"
+        android:layout_gravity="right|center_vertical" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:textSize="18sp"
+        android:background="@color/white"
+        android:textColor="@color/blue_background"
+        android:id="@+id/btn_siguiente"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:layout_gravity="right|bottom" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_uno"
+        android:elevation="5dp"
+        app:backgroundTint="@color/blue_background"
+        android:layout_marginLeft="16dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="left|top" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_marginTop="16dp"
+        app:backgroundTint="@color/cardview_dark_background"
+        android:src="@drawable/ic_dos"
+        android:elevation="4dp"
+
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal|top" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_marginTop="16dp"
+        app:backgroundTint="@color/cardview_dark_background"
+        android:src="@drawable/ic_tres"
+        android:elevation="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="right|top" />
+
+
+</FrameLayout>

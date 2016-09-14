@@ -1,0 +1,164 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gt.dev.lazaro.elcaldo.vista.fragmentos.receta.ImagenReceta">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="106dp"
+                    android:background="@color/background_footer"
+                    android:textSize="24sp" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wNombreRecetas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_marginBottom="@dimen/text_margin"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_marginRight="@dimen/text_margin"
+                        android:layout_marginTop="16dp"
+                        android:focusableInTouchMode="true"
+                        android:hint="Nombre Receta"
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginTop="16dp"
+                    android:text="Seleccione Region"
+                    android:textSize="24sp" />
+
+                <Spinner
+                    android:id="@+id/gt"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:textAlignment="center" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wIngredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_ingredientes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/text_margin"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_marginRight="@dimen/text_margin"
+                        android:ems="10"
+                        android:hint="Ingredientes"
+                        android:inputType="textMultiLine" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/wPreparacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/et_preparacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/text_margin"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_marginRight="@dimen/text_margin"
+                        android:ems="10"
+                        android:hint="Prepacion"
+                        android:inputType="textMultiLine" />
+
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/bt_segundo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:background="@color/white"
+                    android:text="Siguiente"
+                    android:textColor="@color/blue_background"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="16dp"
+                android:elevation="4dp"
+                android:src="@drawable/ic_dos"
+                app:backgroundTint="@color/blue_background" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:elevation="5dp"
+                android:src="@drawable/ic_uno"
+                app:backgroundTint="@color/cardview_dark_background" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="right|top"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:elevation="4dp"
+                android:src="@drawable/ic_tres"
+                app:backgroundTint="@color/cardview_dark_background" />
+
+        </FrameLayout>
+    </ScrollView>
+
+</FrameLayout>
