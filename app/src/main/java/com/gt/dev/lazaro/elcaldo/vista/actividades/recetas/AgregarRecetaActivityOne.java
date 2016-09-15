@@ -88,21 +88,22 @@ public class AgregarRecetaActivityOne extends AppCompatActivity implements View.
 
                 String nombreUsuario = this.etUsuario.getText().toString();
 
+                if (avatarValor == null) {
+                    Log.i(TAG_UNO, "seleccione avatar");
+                    Toast.makeText(getBaseContext(), "Seleccione Avatar", Toast.LENGTH_LONG).show();
+                }
+
                 if (TextUtils.isEmpty(nombreUsuario)) {
                     etUsuario.setError("Introduce nombre usuario");
 
-
-                    if (avatarValor == null) {
-                        Log.i(TAG_UNO, "seleccione avatar");
-                        Toast.makeText(getBaseContext(), "Seleccione Avatar", Toast.LENGTH_LONG).show();
-                    }
 
                 } else {
 
                     etUsuario.getText().toString();
                     etUsuario.setText(nombreUsuario);
+
                     Log.i(TAG_UNO, "Obtubo datos" + nombreUsuario);
-                    startActivity(new Intent(this, AgregarRecetaActivityTwo.class));
+                    envioUsuario();
                     this.finish();
 
                 }
@@ -130,6 +131,21 @@ public class AgregarRecetaActivityOne extends AppCompatActivity implements View.
 
         }
 
+
+    }
+
+    private void envioUsuario() {
+
+        String usuario = etUsuario.getText().toString();
+
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("usuario",usuario);
+        bundle.putString("avatar",getAvatarValor());
+
+
+        startActivity(new Intent(this, AgregarRecetaActivityTwo.class).putExtras(bundle));
 
     }
 
