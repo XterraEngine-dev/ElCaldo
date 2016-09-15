@@ -23,11 +23,13 @@ import java.util.ArrayList;
 public class AgregarRecetaActivityTwo extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG_UNO = "arat";
+
     private Spinner spinner;
     ArrayList<String> spinnerArray = new ArrayList<String>();
     private Button button, buttonB;
     private EditText etNombreReceta, etIngredientes, etPrepacion;
     Context context;
+    String usuario,avatarB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,22 @@ public class AgregarRecetaActivityTwo extends AppCompatActivity implements View.
 
         iniciarVars();
         setupSpiner();
+        bundleUno();
+
     }
+
+    private void bundleUno() {
+
+        Bundle bundle = getIntent().getExtras();
+        String nombreUsuario = bundle.getString("usuario");
+        String avatar = bundle.getString("avatar");
+        Log.i(TAG_UNO,"" + nombreUsuario);
+        Log.i(TAG_UNO,"" + avatar);
+
+        usuario = nombreUsuario;
+        avatarB = avatar;
+    }
+
 
     private void iniciarVars() {
 
@@ -79,22 +96,43 @@ public class AgregarRecetaActivityTwo extends AppCompatActivity implements View.
         String preparacion = this.etPrepacion.getText().toString();
 
 
-        if(TextUtils.isEmpty(nombreReceta)) {
+        if (TextUtils.isEmpty(nombreReceta)) {
             etNombreReceta.setError("Introduce nombre receta ");
             return;
         }
-        if(TextUtils.isEmpty(ingredientes)) {
+
+        if (TextUtils.isEmpty(ingredientes)) {
             etIngredientes.setError("Introduce ingredientes");
             return;
         }
-        if(TextUtils.isEmpty(preparacion)) {
+        if (TextUtils.isEmpty(preparacion)) {
             etPrepacion.setError("Introduce prepacion");
             return;
-        }else {
+        } else {
             Log.i(TAG_UNO, "siguiente");
-            startActivity(new Intent(this, AgregarRecetaActivityThree.class));
+            enviarFormulario();
             this.finish();
         }
+    }
+
+    private void enviarFormulario() {
+
+        String nombreReceta = etNombreReceta.getText().toString();
+        String ingrediente = etIngredientes.getText().toString();
+        String preparacion = etPrepacion.getText().toString();
+        String region = spinner.getSelectedItem().toString();
+
+        Bundle btwo = new Bundle();
+
+        btwo.putString("usuario",usuario);
+        btwo.putString("avatar",avatarB);
+        btwo.putString("receta",nombreReceta);
+        btwo.putString("ingredientes",ingrediente);
+        btwo.putString("preparacion",preparacion);
+        btwo.putString("region",region);
+
+
+        startActivity(new Intent(this, AgregarRecetaActivityThree.class).putExtras(btwo));
     }
 
     public void setupSpiner() {
@@ -103,4 +141,5 @@ public class AgregarRecetaActivityTwo extends AppCompatActivity implements View.
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
     }
+
 }
