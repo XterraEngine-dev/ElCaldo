@@ -50,6 +50,20 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     private String KEY_LIKE = "like";
     private String KEY_AVATAR = "avatar";
 
+    /**
+     * Variables camara
+     */
+
+    private Button camara;
+
+
+    /**
+     * Variables Gallery
+     */
+
+    private Button gallery;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +76,8 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     private void setupVars() {
 
         enviar = (Button) findViewById(R.id.enviar);
+        camara = (Button) findViewById(R.id.btn_camara);
+        gallery = (Button) findViewById(R.id.btn_galeria);
         enviar.setOnClickListener(this);
 
     }
@@ -69,16 +85,29 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.enviar:
                 enviarFormulario();
                 this.finish();
                 break;
-
+            case R.id.btn_camara:
+                uploadCamara();
+                break;
+            case R.id.btn_galeria:
+                uploadGallery();
+                break;
 
 
         }
+
+    }
+
+    private void uploadGallery() {
+
+    }
+
+    private void uploadCamara() {
 
     }
 

@@ -81,7 +81,7 @@
 
     <Button
         android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/button2"
+        android:id="@+id/btn_camara"
         android:layout_width="wrap_content"
         android:textColor="@color/blue_background"
         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
     <Button
         android:textColor="@color/blue_background"
         android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/button3"
+        android:id="@+id/btn_galeria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
