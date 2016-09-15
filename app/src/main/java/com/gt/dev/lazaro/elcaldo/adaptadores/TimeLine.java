@@ -9,6 +9,7 @@ public class TimeLine {
     private int avatar;
 
     public TimeLine(String username, String recipename, String region, String ingredientes, String preparacion, String id, String likes, String picture, int avatar) {
+        super();
         this.username = username;
         this.recipename = recipename;
         this.region = region;

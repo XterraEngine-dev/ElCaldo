@@ -23,7 +23,6 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_envio_imagen);
         setupVars();
-
     }
 
     private void setupVars() {

@@ -1,20 +1,16 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.multidex.MultiDex;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +21,6 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.gt.dev.lazaro.elcaldo.AnalyticsTrackers;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainAdapter;
 import com.gt.dev.lazaro.elcaldo.adaptadores.MainClass;
@@ -65,9 +60,11 @@ public class MainActivity extends AppCompatActivity
 
         //Inicializamos Analytics
         startAnalytics();
+
         //Inicializamos las variables y metodos
         startVars();
 
+        //Iniciamos el wizard
         welcomeScreen = new WelcomeScreenHelper(this, CaldoWelcomeActivity.class);
         welcomeScreen.show(savedInstanceState);
 
@@ -126,15 +123,15 @@ public class MainActivity extends AppCompatActivity
         lista = (ListView) findViewById(R.id.lv_main);
 
         //Cardview de Caldos
-        categoria.add(new MainClass(R.drawable.caldos_broths_main_card, getString(R.string.caldos_title)));
+        categoria.add(new MainClass(R.drawable.caldos_main_activity, getString(R.string.caldos_title)));
         //Cardview de tamales
-        categoria.add(new MainClass(R.drawable.tamales_cardview_main, getString(R.string.tamales_title)));
+        categoria.add(new MainClass(R.drawable.tamales_main_activity, getString(R.string.tamales_title)));
         //Cardview de postres
-        categoria.add(new MainClass(R.drawable.desserts_cardview_main, getString(R.string.postres_title)));
+        categoria.add(new MainClass(R.drawable.postres_main_activity, getString(R.string.postres_title)));
         //Cardview de bebidas tipicas
-        categoria.add(new MainClass(R.drawable.bebidas_main_cardview_elcaldo, getString(R.string.bebidas)));
+        categoria.add(new MainClass(R.drawable.bebidas_main_activity, getString(R.string.bebidas)));
         //Cadview de cocina del usuario
-        categoria.add(new MainClass(R.drawable.kitchenuser_cardview_main, getString(R.string.cocina_usuario)));
+        categoria.add(new MainClass(R.drawable.kitchenuser_main_activity, getString(R.string.cocina_usuario)));
 
         MainAdapter adapter = new MainAdapter(categoria, this);
         lista.setAdapter(adapter);

@@ -15,5 +15,9 @@ public class Parametros {
     public static final String URL_SHOW_TOP = "http://dev.elcaldogt.com/top";
     public static final String URL_SHOW_BUSCAR = "http://dev.elcaldogt.com/buscar";
     public static final String URL_SHOW_COMENT = "http://dev.elcaldogt.com/comentario";
+    //Constante de TRACKER en Google Analytics
     public static final String TRACKER_ANALYTICS = "UA-69747362-1";
+    //Constante de la api publicitaria de Facebook
+    //Este es un PLACEMENT-ID
+    public static final String FB_PLACEMENT_ID = "472492076284805_568720113328667";
 }

@@ -47,5 +47,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:9.2.1'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.stephentuso:welcome:0.7.2'
+    //Api publicitaria de Facebook
+    compile 'com.facebook.android:audience-network-sdk:4.+'
 
 }

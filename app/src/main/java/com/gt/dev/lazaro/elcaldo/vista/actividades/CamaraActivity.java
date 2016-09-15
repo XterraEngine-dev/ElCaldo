@@ -1,13 +1,21 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +23,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.ads.InterstitialAd;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+
+import com.facebook.ads.*;
 
 import java.io.InputStream;
 
@@ -27,7 +38,7 @@ import java.io.InputStream;
  * Created by Lazaro on 10/9/2015.
  */
 
-public class CamaraActivity extends AppCompatActivity implements View.OnClickListener {
+public class CamaraActivity extends AppCompatActivity implements View.OnClickListener, InterstitialAdListener {
 
     private Toolbar toolbar;
     private Button compartirImagen;
@@ -38,6 +49,11 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
     private String keyTracker;
+    private static final int REQUEST_TO_CAMERA = 1;
+    private static final int REQUEST_TO_STORAGE = 2;
+    //Facebook vars
+    private InterstitialAd interstitialAd;
+    private String fbPlace;
 
     /**
      * onCreate
@@ -53,11 +69,99 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
         //Llamamos al metodo que inicailzia e instancea variables metodos, widgets, etc.
         iniciaVars();
 
+        loadInterstialAd();
+
         //llamamos metodo que inicia api de Google Analytics
         startAnalytics();
 
+        checkPermision();
+
         InputStream is = getResources().openRawResource(R.raw.splashcaldo);
         bmp = BitmapFactory.decodeStream(is);
+    }
+
+    private void loadInterstialAd() {
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
+        interstitialAd = new InterstitialAd(this, fbPlace);
+        interstitialAd.setAdListener(CamaraActivity.this);
+        interstitialAd.loadAd();
+    }
+
+    private void checkPermision() {
+
+        int cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        int storagePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED && storagePermission != PackageManager.PERMISSION_GRANTED) {
+            Log.i("INTERNET", "PERMISSION GRANTED");
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Permission to acces the camera is requiered to get recipes").setTitle("Permission required");
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("CAMERA", "CLICKED");
+                        cameraRequest();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                cameraRequest();
+            }
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Permission to acces write in external storage is required to take picture").setTitle("Permission required");
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("STORAGE", "CLICKED");
+                        storageRequest();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                storageRequest();
+            }
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_TO_CAMERA: {
+                if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Log.i("CAMERA", "PERMISSION HAS BEEN DENIED BY USER");
+                } else {
+                    Log.i("CAMERA", "PERMISSION HAS BEEN GRANTED BY USER");
+                }
+                return;
+            }
+
+            case REQUEST_TO_STORAGE: {
+                if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Log.i("STORAGE", "PERMISSION HAS BEEN DENIED BY USER");
+                } else {
+                    Log.i("STORAGE", "PERMISSION HAS BEEN GRANTED BY USER");
+                }
+                return;
+            }
+        }
+    }
+
+    private void cameraRequest() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_TO_CAMERA);
+    }
+
+    private void storageRequest() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_TO_CAMERA);
     }
 
     /**
@@ -73,7 +177,6 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     /**
@@ -161,6 +264,32 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR APIFACEBOOK", "MESSAGE = " + adError.getErrorMessage() +
+                "ERROR CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        interstitialAd.show();
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.d("AD", ad.getPlacementId());
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -168,5 +297,13 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
+        super.onDestroy();
     }
 }
