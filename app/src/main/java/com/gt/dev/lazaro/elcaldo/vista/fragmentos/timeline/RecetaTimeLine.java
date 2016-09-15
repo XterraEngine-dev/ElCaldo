@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
 
 /**
  * Created by Lazarus on 8/9/2016.
@@ -60,6 +61,7 @@ public class RecetaTimeLine extends Fragment {
         tvIngredientes.setText(ingredientes);
         tvPreparacion.setText(preparacion);
         idComentariosReceta=id;
+        niPicture.setImageUrl(picture, VolleySingleton.getInstance().getImageLoader());
 
     }
 
