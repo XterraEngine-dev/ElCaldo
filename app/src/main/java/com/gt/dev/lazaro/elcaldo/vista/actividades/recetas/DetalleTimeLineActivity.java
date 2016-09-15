@@ -10,10 +10,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -24,7 +31,7 @@ import com.gt.dev.lazaro.elcaldo.vista.fragmentos.timeline.RecetaTimeLine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetalleTimeLineActivity extends AppCompatActivity implements View.OnClickListener {
+public class DetalleTimeLineActivity extends AppCompatActivity implements View.OnClickListener, AdListener {
 
     private FloatingActionButton fab;
     private TabLayout tabLayout;
@@ -36,6 +43,9 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     public static Tracker tracker;
     private String keyTracker;
 
+    private AdView adView;
+    private String idPlacement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +55,13 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     }
 
     private void startVars() {
+        //FAcebok instance vars
+        idPlacement = Parametros.FB_PLACEMENT_BANNER;
+        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_detail_timeline);
+        linear.addView(adView);
+        adView.setAdListener(this);
+        adView.loadAd();
 
         fab = (FloatingActionButton) findViewById(R.id.fab_detalle_timeline);
         fab.setOnClickListener(this);
@@ -91,6 +108,21 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
                 startActivity(new Intent(DetalleTimeLineActivity.this, AddCommentActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        //This was load in the starvars method
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
     }
 
     class ViewPagerAdapterTime extends FragmentPagerAdapter {
@@ -163,5 +195,11 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
     }
 }

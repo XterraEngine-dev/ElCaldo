@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -21,6 +22,11 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -39,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TimeLineActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class TimeLineActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AdListener {
 
     private FloatingActionButton fab;
     private ProgressDialog pDialog;
@@ -55,6 +61,9 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     private String keyTracker;
 
     private String tag_json_obj = "jsonbj_req", tag_json_array = "jarray_req";
+
+    private AdView adView;
+    private String idPlacement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +92,14 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void startVars() {
+        //Facebook instance vars
+        idPlacement = Parametros.FB_PLACEMENT_BANNER;
+        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_timeline);
+        linear.addView(adView);
+        adView.setAdListener(this);
+        adView.loadAd();
+
         fab = (FloatingActionButton) findViewById(R.id.fab_timeline);
         fab.setOnClickListener(this);
         lvTimeline = (GridView) findViewById(R.id.lv_timeline);
@@ -131,7 +148,7 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
                         id = timeline.getString("id");
                         avatar = timeline.getString("avatar");
 
-                        categoria.add(new TimeLine(usuario, nombre, region, ingredientes, preparacion, id, like, imagen, R.drawable.atoldeelote));
+                        categoria.add(new TimeLine(usuario, nombre, region, ingredientes, preparacion, id, like, imagen, R.drawable.avatar1));
                         setupAdater(categoria);
                         hideporgressDialog();
                     }
@@ -226,6 +243,21 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERRO = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        //This was loaded in the startvars method
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
     }
@@ -235,4 +267,9 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         super.onResume();
     }
 
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
+    }
 }

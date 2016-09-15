@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -19,6 +20,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -38,7 +44,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostresActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class PostresActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener {
 
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -48,6 +54,9 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
     private String keyTracker;
+
+    private AdView adView;
+    private String idPlacement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,14 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void startVars() {
+        //Facebook instances vars
+        idPlacement = Parametros.FB_PLACEMENT_BANNER;
+        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_postres);
+        linear.addView(adView);
+        adView.setAdListener(this);
+        adView.loadAd();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_postres_activity);
         setSupportActionBar(toolbar);
         pDialog = new ProgressDialog(this);
@@ -192,6 +209,21 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        //This was loaded in the startvars method
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
     }
@@ -201,4 +233,9 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
         super.onResume();
     }
 
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
+    }
 }

@@ -18,6 +18,8 @@ public class Parametros {
     //Constante de TRACKER en Google Analytics
     public static final String TRACKER_ANALYTICS = "UA-69747362-1";
     //Constante de la api publicitaria de Facebook
-    //Este es un PLACEMENT-ID
+    //Este es un PLACEMENT-ID-PANTALLA-COMPLETA
     public static final String FB_PLACEMENT_ID = "472492076284805_568720113328667";
+    //PLACEMENT ID BANNER
+    public static final String FB_PLACEMENT_BANNER = "472492076284805_569083949958950";
 }

@@ -5,15 +5,22 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
-public class TopRecipesActivity extends AppCompatActivity {
+public class TopRecipesActivity extends AppCompatActivity implements AdListener {
 
     private Toolbar toolbar;
     private ProgressDialog pDialog;
@@ -22,6 +29,9 @@ public class TopRecipesActivity extends AppCompatActivity {
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
     private String keyTracker;
+
+    private AdView adView;
+    private String idPlacement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +42,14 @@ public class TopRecipesActivity extends AppCompatActivity {
     }
 
     private void startVars() {
+        //Facebook instances
+        idPlacement = Parametros.FB_PLACEMENT_BANNER;
+        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_toprecipes);
+        linear.addView(adView);
+        adView.setAdListener(this);
+        adView.loadAd();
+
         setContentView(R.layout.activity_top_recipes);
         toolbar = (Toolbar) findViewById(R.id.tool_bar_toprecipes);
         setSupportActionBar(toolbar);
@@ -89,6 +107,21 @@ public class TopRecipesActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        //This was loaded in the starvars method
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
     }
@@ -96,5 +129,11 @@ public class TopRecipesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
     }
 }

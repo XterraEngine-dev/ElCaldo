@@ -9,9 +9,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -24,7 +31,7 @@ import com.gt.dev.lazaro.elcaldo.vista.fragmentos.detail.Preparacion;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailRecipeActivity extends AppCompatActivity {
+public class DetailRecipeActivity extends AppCompatActivity implements AdListener {
 
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -36,6 +43,9 @@ public class DetailRecipeActivity extends AppCompatActivity {
     public static Tracker tracker;
     private String keyTracker;
 
+    private AdView adView;
+    private String idPlacement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +55,14 @@ public class DetailRecipeActivity extends AppCompatActivity {
     }
 
     private void startVars() {
+        //Facebook instance vars
+        idPlacement = Parametros.FB_PLACEMENT_BANNER;
+        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_detail_recipe);
+        linear.addView(adView);
+        adView.setAdListener(this);
+        adView.loadAd();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_detail_recipe);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -152,6 +170,21 @@ public class DetailRecipeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        //This was loaded in the startvars method
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
     }
@@ -159,5 +192,11 @@ public class DetailRecipeActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
     }
 }

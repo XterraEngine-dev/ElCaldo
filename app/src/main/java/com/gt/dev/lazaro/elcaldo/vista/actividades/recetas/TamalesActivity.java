@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,7 +40,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TamalesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+import com.facebook.ads.*;
+
+public class TamalesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener {
 
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -52,6 +55,9 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
     public static Tracker tracker;
     private String keyTracker;
 
+    private AdView adView;
+    private String idPlacement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,14 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void startVars() {
+        //Facebook instance vars
+        idPlacement = Parametros.FB_PLACEMENT_BANNER;
+        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
+        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_tamales);
+        linear.addView(adView);
+        adView.setAdListener(this);
+        adView.loadAd();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_tamales_activity);
         lvTamales = (GridView) findViewById(R.id.lv_tamales);
         lvTamales.setOnItemClickListener(this);
@@ -207,4 +221,24 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR", "MESSAGE = " + adError.getErrorMessage() + "CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        //Was load in the startvars()method
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
+    }
 }
