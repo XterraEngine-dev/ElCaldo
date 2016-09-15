@@ -5,6 +5,9 @@ package com.gt.dev.lazaro.elcaldo.utilidades;
  */
 public class Parametros {
 
+
+
+    public static final String URL_SHOW_TIMELINE = "http://dev.elcaldogt.com/timeline";
     public static final String URL_SHOW_TAMALES = "http://dev.elcaldogt.com/tamales";
     public static final String URL_SHOW_CALDOS = "http://dev.elcaldogt.com/caldos";
     public static final String URL_SHOW_POSTRES = "http://dev.elcaldogt.com/postres";
