@@ -62,6 +62,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         setContentView(R.layout.activity_buscador);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupVars();
         setAnalytics();
     }
@@ -119,6 +120,16 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         searchView.setOnQueryTextListener(this);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

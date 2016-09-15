@@ -36,6 +36,7 @@ public class TopRecipesActivity extends AppCompatActivity implements AdListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_top_recipes);
         startVars();
         verifyConnection();
         setAnalytics();
@@ -50,7 +51,6 @@ public class TopRecipesActivity extends AppCompatActivity implements AdListener 
         adView.setAdListener(this);
         adView.loadAd();
 
-        setContentView(R.layout.activity_top_recipes);
         toolbar = (Toolbar) findViewById(R.id.tool_bar_toprecipes);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
