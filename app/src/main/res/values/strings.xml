@@ -195,6 +195,16 @@
     <string name="usuario_tab_title">usuario</string>
     <string name="imagen_tab_title">imagen</string>
 
+    //Agregar receta
+    <string name="username_addrecipe">Nombre usuario</string>
+    <string name="selection_avatar_addrecipe">Seleccione un avatar</string>
+    <string name="next_page_addrecipe">Siguiente</string>
+    <string name="back_page_addrecipe">Atrás</string>
+    <string name="send_addrecipe">Enviar nueva receta</string>
+    <string name="camera_addrecipe">Camara</string>
+    <string name="gallery_addrecipe">Galeria</string>
+    <string name="recipe_name_addrecipe">Nombre de receta</string>
+    <string name="selection_region_addrecipe">Seleccione región</string>
 
 </resources>
 

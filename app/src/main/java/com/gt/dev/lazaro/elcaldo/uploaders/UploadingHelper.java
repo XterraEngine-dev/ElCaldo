@@ -78,7 +78,6 @@ public class UploadingHelper implements OnImageUploadComplete{
         activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void setResult(int resultCode, int requestCode, Intent intent){
         if(resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE){
             if(intent.getClipData() !=null){

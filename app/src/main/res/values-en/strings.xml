@@ -185,4 +185,17 @@
     <string name="text_interaction_recipes_wizard">Comment, dots and share recipes from other users.</string>
     <string name="title_recipes_week_wizard">¡RECIPES OF THE WEEK!</string>
     <string name="text_recipes_week">Every week we will show you the most popular recipes that have risen users.</string>
+
+
+    //Agregar receta
+    <string name="username_addrecipe">User name</string>
+    <string name="selection_avatar_addrecipe">Select an avatar</string>
+    <string name="next_page_addrecipe">Next</string>
+    <string name="back_page_addrecipe">Back</string>
+    <string name="send_addrecipe">Send new recipe</string>
+    <string name="camera_addrecipe">Camera</string>
+    <string name="gallery_addrecipe">Gallery</string>
+    <string name="recipe_name_addrecipe">Recipe name</string>
+    <string name="selection_region_addrecipe">Select region</string>
+
 </resources>

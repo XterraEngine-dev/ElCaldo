@@ -45,21 +45,20 @@
                         android:layout_marginTop="16dp"
                         android:focusableInTouchMode="true"
                         android:hint="@string/recipe_name_addrecipe"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textSize="40sp" />
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
-
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-
                     android:layout_marginLeft="@dimen/text_margin"
                     android:layout_marginRight="@dimen/text_margin"
                     android:layout_marginTop="16dp"
                     android:text="@string/selection_region_addrecipe"
-                    android:textSize="24sp" />
+                    android:textSize="48sp" />
 
                 <Spinner
                     android:id="@+id/gt"
@@ -86,7 +85,8 @@
                         android:ems="10"
                         android:hint="@string/ingreidientes"
                         android:inputType="textMultiLine"
-                        android:maxLines="3" />
+                        android:maxLines="3"
+                        android:textSize="40sp" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -105,7 +105,8 @@
                         android:ems="10"
                         android:hint="@string/preparacion"
                         android:inputType="textMultiLine"
-                        android:maxLines="3" />
+                        android:maxLines="3"
+                        android:textSize="40sp" />
 
 
                 </android.support.design.widget.TextInputLayout>
@@ -154,7 +155,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@string/next_page_addrecipe"
                 android:textColor="@color/blue_background"
-                android:textSize="18sp" />
+                android:textSize="36sp" />
 
             <Button
                 android:id="@+id/btn_receta_atras"
@@ -167,7 +168,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@string/back_page_addrecipe"
                 android:textColor="@color/blue_background"
-                android:textSize="18sp" />
+                android:textSize="36sp" />
         </FrameLayout>
     </ScrollView>
 

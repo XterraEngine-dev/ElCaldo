@@ -27,27 +27,27 @@
 
         <RelativeLayout
             android:id="@+id/relative_image"
-            android:layout_width="120dp"
-            android:gravity="center"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center" />
 
     </LinearLayout>
 
     <Button
-        style="?android:attr/borderlessButtonStyle"
         android:id="@+id/enviar"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:layout_marginBottom="@dimen/text_margin"
-        android:textAllCaps="false"
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_marginRight="@dimen/text_margin"
         android:background="?android:attr/selectableItemBackground"
         android:text="@string/send_addrecipe"
+        android:textAllCaps="false"
         android:textColor="@color/blue_background"
-        android:textSize="18sp" />
+        android:textSize="40sp" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="64dp"
@@ -81,25 +81,27 @@
         app:backgroundTint="@color/blue_background" />
 
     <Button
-        android:background="?android:attr/selectableItemBackground"
         android:id="@+id/button2"
         android:layout_width="wrap_content"
-        android:textColor="@color/blue_background"
         android:layout_height="wrap_content"
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="86dp"
         android:layout_marginTop="136dp"
-        android:text="@string/camera_addrecipe" />
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/camera_addrecipe"
+        android:textColor="@color/blue_background"
+        android:textSize="40sp" />
 
     <Button
-        android:textColor="@color/blue_background"
-        android:background="?android:attr/selectableItemBackground"
         android:id="@+id/btn_galeria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:layout_marginRight="86dp"
         android:layout_marginTop="136dp"
-        android:text="@string/gallery_addrecipe" />
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/gallery_addrecipe"
+        android:textColor="@color/blue_background"
+        android:textSize="40sp" />
 
 </FrameLayout>

@@ -111,7 +111,6 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
         uploadingHelper.setResult(resultCode, requestCode, data);
         linearLayout.removeAllViews();
         linearLayout.addView(uploadingHelper.getLayout());
-
     }
 
     /**
@@ -160,7 +159,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(AgregarRecetaActivityThree.this, "this" + response.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AgregarRecetaActivityThree.this, "this" + response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
