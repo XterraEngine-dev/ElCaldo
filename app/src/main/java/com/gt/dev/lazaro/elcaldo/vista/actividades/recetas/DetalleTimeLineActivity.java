@@ -10,12 +10,21 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
@@ -24,12 +33,15 @@ import com.facebook.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.timeline.ComentarioTimeLine;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.timeline.RecetaTimeLine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetalleTimeLineActivity extends AppCompatActivity implements View.OnClickListener, AdListener {
 
@@ -45,6 +57,22 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
 
     private AdView adView;
     private String idPlacement;
+
+    //Patch de like
+    private String Key_UNAME = "unombre";
+    private String KEY_NAME = "nombre";
+    private String KEY_INGREDIENTES = "ingredientes";
+    private String KEY_PREPARACION = "preparacion";
+    private String KEY_REGION = "region";
+    private String KEY_IMAGEN = "imagen";
+    private String KEY_LIKE = "like";
+    private String KEY_AVATAR = "avatar";
+    private String parametroUrl;
+
+    //Variables para put
+
+    private String nombreReceta, nombreUsuario,ingredientes,preparacion,region,imagen,like ;
+    private int avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +98,25 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
         setSupportActionBar(toolbar);
 
         Bundle bundle = getIntent().getExtras();
+        String idUrl = bundle.getString("id");
+        String nombreUsuarioB = bundle.getString("username");
         String title = bundle.getString("recipename");
+        String ingredientesB  = bundle.getString("ingredientes");
+        String preparacionB = bundle.getString("preparacion");
+        String regionB = bundle.getString("region");
+        String imagenB = bundle.getString("imagen");
+        String likeB = bundle.getString("like");
+        int avatarB = bundle.getInt("avatar");
+
+        nombreUsuario = nombreUsuarioB;
+        ingredientes = ingredientesB;
+        preparacion = preparacionB;
+        region = regionB;
+        imagen = imagenB;
+        like = likeB;
+        avatar = avatarB;
+        nombreReceta = title;
+        parametroUrl = idUrl;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(title);
@@ -181,10 +227,74 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
                 break;
 
             case R.id.btn_like_timeline:
-                //Defines acción para el LIKE
+                enviarLike();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void enviarLike() {
+
+
+        String url = Parametros.URL_SHOW_TIMELINE+"/"+parametroUrl;
+
+        Log.i("URL","NUEVA URL  " + url);
+        StringRequest uploadRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(DetalleTimeLineActivity.this, "this" + response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("ERROR RESPONSE", "MESSAGE: " + error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                String masLike = "1";
+
+                Map<String, String> params = new HashMap<>();
+                params.put(Key_UNAME,nombreUsuario);
+                params.put(KEY_NAME,nombreReceta);
+                params.put(KEY_INGREDIENTES,ingredientes);
+                params.put(KEY_PREPARACION,preparacion);
+                params.put(KEY_REGION,region);
+                params.put(KEY_IMAGEN,imagen);
+                params.put(KEY_LIKE,masLike);
+                String imagenAvatar = String.valueOf(avatar);
+                params.put(KEY_AVATAR,imagenAvatar);
+
+
+                Log.i("PARAMETROS",
+                "TODO"
+                        +nombreUsuario+"  "
+                        +nombreReceta+"  "
+                        +ingredientes+"  "
+                        +preparacion+"  "
+                        +region+"  "
+                        +imagen+"  "
+                        +masLike+"  "
+                        +imagenAvatar+"  "
+
+                );
+
+
+
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                String credentials = Base64.encodeToString(("dev@elcaldogt.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", "Basic " + credentials);
+                return headers;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(uploadRequest);
     }
 
     @Override
