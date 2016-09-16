@@ -24,15 +24,15 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/img_contenador"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/caldoicon" />
+
+        <RelativeLayout
+            android:id="@+id/relative_image"
+            android:layout_width="120dp"
+            android:gravity="center"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
-
 
     <Button
         style="?android:attr/borderlessButtonStyle"
@@ -93,7 +93,7 @@
     <Button
         android:textColor="@color/blue_background"
         android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/button3"
+        android:id="@+id/btn_galeria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"

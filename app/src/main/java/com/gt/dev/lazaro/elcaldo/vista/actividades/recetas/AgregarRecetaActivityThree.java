@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -16,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
+import com.gt.dev.lazaro.elcaldo.uploaders.UploadingHelper;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
 
@@ -34,7 +36,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     /**
      * Variables Bundle
      */
-    private Button enviar;
+    private Button enviar,galeria;
     String usuario, avatarB, recetaB, ingredienteB, preparacionB;
 
     /**
@@ -49,9 +51,15 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     private String KEY_IMAGEN = "imagen";
     private String KEY_LIKE = "like";
     private String KEY_AVATAR = "avatar";
+    private static String nombreImagenUrl = null;
+    RelativeLayout linearLayout;
+    UploadingHelper uploadingHelper;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_envio_imagen);
         VolleySingleton.getInstance().init(getApplicationContext());
@@ -61,10 +69,17 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
 
     private void setupVars() {
 
+
         enviar = (Button) findViewById(R.id.enviar);
+
+        galeria =(Button)findViewById(R.id.btn_galeria);
+        linearLayout=(RelativeLayout)findViewById(R.id.relative_image);
+
         enviar.setOnClickListener(this);
+        galeria.setOnClickListener(this);
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -76,9 +91,26 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
                 this.finish();
                 break;
 
-
-
+            case R.id.btn_galeria:
+                enviarGaleria();
+                break;
         }
+
+    }
+
+    private void enviarGaleria() {
+
+        String url = "http://dev.elcaldogt.com/Subir.php";
+        uploadingHelper = new UploadingHelper(this, url);
+        uploadingHelper.startActivityForImagePick();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uploadingHelper.setResult(resultCode, requestCode, data);
+        linearLayout.removeAllViews();
+        linearLayout.addView(uploadingHelper.getLayout());
 
     }
 
@@ -106,7 +138,14 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
         recetaB = receta;
         ingredienteB = ingrediente;
         preparacionB = preparacion;
+        nombreImagenUrl = recetaB;
 
+
+    }
+
+
+    public static String getNombreImagenUrl() {
+        return nombreImagenUrl;
     }
 
     /**
@@ -133,7 +172,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
             protected Map<String, String> getParams() throws AuthFailureError {
 
 
-                String url = "http://elcaldogt.com/uploads/" + recetaB;
+                String urlImagen = "http://dev.elcaldogt.com/uploads/" + recetaB;
                 String like = "0";
 
                 Map<String, String> params = new HashMap<>();
@@ -142,7 +181,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
                 params.put(KEY_INGREDIENTES, ingredienteB);
                 params.put(KEY_PREPARACION, preparacionB);
                 params.put(KEY_REGION, recetaB);
-                params.put(KEY_IMAGEN, url);
+                params.put(KEY_IMAGEN, urlImagen);
                 params.put(KEY_LIKE, like);
                 params.put(KEY_AVATAR, avatarB);
 

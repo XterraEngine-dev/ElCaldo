@@ -8,7 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.gt.dev.lazaro.elcaldo.utilidades.MultipartRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
-import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.AddRecipeActivity;
+import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.AgregarRecetaActivityThree;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -60,7 +60,7 @@ public class ImageUploader {
         DataOutputStream dos = new DataOutputStream(bos);
         try {
 
-            String nombreFoto = AddRecipeActivity.getNombreImagenUrl();
+            String nombreFoto = AgregarRecetaActivityThree.getNombreImagenUrl();
             dos.writeBytes(twoHyphens + boundary + lineEnd);
             dos.writeBytes("Content-Disposition: form-data; name=\""+fileObjName+"\"; filename=\"" + nombreFoto + "\"" + lineEnd);
             dos.writeBytes(lineEnd);
