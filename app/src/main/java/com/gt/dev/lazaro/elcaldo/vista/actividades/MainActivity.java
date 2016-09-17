@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -228,10 +229,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, Preferencias.class));
 
         } else if (id == R.id.nav_comousar) {
-            Toast.makeText(MainActivity.this, "Como usar activity", Toast.LENGTH_SHORT).show();
-
+            welcomeScreen.forceShow();
         } else if (id == R.id.nav_website) {
-            String urlWeb = "http://elcaldo.net84.net";
+            String urlWeb = "http://www.facebook.com/elcaldoap";
             Intent iWeb = new Intent(Intent.ACTION_VIEW);
             iWeb.setData(Uri.parse(urlWeb));
             startActivity(iWeb);
@@ -302,9 +302,11 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == WelcomeScreenHelper.DEFAULT_WELCOME_SCREEN_REQUEST) {
             String welcomeKey = data.getStringExtra(WelcomeActivity.WELCOME_SCREEN_KEY);
             if (resultCode == RESULT_OK) {
-                Toast.makeText(MainActivity.this, "completed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "completed", Toast.LENGTH_SHORT).show();
+                Log.d("WELCOMEKEY", "COMPLETED");
             } else {
-                Toast.makeText(MainActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+                Log.d("WELCOMEKEY", "CANCELED");
             }
         }
     }

@@ -27,7 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Recipename"
-                android:textSize="40sp" />
+                android:textColor="@color/primaryColor"
+                android:textSize="40sp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/tv_region_detailtime"
@@ -35,7 +37,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Region"
-                android:textSize="40sp" />
+                android:textSize="36sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/ingreidientes"
+                android:textColor="@color/primaryColor"
+                android:textSize="40sp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/tv_ingredientes_detailtime"
@@ -43,7 +54,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Ingredientes"
-                android:textSize="40sp" />
+                android:textSize="36sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/preparacion"
+                android:textColor="@color/primaryColor"
+                android:textSize="40sp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/tv_preparacion_detailtime"
@@ -51,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Preparacion"
-                android:textSize="40sp" />
+                android:textSize="36sp" />
 
             <View
                 android:layout_width="match_parent"

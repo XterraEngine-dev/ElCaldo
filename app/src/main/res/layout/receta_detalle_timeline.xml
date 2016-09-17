@@ -22,36 +22,56 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/tv_recipename_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Recipename"
-                android:textSize="20sp" />
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold|italic" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/tv_region_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Region"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
-                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/ingreidientes"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
                 android:id="@+id/tv_ingredientes_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Ingredientes"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <TextView
-                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/preparacion"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
                 android:id="@+id/tv_preparacion_detailtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Preparacion"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="match_parent"

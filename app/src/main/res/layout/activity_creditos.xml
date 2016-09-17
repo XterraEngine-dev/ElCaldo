@@ -56,12 +56,12 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tv_twlazaro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
-                        android:text="www.facebook.com/lazarodev"
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -135,6 +135,29 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Nos interesa mucho tu opinion, dinos tus sugerencias y comentarios. ¡Seran bienvenida! :D"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_send_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/primaryColor"
+            android:text="Enviar Correo"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
 
     </LinearLayout>
 
