@@ -59,7 +59,19 @@ public class TimeLineAdapter extends BaseAdapter {
         tvRecipename = (TextView) convertView.findViewById(R.id.tv_platename_timeline);
         tvLikes = (TextView) convertView.findViewById(R.id.tv_likes_timeline);
 
-        ivAvatar.setBackgroundResource(cat.getAvatar());
+        //Seteo de avatars
+        switch (cat.getAvatar()) {
+            case 1:
+                ivAvatar.setBackgroundResource(R.drawable.avatar1);
+                break;
+            case 2:
+                ivAvatar.setBackgroundResource(R.drawable.avatar2);
+                break;
+            case 3:
+                ivAvatar.setBackgroundResource(R.drawable.avatar3);
+                break;
+        }
+
         ivPicture.setImageUrl(cat.getPicture(), VolleySingleton.getInstance().getImageLoader());
 
         tvUsername.setText(cat.getUsername());
