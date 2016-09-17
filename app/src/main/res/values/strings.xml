@@ -206,5 +206,7 @@
     <string name="recipe_name_addrecipe">Nombre de receta</string>
     <string name="selection_region_addrecipe">Seleccione región</string>
 
+    <string name="like_recipe_timeline">Me gusta esta receta :)</string>
+
 </resources>
 

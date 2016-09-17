@@ -8,7 +8,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.gt.dev.lazaro.elcaldo.utilidades.MultipartRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
-import com.gt.dev.lazaro.elcaldo.vista.actividades.recetas.AgregarRecetaActivityThree;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,10 +18,9 @@ import java.util.HashMap;
  * Created by Lazarus on 20/08/2016.
  */
 public class ImageUploader {
-
     private String url;
 
-    private String fileName="tempImage";
+    private String fileName = "tempImage";
 
     private Bitmap bitmap;
 
@@ -32,20 +30,20 @@ public class ImageUploader {
         this.fileObjName = fileObjName;
     }
 
-    private HashMap<String,String> headers = new HashMap<>();
+    private HashMap<String, String> headers = new HashMap<>();
 
-    public ImageUploader(String url,Bitmap bitmap){
+    public ImageUploader(String url, Bitmap bitmap) {
         this.url = url;
         this.bitmap = bitmap;
     }
 
-    public ImageUploader(String url,Bitmap bitmap,HashMap<String,String> headers){
+    public ImageUploader(String url, Bitmap bitmap, HashMap<String, String> headers) {
         this.url = url;
         this.bitmap = bitmap;
         this.headers = headers;
     }
 
-    public void uploadImage(final OnImageUploadComplete onImageUploadComplete){
+    public void uploadImage(final OnImageUploadComplete onImageUploadComplete) {
 
         final String twoHyphens = "--";
         final String lineEnd = "\r\n";
@@ -60,9 +58,8 @@ public class ImageUploader {
         DataOutputStream dos = new DataOutputStream(bos);
         try {
 
-            String nombreFoto = AgregarRecetaActivityThree.getNombreImagenUrl();
             dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\""+fileObjName+"\"; filename=\"" + nombreFoto + "\"" + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"" + fileObjName + "\"; filename=\"" + fileName + "\"" + lineEnd);
             dos.writeBytes(lineEnd);
 
             ByteArrayInputStream fileInputStream = new ByteArrayInputStream(fileData);
@@ -88,26 +85,26 @@ public class ImageUploader {
 
             multipartBody = bos.toByteArray();
 
-            MultipartRequest multipartRequest = new MultipartRequest(url,headers,mimeType,multipartBody,new Response.Listener<NetworkResponse>(){
+            MultipartRequest multipartRequest = new MultipartRequest(url, headers, mimeType, multipartBody, new Response.Listener<NetworkResponse>() {
 
                 @Override
                 public void onResponse(NetworkResponse networkResponse) {
-                    if(onImageUploadComplete !=null){
+                    if (onImageUploadComplete != null) {
                         Log.e("mudit", new String(networkResponse.data));
-                        onImageUploadComplete.OnUploadComplate(1,new String(networkResponse.data));
+                        onImageUploadComplete.OnUploadComplate(1, new String(networkResponse.data));
                     }
                 }
-            },new Response.ErrorListener(){
+            }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if(onImageUploadComplete !=null){
-                        onImageUploadComplete.OnUploadComplate(0,"");
+                    if (onImageUploadComplete != null) {
+                        onImageUploadComplete.OnUploadComplate(0, "");
                     }
                 }
             });
 
             VolleySingleton.getInstance().addToRequestQueue(multipartRequest);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

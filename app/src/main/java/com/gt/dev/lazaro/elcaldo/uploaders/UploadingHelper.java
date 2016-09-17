@@ -26,7 +26,7 @@ import java.util.Queue;
 /**
  * Created by Lazarus on 20/08/2016.
  */
-public class UploadingHelper implements OnImageUploadComplete{
+public class UploadingHelper implements OnImageUploadComplete {
 
     Activity activity;
 
@@ -52,11 +52,11 @@ public class UploadingHelper implements OnImageUploadComplete{
         this.fileObjName = fileObjName;
     }
 
-    private HashMap<String,String> headers;
+    private HashMap<String, String> headers;
 
     Queue<Uri> queue = new LinkedList<>();
 
-    public UploadingHelper(Activity activity,String url){
+    public UploadingHelper(Activity activity, String url) {
         this.activity = activity;
         this.url = url;
         myImageLayout = new MyImageLayout(activity.getBaseContext());
@@ -70,7 +70,7 @@ public class UploadingHelper implements OnImageUploadComplete{
     }
 
 
-    public void startActivityForImagePick(){
+    public void startActivityForImagePick() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -78,12 +78,13 @@ public class UploadingHelper implements OnImageUploadComplete{
         activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
-    public void setResult(int resultCode, int requestCode, Intent intent){
-        if(resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE){
-            if(intent.getClipData() !=null){
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void setResult(int resultCode, int requestCode, Intent intent) {
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
+            if (intent.getClipData() != null) {
                 myImageLayout.removeAllViews();
                 numberOfImages = intent.getClipData().getItemCount();
-                for (int i = 0; i <numberOfImages;i++){
+                for (int i = 0; i < numberOfImages; i++) {
                     try {
                         Bitmap bitmap = getBitmapFromUri(intent.getClipData().getItemAt(i).getUri());
                         Bitmap tmpBitmap = Bitmap.createScaledBitmap(bitmap, getPixelsFromDP(widthOfImages), getPixelsFromDP(widthOfImages), false);
@@ -94,24 +95,24 @@ public class UploadingHelper implements OnImageUploadComplete{
                         iv.setImageBitmap(tmpBitmap);
 
                         myImageLayout.addView(v);
-                        if(i==0){
+                        if (i == 0) {
                             ImageUploader imageUploader;
-                            if(headers !=null){
-                                imageUploader = new ImageUploader(url,bitmap,headers);
-                            }else{
-                                imageUploader = new ImageUploader(url,bitmap);
+                            if (headers != null) {
+                                imageUploader = new ImageUploader(url, bitmap, headers);
+                            } else {
+                                imageUploader = new ImageUploader(url, bitmap);
                             }
 
                             imageUploader.setFileObjName(fileObjName);
                             imageUploader.uploadImage(this);
-                        }else{
+                        } else {
                             queue.add(intent.getClipData().getItemAt(i).getUri());
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-            }else if(intent.getData() !=null){
+            } else if (intent.getData() != null) {
                 try {
                     numberOfImages = 1;
                     Bitmap bitmap = getBitmapFromUri(intent.getData());
@@ -119,11 +120,11 @@ public class UploadingHelper implements OnImageUploadComplete{
 
                     View v = LayoutInflater.from(activity.getBaseContext()).inflate(R.layout.item_image, myImageLayout, false);
                     ImageView iv = (ImageView) v.findViewById(R.id.iv_uploadingImage);
-                    v.setTag("ImageView"+0);
+                    v.setTag("ImageView" + 0);
                     iv.setImageBitmap(tmpBitmap);
 
                     myImageLayout.addView(v);
-                    ImageUploader imageUploader = new ImageUploader(url,bitmap);
+                    ImageUploader imageUploader = new ImageUploader(url, bitmap);
                     imageUploader.setFileObjName(fileObjName);
                     imageUploader.uploadImage(this);
                 } catch (IOException e) {
@@ -153,23 +154,23 @@ public class UploadingHelper implements OnImageUploadComplete{
 
     @Override
     public void OnUploadComplate(int msg, String data) {
-        View v = myImageLayout.findViewWithTag("ImageView"+(numberOfImages - queue.size()-1));
-        if(v !=null){
-            if(msg != 1){
-                ((ImageView)v.findViewById(R.id.iv_ok)).setImageResource(R.drawable.not_ok);
+        View v = myImageLayout.findViewWithTag("ImageView" + (numberOfImages - queue.size() - 1));
+        if (v != null) {
+            if (msg != 1) {
+                ((ImageView) v.findViewById(R.id.iv_ok)).setImageResource(R.drawable.not_ok);
             }
             v.findViewById(R.id.iv_ok).setVisibility(View.VISIBLE);
             v.findViewById(R.id.pb_uploading).setVisibility(View.GONE);
         }
 
-        if(!queue.isEmpty()){
+        if (!queue.isEmpty()) {
             try {
                 Bitmap bitmap = getBitmapFromUri(queue.poll());
                 ImageUploader imageUploader;
-                if(headers !=null){
-                    imageUploader = new ImageUploader(url,bitmap,headers);
-                }else{
-                    imageUploader = new ImageUploader(url,bitmap);
+                if (headers != null) {
+                    imageUploader = new ImageUploader(url, bitmap, headers);
+                } else {
+                    imageUploader = new ImageUploader(url, bitmap);
                 }
                 imageUploader.setFileObjName(fileObjName);
 
@@ -184,8 +185,7 @@ public class UploadingHelper implements OnImageUploadComplete{
         this.headers = headers;
     }
 
-    public  int getPixelsFromDP(float dp)
-    {
+    public int getPixelsFromDP(float dp) {
         Resources r = activity.getResources();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }

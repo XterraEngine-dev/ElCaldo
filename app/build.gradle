@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.gt.dev.lazaro.elcaldo"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 6
         versionName "Cafecito"

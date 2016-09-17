@@ -1,15 +1,15 @@
 package com.gt.dev.lazaro.elcaldo.utilidades;
 
 import android.graphics.Bitmap;
-import android.util.LruCache;
+import android.support.v4.util.LruCache;
 
-import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageCache;
 
 /**
  * Created by Lazarus on 08/08/2016.
  */
 
-public class LruBitmapCache extends android.support.v4.util.LruCache<String, Bitmap> implements ImageLoader.ImageCache {
+public class LruBitmapCache extends LruCache<String, Bitmap> implements ImageCache {
 
     public static int getDefaultLruCacheSize() {
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);

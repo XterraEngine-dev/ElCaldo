@@ -198,4 +198,7 @@
     <string name="recipe_name_addrecipe">Recipe name</string>
     <string name="selection_region_addrecipe">Select region</string>
 
+
+    <string name="like_recipe_timeline">I like this recipe :)</string>
+
 </resources>

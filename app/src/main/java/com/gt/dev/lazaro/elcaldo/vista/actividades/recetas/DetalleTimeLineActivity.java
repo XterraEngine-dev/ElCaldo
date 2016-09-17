@@ -13,10 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -71,8 +69,10 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
 
     //Variables para put
 
-    private String nombreReceta, nombreUsuario,ingredientes,preparacion,region,imagen,like ;
+    private String nombreReceta, nombreUsuario, ingredientes, preparacion, region, imagen, like, likePlus;
     private int avatar;
+
+    private int contador = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
         String idUrl = bundle.getString("id");
         String nombreUsuarioB = bundle.getString("username");
         String title = bundle.getString("recipename");
-        String ingredientesB  = bundle.getString("ingredientes");
+        String ingredientesB = bundle.getString("ingredientes");
         String preparacionB = bundle.getString("preparacion");
         String regionB = bundle.getString("region");
         String imagenB = bundle.getString("imagen");
@@ -117,6 +117,16 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
         avatar = avatarB;
         nombreReceta = title;
         parametroUrl = idUrl;
+
+        contador++;
+
+        int megusta = 0;
+        megusta = Integer.parseInt(like);
+        int newLike = megusta + contador;
+
+        likePlus = String.valueOf(newLike);
+
+        Log.d("**LIKEPLUS**", likePlus);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(title);
@@ -236,14 +246,16 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     private void enviarLike() {
 
 
-        String url = Parametros.URL_SHOW_TIMELINE+"/"+parametroUrl;
+        String url = Parametros.URL_SHOW_TIMELINE + "/" + parametroUrl;
 
-        Log.i("URL","NUEVA URL  " + url);
+        Log.i("URL", "NUEVA URL  " + url);
         StringRequest uploadRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
-                Toast.makeText(DetalleTimeLineActivity.this, "this" + response, Toast.LENGTH_SHORT).show();
+                Log.d("**RESPONSE**", "MESSAGE = " + response);
+                if (response.equals("{\"timeline\":\"editado\"}")) {
+                    Toast.makeText(DetalleTimeLineActivity.this, getString(R.string.like_recipe_timeline), Toast.LENGTH_SHORT).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -254,33 +266,31 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                String masLike = "1";
-
                 Map<String, String> params = new HashMap<>();
-                params.put(Key_UNAME,nombreUsuario);
-                params.put(KEY_NAME,nombreReceta);
-                params.put(KEY_INGREDIENTES,ingredientes);
-                params.put(KEY_PREPARACION,preparacion);
-                params.put(KEY_REGION,region);
-                params.put(KEY_IMAGEN,imagen);
-                params.put(KEY_LIKE,masLike);
+                params.put(Key_UNAME, nombreUsuario);
+                params.put(KEY_NAME, nombreReceta);
+                params.put(KEY_INGREDIENTES, ingredientes);
+                params.put(KEY_PREPARACION, preparacion);
+                params.put(KEY_REGION, region);
+                params.put(KEY_IMAGEN, imagen);
+                params.put(KEY_LIKE, likePlus);
                 String imagenAvatar = String.valueOf(avatar);
-                params.put(KEY_AVATAR,imagenAvatar);
+                params.put(KEY_AVATAR, imagenAvatar);
 
 
                 Log.i("PARAMETROS",
-                "TODO"
-                        +nombreUsuario+"  "
-                        +nombreReceta+"  "
-                        +ingredientes+"  "
-                        +preparacion+"  "
-                        +region+"  "
-                        +imagen+"  "
-                        +masLike+"  "
-                        +imagenAvatar+"  "
+                        "TODO"
+                                + nombreUsuario + "  "
+                                + nombreReceta + "  "
+                                + ingredientes + "  "
+                                + preparacion + "  "
+                                + region + "  "
+                                + imagen + "  "
+                                //              + masLike + "  "
+                                + likePlus + " "
+                                + imagenAvatar + "  "
 
                 );
-
 
 
                 return params;
