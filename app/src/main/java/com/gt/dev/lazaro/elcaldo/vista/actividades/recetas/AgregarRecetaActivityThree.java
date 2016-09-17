@@ -1,12 +1,23 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -17,10 +28,21 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
-import com.gt.dev.lazaro.elcaldo.uploaders.UploadingHelper;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
+import com.kosalgeek.android.photoutil.CameraPhoto;
+import com.kosalgeek.android.photoutil.GalleryPhoto;
+import com.kosalgeek.android.photoutil.ImageBase64;
+import com.kosalgeek.android.photoutil.ImageLoader;
+import com.kosalgeek.asynctask.AsyncResponse;
+import com.kosalgeek.asynctask.EachExceptionsHandler;
+import com.kosalgeek.asynctask.PostResponseAsyncTask;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,10 +55,15 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
      * LOG
      */
     private static final String TAG_AGREGAR_THREE = "tag_agregar_three";
+    private static final String TAG = "proceso";
+
+
+    private static final int REQUEST_TO_CAMERA = 1;
+    private static final int REQUEST_TO_STORAGE = 2;
     /**
      * Variables Bundle
      */
-    private Button enviar,galeria;
+    private Button enviar;
     String usuario, avatarB, recetaB, ingredienteB, preparacionB;
 
     /**
@@ -52,10 +79,22 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     private String KEY_LIKE = "like";
     private String KEY_AVATAR = "avatar";
     private static String nombreImagenUrl = null;
-    RelativeLayout linearLayout;
-    UploadingHelper uploadingHelper;
+
+    /**
+     * Variables para subir imagen
+     */
 
 
+    ImageView camara, gallery, upload, imagen;
+    CameraPhoto cameraPhoto;
+    GalleryPhoto galleryPhoto;
+    String selectedPhoto;
+    String selectedGallery;
+
+    final int CAMERA_REQUEST = 1100;
+    final int GALLERY_REQUEST = 2200;
+
+    String nombreUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,54 +103,194 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
         setContentView(R.layout.fragment_envio_imagen);
         VolleySingleton.getInstance().init(getApplicationContext());
         setupVars();
+        checkPermission();
         bundleFormulario();
     }
 
+    private void checkPermission() {
+
+        int cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        int storagePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED && storagePermission != PackageManager.PERMISSION_GRANTED) {
+            Log.i("INTERNET", "PERMISSION GRANTED");
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Permission to acces the camera is requiered to get recipes").setTitle("Permission required");
+
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("CAMERA", "CLICKED");
+                        cameraRequest();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                cameraRequest();
+            }
+        }
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Permission to acces write in external storage is required to take picture").setTitle("Permission required");
+
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.i("STORAGE", "CLICKED");
+                    storageRequest();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            storageRequest();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case REQUEST_TO_CAMERA:
+                if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Log.i("CAMERA", "PERMISSION HAS BEEN DENIED BY USER");
+                } else {
+                    Log.i("CAMERA", "PERMISSION HAS BEEN GRANTED BY USER");
+                }
+                return;
+            case REQUEST_TO_STORAGE: {
+                if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Log.i("STORAGE", "PERMISSION HAS BEEN DENIED BY USER");
+                } else {
+                    Log.i("STORAGE", "PERMISSION HAS BEEN GRANTED BY USER");
+                }
+                return;
+            }
+        }
+        return;
+    }
+
+    private void cameraRequest() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_TO_CAMERA);
+    }
+
+    private void storageRequest() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_TO_CAMERA);
+    }
+
+
     private void setupVars() {
 
+        cameraPhoto = new CameraPhoto(getApplicationContext());
+        galleryPhoto = new GalleryPhoto(getApplicationContext());
 
         enviar = (Button) findViewById(R.id.enviar);
+        camara = (ImageView) findViewById(R.id.imv_camara);
+        gallery = (ImageView) findViewById(R.id.imv_gallery);
+        imagen = (ImageView) findViewById(R.id.imv_image);
 
-        galeria =(Button)findViewById(R.id.btn_galeria);
-        linearLayout=(RelativeLayout)findViewById(R.id.relative_image);
 
         enviar.setOnClickListener(this);
-        galeria.setOnClickListener(this);
+        camara.setOnClickListener(this);
+        gallery.setOnClickListener(this);
+
 
     }
 
 
     @Override
     public void onClick(View v) {
-
-        switch (v.getId()){
-
+        switch (v.getId()) {
             case R.id.enviar:
-                enviarFormulario();
-                this.finish();
+                subirProceso();
                 break;
-
-            case R.id.btn_galeria:
-                enviarGaleria();
+            case R.id.imv_camara:
+                intentoCamara();
+                break;
+            case R.id.imv_gallery:
+                intentoGallery();
                 break;
         }
 
     }
 
-    private void enviarGaleria() {
+    private void subirProceso() {
 
-        String url = "http://dev.elcaldogt.com/Subir.php";
-        uploadingHelper = new UploadingHelper(this, url);
-        uploadingHelper.startActivityForImagePick();
+        if (selectedPhoto == null || selectedPhoto.equals("")) {
+
+            Toast.makeText(getApplicationContext(), "No selecciono imagen", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(512, 512).getBitmap();
+            String encodedImage = ImageBase64.encode(bitmap);
+            Log.d("subir", encodedImage);
+
+            HashMap<String, String> postData = new HashMap<String, String>();
+            postData.put("image", encodedImage);
+            postData.put("nombre", nombreUrl);
+            PostResponseAsyncTask task = new PostResponseAsyncTask(AgregarRecetaActivityThree.this, postData, new AsyncResponse() {
+                @Override
+                public void processFinish(String s) {
+
+                    if (s.contains("uploaded_success")) {
+                        Toast.makeText(getApplicationContext(), "Upload", Toast.LENGTH_SHORT).show();
+                        enviarFormulario();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+            task.execute("http://dev.elcaldogt.com/upload.php");
+            task.setEachExceptionsHandler(new EachExceptionsHandler() {
+                @Override
+                public void handleIOException(IOException e) {
+                    Log.d(TAG, "handleIOException");
+                }
+
+                @Override
+                public void handleMalformedURLException(MalformedURLException e) {
+                    Log.d(TAG, "handleMalformedURLException");
+                }
+
+                @Override
+                public void handleProtocolException(ProtocolException e) {
+                    Log.d(TAG, "handleProtocolException");
+                }
+
+                @Override
+                public void handleUnsupportedEncodingException(UnsupportedEncodingException e) {
+                    Log.d(TAG, "handleUnsupportedEncodingException");
+                }
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        uploadingHelper.setResult(resultCode, requestCode, data);
-        linearLayout.removeAllViews();
-        linearLayout.addView(uploadingHelper.getLayout());
+    private void intentoGallery() {
+        startActivityForResult(galleryPhoto.openGalleryIntent(), GALLERY_REQUEST);
     }
+
+    private void intentoCamara() {
+        try {
+            startActivityForResult(cameraPhoto.takePhotoIntent(), CAMERA_REQUEST);
+            cameraPhoto.addToGallery();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "PROBLEMA CARGAR FOTO", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     /**
      * Obtiene valores de bundle e Inicia variables
@@ -138,6 +317,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
         ingredienteB = ingrediente;
         preparacionB = preparacion;
         nombreImagenUrl = recetaB;
+        nombreUrl = receta;
 
 
     }
@@ -160,6 +340,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
             public void onResponse(String response) {
 
                 Toast.makeText(AgregarRecetaActivityThree.this, "this" + response, Toast.LENGTH_SHORT).show();
+                AgregarRecetaActivityThree.this.finish();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -171,7 +352,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
             protected Map<String, String> getParams() throws AuthFailureError {
 
 
-                String urlImagen = "http://dev.elcaldogt.com/uploads/" + recetaB;
+                String urlImagen = "http://dev.elcaldogt.com/upload/" + nombreUrl + ".jpeg";
                 String like = "0";
 
                 Map<String, String> params = new HashMap<>();
@@ -198,5 +379,43 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
         AppController.getInstance().addToRequestQueue(uploadRequest);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST) {
+                String photoPath = cameraPhoto.getPhotoPath();
+                selectedPhoto = photoPath;
+                Bitmap bitmap = null;
+                try {
+                    bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
+                    imagen.setImageBitmap(getRotatedBitmap(bitmap,90));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else if (requestCode == GALLERY_REQUEST) {
+                Uri uri = data.getData();
+                galleryPhoto.setPhotoUri(uri);
+                String photoPath = galleryPhoto.getPath();
+                selectedPhoto = photoPath;
+                try {
+                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
+                    imagen.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+    }
+
+
+    private Bitmap getRotatedBitmap(Bitmap source, float angle){
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        Bitmap bitmap1 = Bitmap.createBitmap(source,
+                0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        return bitmap1;
+    }
 }

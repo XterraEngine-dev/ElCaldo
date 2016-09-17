@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,30 +25,18 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_width="250dp"
+            android:layout_height="0dp"
+            android:id="@+id/imv_image"
+            android:src="@drawable/caldoicon"
+            android:layout_gravity="center"
+            android:layout_weight="0.28" />
 
-        <RelativeLayout
-            android:id="@+id/relative_image"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center" />
+
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/enviar"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="@dimen/text_margin"
-        android:layout_marginLeft="@dimen/text_margin"
-        android:layout_marginRight="@dimen/text_margin"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="@string/send_addrecipe"
-        android:textAllCaps="false"
-        android:textColor="@color/blue_background"
-        android:textSize="40sp" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="64dp"
@@ -79,29 +68,45 @@
         android:elevation="4dp"
         android:src="@drawable/ic_tres"
         app:backgroundTint="@color/blue_background" />
-
-    <Button
-        android:id="@+id/button2"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="86dp"
-        android:layout_marginTop="136dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="@string/camera_addrecipe"
-        android:textColor="@color/blue_background"
-        android:textSize="40sp" />
+        android:text="@string/agregar_imagen"
+        android:textSize="44sp"
+        android:layout_gravity="center_horizontal|center" />
 
     <Button
-        android:id="@+id/btn_galeria"
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/enviar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="86dp"
-        android:layout_marginTop="136dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:textAllCaps="false"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
         android:background="?android:attr/selectableItemBackground"
-        android:text="@string/gallery_addrecipe"
+        android:text="@string/send_addrecipe"
         android:textColor="@color/blue_background"
-        android:textSize="40sp" />
+        android:textSize="36sp" />
+
+    <ImageView
+
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:id="@+id/imv_gallery"
+        android:layout_marginTop="122dp"
+        android:layout_marginLeft="122dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_gravity="left|center" />
+
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:id="@+id/imv_camara"
+        android:layout_marginTop="122dp"
+        android:layout_marginRight="122dp"
+        android:src="@android:drawable/ic_menu_camera"
+        android:layout_gravity="right|center_vertical" />
 
 </FrameLayout>

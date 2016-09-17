@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,30 +25,18 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <ImageView
 
-        <RelativeLayout
-            android:id="@+id/relative_image"
-            android:layout_width="120dp"
-            android:gravity="center"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_width="150dp"
+            android:layout_height="0dp"
+            android:id="@+id/imv_image"
+            android:src="@drawable/caldoicon"
+            android:layout_gravity="center"
+            android:layout_weight="0.28" />
+
+
 
     </LinearLayout>
-
-    <Button
-        style="?android:attr/borderlessButtonStyle"
-        android:id="@+id/enviar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="@dimen/text_margin"
-        android:textAllCaps="false"
-        android:layout_marginLeft="@dimen/text_margin"
-        android:layout_marginRight="@dimen/text_margin"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="@string/send_addrecipe"
-        android:textColor="@color/blue_background"
-        android:textSize="18sp" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="64dp"
@@ -79,27 +68,45 @@
         android:elevation="4dp"
         android:src="@drawable/ic_tres"
         app:backgroundTint="@color/blue_background" />
-
-    <Button
-        android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:textColor="@color/blue_background"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="86dp"
-        android:layout_marginTop="136dp"
-        android:text="@string/camera_addrecipe" />
-
-    <Button
-        android:textColor="@color/blue_background"
-        android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/btn_galeria"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="86dp"
-        android:layout_marginTop="136dp"
-        android:text="@string/gallery_addrecipe" />
+        android:text="@string/agregar_imagen"
+        android:textSize="22sp"
+        android:layout_gravity="center_horizontal|center" />
+
+    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/enviar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:textAllCaps="false"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/send_addrecipe"
+        android:textColor="@color/blue_background"
+        android:textSize="18sp" />
+
+    <ImageView
+
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/imv_gallery"
+        android:layout_marginTop="66dp"
+        android:layout_marginLeft="66dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_gravity="left|center" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/imv_camara"
+        android:layout_marginTop="66dp"
+        android:layout_marginRight="66dp"
+        android:src="@android:drawable/ic_menu_camera"
+        android:layout_gravity="right|center_vertical" />
 
 </FrameLayout>
