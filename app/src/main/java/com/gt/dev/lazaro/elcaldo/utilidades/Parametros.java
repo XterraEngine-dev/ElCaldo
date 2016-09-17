@@ -6,7 +6,6 @@ package com.gt.dev.lazaro.elcaldo.utilidades;
 public class Parametros {
 
 
-
     public static final String URL_SHOW_TIMELINE = "http://dev.elcaldogt.com/timeline";
     public static final String URL_SHOW_TAMALES = "http://dev.elcaldogt.com/tamales";
     public static final String URL_SHOW_CALDOS = "http://dev.elcaldogt.com/caldos";
@@ -25,4 +24,13 @@ public class Parametros {
     public static final String FB_PLACEMENT_ID = "472492076284805_568720113328667";
     //PLACEMENT ID BANNER
     public static final String FB_PLACEMENT_BANNER = "472492076284805_569083949958950";
+    //Link de ElCaldo en Facebook
+    public static final String URL_FB_ELCALDO = "http://www.facebook.com/elcaldoapp";
+    //URL DE ELCALDO EN TWITTER
+    public static final String URL_TW_ELCALDO = "http://www.twitter.com/caldogt";
+    //URL DE LAZARO EN TWITTER
+    public static final String URL_TW_LAZARO = "http://www.twiter.com/luiscomodo";
+    //CONSTANTE PARA USUARIO
+    public static final String USER = "dev@elcaldogt.com";
+    public static final String PASS = "azazelxd";
 }

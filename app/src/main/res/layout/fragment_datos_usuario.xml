@@ -59,34 +59,31 @@
 
             android:id="@+id/avatar_uno"
             android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="16dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/avatar1"
             android:elevation="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avatar1" />
+            android:scaleType="centerCrop"/>
 
 
         <ImageButton
             android:id="@+id/avatar_dos"
             android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_height="100dp"
             android:layout_gravity="center|center_vertical"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/avatar2"
             android:elevation="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avatar2" />
+            android:scaleType="centerCrop" />
 
         <ImageButton
             android:id="@+id/avatar_tres"
             android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_height="100dp"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="16dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/avatar3"
             android:elevation="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avatar3" />
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 
     <Button

@@ -160,7 +160,7 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void storageRequest() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_TO_CAMERA);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_TO_STORAGE);
     }
 
     /**

@@ -202,4 +202,14 @@
     <string name="like_recipe_timeline">I like this recipe :)</string>
     <string name="agregar_imagen">Add image</string>
 
+    <string name="sending_email_about">Sending email...</string>
+    <string name="email_not_found_about">Email app not found</string>
+
+    <string name="recipe_done">¡Recipe registered!</string>
+    <string name="recipe_fail">Try again</string>
+
+    <string name="likes">Like</string>
+
+    <string name="creditos_message">We are very interested in your opinion , tell us your suggestions and comments. You will be welcome! :D</string>
+
 </resources>

@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Nos interesa mucho tu opinion, dinos tus sugerencias y comentarios. ¡Seran bienvenida! :D"
+            android:text="@string/creditos_message"
             android:textSize="40sp" />
 
         <Button

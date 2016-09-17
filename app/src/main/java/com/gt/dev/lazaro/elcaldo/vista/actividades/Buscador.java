@@ -1,6 +1,5 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -14,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -49,7 +49,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
     private GridView lvBuscar;
     public static String consultaApi;
     private SearchView searchView;
- //   private ProgressDialog pDialog;
+    //   private ProgressDialog pDialog;
 
     //GoogleAnalytics vars
     public static GoogleAnalytics googleAnalytics;
@@ -75,7 +75,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         lvBuscar = (GridView) findViewById(R.id.listBuscar);
         lvBuscar.setOnItemClickListener(this);
         searchView = (SearchView) findViewById(R.id.action_search);
-
+        Toast.makeText(this, getString(R.string.toast_buscar), Toast.LENGTH_SHORT);
     }
 
     private void setAnalytics() {
@@ -90,7 +90,6 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         tracker.enableAutoActivityTracking(true);
         tracker.enableExceptionReporting(true);
     }
-
 
 
     /**
@@ -170,8 +169,10 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                String user = Parametros.USER;
+                String pass = Parametros.PASS;
                 HashMap<String, String> headers = new HashMap<>();
-                String credentials = Base64.encodeToString(("dev@elcaldogt.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                String credentials = Base64.encodeToString((user + ":" + pass).getBytes(), Base64.NO_WRAP);
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }

@@ -209,5 +209,13 @@
     <string name="like_recipe_timeline">Me gusta esta receta :)</string>
     <string name="agregar_imagen">Agregar imagen</string>
 
+    <string name="sending_email_about">Enviando email...</string>
+    <string name="email_not_found_about">Aplicación de email no encontrada</string>
+
+    <string name="recipe_done">¡Receta registrada!</string>
+    <string name="recipe_fail">Intentalo de nuevo</string>
+
+    <string name="creditos_message">Nos interesa mucho tu opinion, dinos tus sugerencias y comentarios. ¡Seran bienvenidos! :D</string>
+
 </resources>
 

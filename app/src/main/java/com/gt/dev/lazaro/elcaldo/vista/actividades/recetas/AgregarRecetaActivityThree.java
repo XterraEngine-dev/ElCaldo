@@ -18,12 +18,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -65,6 +66,8 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
      */
     private Button enviar;
     String usuario, avatarB, recetaB, ingredienteB, preparacionB;
+
+    private Request.Priority priority = Request.Priority.IMMEDIATE;
 
     /**
      * Variables para ingresar a API
@@ -179,7 +182,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     }
 
     private void storageRequest() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_TO_CAMERA);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_TO_STORAGE);
     }
 
 
@@ -197,7 +200,6 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
         enviar.setOnClickListener(this);
         camara.setOnClickListener(this);
         gallery.setOnClickListener(this);
-
 
     }
 
@@ -239,11 +241,11 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
                 public void processFinish(String s) {
 
                     if (s.contains("uploaded_success")) {
-                        Toast.makeText(getApplicationContext(), "Upload", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.recipe_done), Toast.LENGTH_SHORT).show();
                         enviarFormulario();
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.recipe_fail), Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -351,7 +353,6 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-
                 String urlImagen = "http://dev.elcaldogt.com/upload/" + nombreUrl + ".jpeg";
                 String like = "0";
 
@@ -370,12 +371,23 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
+                String user = Parametros.USER;
+                String pass = Parametros.PASS;
                 HashMap<String, String> headers = new HashMap<>();
-                String credentials = Base64.encodeToString(("dev@elcaldogt.com" + ":" + "azazelxd").getBytes(), Base64.NO_WRAP);
+                String credentials = Base64.encodeToString((user + ":" + pass).getBytes(), Base64.NO_WRAP);
                 headers.put("Authorization", "Basic " + credentials);
                 return headers;
             }
+
+            @Override
+            public Priority getPriority() {
+                return priority;
+            }
         };
+        RetryPolicy policy = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        uploadRequest.setRetryPolicy(policy);
+        AppController.getInstance().setPriority(priority);
         AppController.getInstance().addToRequestQueue(uploadRequest);
     }
 
@@ -389,7 +401,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
                 Bitmap bitmap = null;
                 try {
                     bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
-                    imagen.setImageBitmap(getRotatedBitmap(bitmap,90));
+                    imagen.setImageBitmap(getRotatedBitmap(bitmap, 90));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -411,7 +423,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     }
 
 
-    private Bitmap getRotatedBitmap(Bitmap source, float angle){
+    private Bitmap getRotatedBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         Bitmap bitmap1 = Bitmap.createBitmap(source,

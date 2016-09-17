@@ -54,7 +54,7 @@ public class CreditosActivity extends AppCompatActivity implements InterstitialA
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        url = "https://twitter.com/luiscomodo";
+        url = Parametros.URL_TW_LAZARO;
 
         twLazaro = (TextView) findViewById(R.id.tv_twlazaro);
         twLazaro.setText(Html.fromHtml("<a href=" + url + ">@luiscomodo</a>"));
@@ -77,11 +77,11 @@ public class CreditosActivity extends AppCompatActivity implements InterstitialA
         sendEmail.setType("message/rfc822");
         sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@elcaldogt.com"});
         sendEmail.putExtra(Intent.EXTRA_SUBJECT, "ElCaldo - Android");
-        sendEmail.putExtra(Intent.EXTRA_TEXT, "");
+        sendEmail.putExtra(Intent.EXTRA_TEXT, "\n" + "\n" + getString(R.string.via));
         try {
-            startActivity(Intent.createChooser(sendEmail, "Sending email..."));
+            startActivity(Intent.createChooser(sendEmail, getString(R.string.sending_email_about)));
         } catch (ActivityNotFoundException ex) {
-            Toast.makeText(CreditosActivity.this, "No hay aplicacion de correo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreditosActivity.this, getString(R.string.email_not_found_about), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,14 +122,14 @@ public class CreditosActivity extends AppCompatActivity implements InterstitialA
     }
 
     private void openFacebook() {
-        String url = "http://www.facebook.com/elcaldoapp";
+        String url = Parametros.URL_FB_ELCALDO;
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
     }
 
     private void openTwitter() {
-        String url = "http://www.twitter.com/caldogt";
+        String url = Parametros.URL_TW_ELCALDO;
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);

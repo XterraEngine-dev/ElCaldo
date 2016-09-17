@@ -11,7 +11,9 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.gt.dev.lazaro.elcaldo.AnalyticsTrackers;
 import com.gt.dev.lazaro.elcaldo.utilidades.LruBitmapCache;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 
 /**
  * Created by Lazarus on 08/08/2016.
@@ -32,6 +34,8 @@ public class AppController extends Application {
     private ImageLoader mImageLoader;
     private Request.Priority priority;
 
+    AnalyticsTrackers trackers;
+
     private static AppController mInstance;
 
     @Override
@@ -39,10 +43,11 @@ public class AppController extends Application {
         super.onCreate();
         mInstance = this;
 
-
         analytics = GoogleAnalytics.getInstance(this);
 
-        tracker = analytics.newTracker("UA-69747362-1");
+        String sha = Parametros.TRACKER_ANALYTICS;
+
+        tracker = analytics.newTracker(sha);
 
         // Provide unhandled exceptions reports. Do that first after creating the tracker
         tracker.enableExceptionReporting(true);
