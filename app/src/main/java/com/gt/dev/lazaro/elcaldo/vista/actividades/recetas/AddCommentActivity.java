@@ -1,6 +1,7 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -19,13 +20,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
-import com.gt.dev.lazaro.elcaldo.controlador.CustomRequest;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
+import com.gt.dev.lazaro.elcaldo.vista.fragmentos.timeline.ComentarioTimeLine;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.timeline.RecetaTimeLine;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,6 +84,7 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
 
                 if (response.equals("{\"comentario\":\"comentario insertado\"}")) {
                     Toast.makeText(AddCommentActivity.this, R.string.comment_done, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(AddCommentActivity.this, TimeLineActivity.class));
                     finish();
                 } else {
                     Toast.makeText(AddCommentActivity.this, R.string.comment_error, Toast.LENGTH_SHORT).show();

@@ -255,6 +255,8 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
                 Log.d("**RESPONSE**", "MESSAGE = " + response);
                 if (response.equals("{\"timeline\":\"editado\"}")) {
                     Toast.makeText(DetalleTimeLineActivity.this, getString(R.string.like_recipe_timeline), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DetalleTimeLineActivity.this, TimeLineActivity.class));
+                    finish();
                 }
             }
         }, new Response.ErrorListener() {

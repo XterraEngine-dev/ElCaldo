@@ -275,4 +275,6 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         adView.destroy();
         super.onDestroy();
     }
+
+
 }

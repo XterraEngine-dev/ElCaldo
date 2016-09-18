@@ -28,6 +28,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.gt.dev.lazaro.elcaldo.R;
+import com.gt.dev.lazaro.elcaldo.adaptadores.TimeLine;
 import com.gt.dev.lazaro.elcaldo.controlador.AppController;
 import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.utilidades.VolleySingleton;
@@ -44,6 +45,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -224,7 +226,8 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
 
         if (selectedPhoto == null || selectedPhoto.equals("")) {
 
-            Toast.makeText(getApplicationContext(), "No selecciono imagen", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "No selecciono imagen", Toast.LENGTH_SHORT).show();
+            Log.i("SUBI RECETAS","exito");
             return;
         }
 
@@ -337,12 +340,14 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
 
         String url = Parametros.URL_SHOW_TIMELINE;
 
-        StringRequest uploadRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        final StringRequest uploadRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(AgregarRecetaActivityThree.this, "this" + response, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AgregarRecetaActivityThree.this, "this" + response, Toast.LENGTH_SHORT).show();
                 AgregarRecetaActivityThree.this.finish();
+                startActivity(new Intent(AgregarRecetaActivityThree.this, TimeLineActivity.class));
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -401,7 +406,7 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
                 Bitmap bitmap = null;
                 try {
                     bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
-                    imagen.setImageBitmap(getRotatedBitmap(bitmap, 90));
+                    imagen.setImageBitmap((bitmap));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -423,11 +428,5 @@ public class AgregarRecetaActivityThree extends AppCompatActivity implements Vie
     }
 
 
-    private Bitmap getRotatedBitmap(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        Bitmap bitmap1 = Bitmap.createBitmap(source,
-                0, 0, source.getWidth(), source.getHeight(), matrix, true);
-        return bitmap1;
-    }
+
 }
