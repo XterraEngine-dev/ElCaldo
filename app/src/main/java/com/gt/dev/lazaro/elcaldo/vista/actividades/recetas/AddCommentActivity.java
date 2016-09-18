@@ -84,7 +84,6 @@ public class AddCommentActivity extends AppCompatActivity implements View.OnClic
 
                 if (response.equals("{\"comentario\":\"comentario insertado\"}")) {
                     Toast.makeText(AddCommentActivity.this, R.string.comment_done, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AddCommentActivity.this, TimeLineActivity.class));
                     finish();
                 } else {
                     Toast.makeText(AddCommentActivity.this, R.string.comment_error, Toast.LENGTH_SHORT).show();

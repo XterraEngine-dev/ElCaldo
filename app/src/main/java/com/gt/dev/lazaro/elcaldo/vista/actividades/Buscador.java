@@ -1,5 +1,6 @@
 package com.gt.dev.lazaro.elcaldo.vista.actividades;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -49,7 +50,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
     private GridView lvBuscar;
     public static String consultaApi;
     private SearchView searchView;
-    //   private ProgressDialog pDialog;
+    private ProgressDialog pDialog;
 
     //GoogleAnalytics vars
     public static GoogleAnalytics googleAnalytics;
@@ -72,10 +73,23 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
      */
 
     private void setupVars() {
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage(getString(R.string.message_dialog));
+        pDialog.setCancelable(false);
         lvBuscar = (GridView) findViewById(R.id.listBuscar);
         lvBuscar.setOnItemClickListener(this);
         searchView = (SearchView) findViewById(R.id.action_search);
-        Toast.makeText(this, getString(R.string.toast_buscar), Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(), getString(R.string.toast_buscar), Toast.LENGTH_SHORT);
+    }
+
+    private void showProgressDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
     }
 
     private void setAnalytics() {
@@ -135,6 +149,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     private void getBuscador() {
 
+        showProgressDialog();
 
         CustomRequest caldosRequest = new CustomRequest(CustomRequest.Method.GET, consultaApi, null, new Response.Listener<JSONObject>() {
             @Override
@@ -155,7 +170,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
                         String picture = nombre.getString("imagen");
                         buscador.add(new ArrayBuscador(name, region, ingredientes, preparacion, id, picture));
                         setupAdapter(buscador);
-
+                        hideProgressDialog();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -164,7 +179,8 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("", "" + error.getMessage());
+                hideProgressDialog();
+                VolleyLog.d("ERROR", "" + error.getMessage());
             }
         }) {
             @Override
