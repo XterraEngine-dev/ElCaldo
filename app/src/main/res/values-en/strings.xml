@@ -145,6 +145,7 @@
     <string name="detalle_nombre_plato_title">¡Hi! I share this plate: </string>
     <string name="detalle_departamento_title">State: </string>
 
+    <string name="title_activity_buscador">Search</string>
 
     //Titutlos Main
     <string name="cocina_usuario">Kitchen user</string>
@@ -167,8 +168,13 @@
 
     <string name="select_recipe">Select a recipe</string>
 
+
+    <string name="usuario_tab_title">user</string>
+    <string name="imagen_tab_title">picture</string>
+
     //AddComentActivity
     <string name="comment_done">Thanks for comment!</string>
+    <string name="comment_error">Try again</string>
     <string name="valida_campos">Yout must fill out the required fields.</string>
     <string name="comment_button">Comment</string>
     <string name="ingresa_nickcname">Enter yout nickname</string>

@@ -147,7 +147,6 @@
     <string name="detalle_compartir_title">Compartir en redes sociales</string>
     <string name="detalle_nombre_plato_title">!Hola! les comparto este plato: </string>
     <string name="detalle_departamento_title">Departamento: </string>
-    <string name="title_activity_tabs_main">TabsMainActivity</string>
 
     //Titutlos Main
     <string name="cocina_usuario">Cocina del usuario</string>
@@ -156,7 +155,6 @@
     <string name="postres_title">Postres</string>
 
     <string name="recetas_semana_drawer">Recetas de la semana</string>
-    <string name="title_activity_time_line">TimeLineActivity</string>
     <string name="title_activity_buscador">Buscador</string>
 
     //DEtalleTimeLineActivity
@@ -191,9 +189,9 @@
     <string name="text_recipes_week">Cada semana te mosrareos las recetas más populares que han subido los usuarios.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="usuario_tab_title">usuario</string>
     <string name="imagen_tab_title">imagen</string>
+
 
     //Agregar receta
     <string name="username_addrecipe">Nombre usuario</string>
@@ -215,7 +213,11 @@
     <string name="recipe_done">¡Receta registrada!</string>
     <string name="recipe_fail">Intentalo de nuevo</string>
 
+
+    <string name="likes">Like</string>
+
     <string name="creditos_message">Nos interesa mucho tu opinion, dinos tus sugerencias y comentarios. ¡Seran bienvenidos! :D</string>
+
 
 </resources>
 

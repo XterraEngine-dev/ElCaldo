@@ -26,7 +26,7 @@ public class Parametros {
     //PLACEMENT ID BANNER
     public static final String FB_PLACEMENT_BANNER = "472492076284805_569083949958950";
     //Link de ElCaldo en Facebook
-    public static final String URL_FB_ELCALDO = "http://www.facebook.com/elcaldoapp";
+    public static final String URL_FB_ELCALDO = "https://web.facebook.com/elcaldoapp";
     //URL DE ELCALDO EN TWITTER
     public static final String URL_TW_ELCALDO = "http://www.twitter.com/caldogt";
     //URL DE LAZARO EN TWITTER
