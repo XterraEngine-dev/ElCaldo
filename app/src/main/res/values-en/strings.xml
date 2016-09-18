@@ -218,4 +218,33 @@
 
     <string name="creditos_message">We are very interested in your opinion , tell us your suggestions and comments. You will be welcome! :D</string>
 
+
+    <string-array name="regiones_gt" >
+
+        <item>Ciudad de Guatemala</item>
+        <item>Chimaltenango</item>
+        <item>Chiquimula</item>
+        <item>Ciudad de Guatemala</item>
+        <item>Cobán</item>
+        <item>Cuilapa</item>
+        <item>Escuintla</item>
+        <item>Flores</item>
+        <item>Guastatoya</item>
+        <item>Huehuetenango</item>
+        <item>Jalapa</item>
+        <item>Jutiapa</item>
+        <item>Antigua Guatemala</item>
+        <item>Mazatenango</item>
+        <item>Puerto Barrios</item>
+        <item>Quetzaltenango</item>
+        <item>Retalhuleu</item>
+        <item>Salamá</item>
+        <item>Santa Cruz del Quiché</item>
+        <item>Sololá</item>
+        <item>Totonicapán</item>
+        <item>Zacapa</item>
+
+
+    </string-array>
+
 </resources>

@@ -18,6 +18,8 @@
 -dontwarn com.google.appengine.api.urlfetch.**
 -dontwarn rx.**
 -dontwarn retrofit.**
+-dontwarn com.kosalgeek.android.photoutil.**
+-dontwarn com.kosalgeek.asynctask.**
 -keepattributes Signature
 -keepattributes *Annotation*
 -keep class com.squareup.okhttp.** { *; }
