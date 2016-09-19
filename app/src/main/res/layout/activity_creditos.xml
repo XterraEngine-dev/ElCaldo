@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/primaryColor"
-            android:text="Enviar Correo"
+            android:text="@string/send_email"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="20sp" />

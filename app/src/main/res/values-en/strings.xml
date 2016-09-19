@@ -247,4 +247,7 @@
 
     </string-array>
 
+
+    <string name="send_email">Send email</string>
+
 </resources>
