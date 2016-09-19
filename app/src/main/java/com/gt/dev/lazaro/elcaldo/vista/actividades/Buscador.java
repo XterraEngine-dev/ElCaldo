@@ -73,24 +73,13 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
      */
 
     private void setupVars() {
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage(getString(R.string.message_dialog));
-        pDialog.setCancelable(false);
+
         lvBuscar = (GridView) findViewById(R.id.listBuscar);
         lvBuscar.setOnItemClickListener(this);
         searchView = (SearchView) findViewById(R.id.action_search);
         Toast.makeText(getApplicationContext(), getString(R.string.toast_buscar), Toast.LENGTH_SHORT);
     }
 
-    private void showProgressDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (pDialog.isShowing())
-            pDialog.hide();
-    }
 
     private void setAnalytics() {
         //Analytics instance
@@ -149,7 +138,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
 
     private void getBuscador() {
 
-        showProgressDialog();
+
 
         CustomRequest caldosRequest = new CustomRequest(CustomRequest.Method.GET, consultaApi, null, new Response.Listener<JSONObject>() {
             @Override
@@ -170,7 +159,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
                         String picture = nombre.getString("imagen");
                         buscador.add(new ArrayBuscador(name, region, ingredientes, preparacion, id, picture));
                         setupAdapter(buscador);
-                        hideProgressDialog();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -179,7 +168,7 @@ public class Buscador extends AppCompatActivity implements SearchView.OnQueryTex
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                hideProgressDialog();
+
                 VolleyLog.d("ERROR", "" + error.getMessage());
             }
         }) {
