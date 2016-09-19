@@ -130,7 +130,7 @@
             android:name=".vista.actividades.Buscador"
             android:label="@string/title_activity_buscador"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            />
         <activity android:name=".vista.actividades.recetas.DetalleTimeLineActivity" />
 
         <activity
