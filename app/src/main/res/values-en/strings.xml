@@ -250,4 +250,6 @@
 
     <string name="send_email">Send email</string>
 
+    <string name="searching_loading">Searching</string>
+
 </resources>

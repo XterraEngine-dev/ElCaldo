@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -257,7 +256,7 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_main_elcaldo:
-                startActivity(new Intent(MainActivity.this, Buscador.class));
+                startActivity(new Intent(MainActivity.this, BuscarActivity.class));
                 break;
         }
     }
