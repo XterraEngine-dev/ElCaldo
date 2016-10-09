@@ -9,31 +9,50 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.utilidades.ConexionVerify;
+import com.gt.dev.lazaro.elcaldo.utilidades.Parametros;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.BebidasCalientes;
 import com.gt.dev.lazaro.elcaldo.vista.fragmentos.BebidasFriasRefrescos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BebidasActivity extends AppCompatActivity {
+public class BebidasActivity extends AppCompatActivity implements InterstitialAdListener {
 
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private String fbPlace;
+    private InterstitialAd facebookAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        verifyConnection();
+        startVars();
+        setUpTabs();
+    }
+
+    private void startVars() {
         setContentView(R.layout.activity_bebidas);
         toolbar = (Toolbar) findViewById(R.id.toolbar_bebidas);
         setSupportActionBar(toolbar);
-        verifyConnection();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setUpTabs();
+
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
+        facebookAd = new InterstitialAd(this, fbPlace);
+        facebookAd.setAdListener(BebidasActivity.this);
+        facebookAd.loadAd();
     }
 
     private void setUpTabs() {
@@ -76,6 +95,7 @@ public class BebidasActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+
     class ViewPagerAdapterDrinks extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -114,5 +134,38 @@ public class BebidasActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (facebookAd != null) {
+            facebookAd.destroy();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR FB", "MESSAGE = " + adError.getErrorMessage());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        facebookAd.show();
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
     }
 }

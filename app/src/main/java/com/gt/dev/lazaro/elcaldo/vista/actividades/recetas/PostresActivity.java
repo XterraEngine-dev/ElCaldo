@@ -23,8 +23,11 @@ import com.android.volley.VolleyError;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -44,7 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostresActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener {
+public class PostresActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, InterstitialAdListener {
 
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -53,10 +56,8 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     private Request.Priority priority = Request.Priority.IMMEDIATE;
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
-    private String keyTracker;
-
-    private AdView adView;
-    private String idPlacement;
+    private String keyTracker, fbPlace;
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +70,12 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void startVars() {
-        //Facebook instances vars
-        idPlacement = Parametros.FB_PLACEMENT_BANNER;
-        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
-        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_postres);
-        linear.addView(adView);
-        adView.setAdListener(this);
-        adView.loadAd();
+        //Facebook instance vars
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
+        interstitialAd = new InterstitialAd(this, fbPlace);
+        interstitialAd.setAdListener(PostresActivity.this);
+        interstitialAd.loadAd();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_postres_activity);
         setSupportActionBar(toolbar);
@@ -211,21 +211,6 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
-    public void onError(Ad ad, AdError adError) {
-        Log.d("ERROR = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
-    }
-
-    @Override
-    public void onAdLoaded(Ad ad) {
-        //This was loaded in the startvars method
-    }
-
-    @Override
-    public void onAdClicked(Ad ad) {
-        Log.i("AD", ad.getPlacementId());
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
     }
@@ -237,7 +222,35 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     protected void onDestroy() {
-        adView.destroy();
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
         super.onDestroy();
+    }
+
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR APIFACEBOOK", "MESSAGE = " + adError.getErrorMessage() +
+                "ERRORCODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        interstitialAd.show();
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.d("AD", ad.getPlacementId());
     }
 }

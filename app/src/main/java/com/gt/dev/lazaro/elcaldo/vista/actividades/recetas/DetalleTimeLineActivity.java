@@ -26,8 +26,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -41,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DetalleTimeLineActivity extends AppCompatActivity implements View.OnClickListener, AdListener {
+public class DetalleTimeLineActivity extends AppCompatActivity implements View.OnClickListener, InterstitialAdListener {
 
     private FloatingActionButton fab;
     private TabLayout tabLayout;
@@ -51,10 +54,8 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     //GoogleAnalytics vars
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
-    private String keyTracker;
-
-    private AdView adView;
-    private String idPlacement;
+    private String keyTracker, fbPlace;
+    private InterstitialAd interstitialAd;
 
     //Patch de like
     private String Key_UNAME = "unombre";
@@ -83,13 +84,12 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     }
 
     private void startVars() {
-        //FAcebok instance vars
-        idPlacement = Parametros.FB_PLACEMENT_BANNER;
-        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
-        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_detail_timeline);
-        linear.addView(adView);
-        adView.setAdListener(this);
-        adView.loadAd();
+        //Faceboook instance vars
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
+        interstitialAd = new InterstitialAd(this, fbPlace);
+        interstitialAd.setAdListener(DetalleTimeLineActivity.this);
+        interstitialAd.loadAd();
 
         fab = (FloatingActionButton) findViewById(R.id.fab_detalle_timeline);
         fab.setOnClickListener(this);
@@ -166,20 +166,6 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
         }
     }
 
-    @Override
-    public void onError(Ad ad, AdError adError) {
-        Log.d("ERROR = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
-    }
-
-    @Override
-    public void onAdLoaded(Ad ad) {
-        //This was load in the starvars method
-    }
-
-    @Override
-    public void onAdClicked(Ad ad) {
-        Log.i("AD", ad.getPlacementId());
-    }
 
     class ViewPagerAdapterTime extends FragmentPagerAdapter {
 
@@ -321,7 +307,35 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
 
     @Override
     protected void onDestroy() {
-        adView.destroy();
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
         super.onDestroy();
     }
+
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR FB", "MESSAGE = " + adError.getErrorMessage());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        interstitialAd.show();
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.d("AD", ad.getPlacementId());
+    }
+
 }

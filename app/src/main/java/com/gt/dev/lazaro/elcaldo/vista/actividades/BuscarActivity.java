@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,6 +24,11 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.gt.dev.lazaro.elcaldo.R;
 import com.gt.dev.lazaro.elcaldo.adaptadores.AdaptadorBuscar;
 import com.gt.dev.lazaro.elcaldo.adaptadores.ArrayBuscador;
@@ -38,13 +44,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BuscarActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class BuscarActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, InterstitialAdListener {
 
     private GridView gridLista;
     private EditText etSearch;
     private ImageButton btnBack;
-    public static String consultaApi;
+    public static String consultaApi, fbPlace;
     private ArrayList<ArrayBuscador> buscador = new ArrayList<>();
+    private InterstitialAd facebookAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,12 @@ public class BuscarActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         btnBack.setOnClickListener(this);
+
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
+        facebookAd = new InterstitialAd(this, fbPlace);
+        facebookAd.setAdListener(BuscarActivity.this);
+        facebookAd.loadAd();
     }
 
     @Override
@@ -142,16 +155,6 @@ public class BuscarActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ArrayBuscador cat = (ArrayBuscador) parent.getItemAtPosition(position);
 
@@ -164,5 +167,48 @@ public class BuscarActivity extends AppCompatActivity implements View.OnClickLis
         bundle.putString("imagen", cat.getImagen());
 
         startActivity(new Intent(BuscarActivity.this, DetailRecipeActivity.class).putExtras(bundle));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (facebookAd != null) {
+            facebookAd.destroy();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("ERROR FB", "MESSAGE = " + adError.getErrorMessage());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        facebookAd.show();
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.i("AD", ad.getPlacementId());
     }
 }

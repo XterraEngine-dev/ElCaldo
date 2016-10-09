@@ -60,9 +60,6 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
     public static Tracker tracker;
     private String keyTracker;
 
-    private String idPlacement;
-    private AdView adView;
-
     /**
      * @param savedInstanceState Metodo nativo inicilazador de cada metodo y variable
      */
@@ -79,14 +76,6 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
      */
     private void startVars() {
         setContentView(R.layout.activity_otras_comidas);
-
-        //Facebook instaces vars
-        idPlacement = Parametros.FB_PLACEMENT_BANNER;
-        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
-        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_otras);
-        linear.addView(adView);
-        adView.setAdListener(this);
-        adView.loadAd();
 
         //Seteamos el toolbar
         toolbar = (Toolbar) findViewById(R.id.tool_bar);

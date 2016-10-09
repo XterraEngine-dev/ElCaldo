@@ -124,7 +124,7 @@
     <string name="coffe_in_guate">Coffee in Guatemala</string>
     <string name="dev_coment">For a good coffee</string>
 
-    <string name="sabor_eterna">Flavor eternal spring</string>
+    <string name="sabor_eterna">Eternal spring flavor</string>
     <string name="elcafe">TheCoffe</string>
 
     <string name="back_to_elcaldo">Back to ElCaldo</string>
@@ -136,7 +136,7 @@
     <string name="learn_about_coffee">Lets learn about coffee</string>
 
     <string name="dev_about">CEO and developer</string>
-    <string name="dev_about_cifu">CTO y Developer</string>
+    <string name="dev_about_cifu">CTO and Developer</string>
     <string name="agrada_text">When we mix the technology with culture, born a baby called innovation</string>
     //When we mix the tecnology with culture, born a babe called innovation
 
@@ -186,12 +186,11 @@
     //CaldoWelcomeActivity
 
     <string name="title_addrecipes_wizard">ADD YOUR RECIPES!</string>
-    <string name="text_addrecipes_wizard">Now you can add your own recipes and share it with your friends.</string>
+    <string name="text_addrecipes_wizard">Now you can add your own recipes and share them with your friends.</string>
     <string name="title_interaction_recipes_wizard">¡INTERACT WITH OTHER RECIPES!</string>
-    <string name="text_interaction_recipes_wizard">Comment, dots and share recipes from other users.</string>
+    <string name="text_interaction_recipes_wizard">Comment, interact and share recipes from other users.</string>
     <string name="title_recipes_week_wizard">¡RECIPES OF THE WEEK!</string>
-    <string name="text_recipes_week">Every week we will show you the most popular recipes that have risen users.</string>
-
+    <string name="text_recipes_week">Every week you will be able to find here, the most popoular recipes that has been submitted by other users</string>
 
     //Agregar receta
     <string name="username_addrecipe">User name</string>

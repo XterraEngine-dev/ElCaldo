@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -25,10 +24,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
-import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSettings;
-import com.facebook.ads.AdSize;
-import com.facebook.ads.AdView;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -48,7 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CaldosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener {
+public class CaldosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, InterstitialAdListener {
 
     private Toolbar toolbar;
     private RequestQueue requestQueue;
@@ -60,10 +58,9 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
 
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
-    private String keyTracker;
+    private String keyTracker, fbPlace;
 
-    private AdView adView;
-    private String idPlacement;
+    private InterstitialAd interstialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +73,12 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void startVars() {
-
-        //Facebook instances starts
+        //Facebook vars instance
+        fbPlace = Parametros.FB_PLACEMENT_ID;
         AdSettings.addTestDevice(getString(R.string.facebook_app_id));
-        idPlacement = Parametros.FB_PLACEMENT_BANNER;
-        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
-        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_caldos);
-        linear.addView(adView);
-        adView.setAdListener(this);
-        adView.loadAd();
+        interstialAd = new InterstitialAd(this, fbPlace);
+        interstialAd.setAdListener(CaldosActivity.this);
+        interstialAd.loadAd();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_caldos_activity);
         lvCaldos = (GridView) findViewById(R.id.lv_caldos);
@@ -237,7 +231,9 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     protected void onDestroy() {
-        adView.destroy();
+        if (interstialAd != null) {
+            interstialAd.destroy();
+        }
         super.onDestroy();
     }
 
@@ -248,11 +244,21 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onAdLoaded(Ad ad) {
-        //Ad was load in startVars();
+        interstialAd.show();
     }
 
     @Override
     public void onAdClicked(Ad ad) {
         Log.i("AD", ad.getPlacementId());
+    }
+
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
     }
 }

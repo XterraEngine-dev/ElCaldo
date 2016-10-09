@@ -42,7 +42,7 @@ import java.util.Map;
 
 import com.facebook.ads.*;
 
-public class TamalesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener {
+public class TamalesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener, InterstitialAdListener {
 
     private Toolbar toolbar;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -53,10 +53,8 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
     //Analytics vars
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
-    private String keyTracker;
-
-    private AdView adView;
-    private String idPlacement;
+    private String keyTracker, fbPlace;
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +68,11 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
 
     private void startVars() {
         //Facebook instance vars
-        idPlacement = Parametros.FB_PLACEMENT_BANNER;
-        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
-        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_tamales);
-        linear.addView(adView);
-        adView.setAdListener(this);
-        adView.loadAd();
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
+        interstitialAd = new InterstitialAd(this, fbPlace);
+        interstitialAd.setAdListener(TamalesActivity.this);
+        interstitialAd.loadAd();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_tamales_activity);
         lvTamales = (GridView) findViewById(R.id.lv_tamales);
@@ -225,22 +222,34 @@ public class TamalesActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     protected void onDestroy() {
-        adView.destroy();
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
         super.onDestroy();
     }
 
     @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
+    }
+
+    @Override
     public void onError(Ad ad, AdError adError) {
-        Log.d("ERROR", "MESSAGE = " + adError.getErrorMessage() + "CODE = " + adError.getErrorCode());
+        Log.d("ERROR FB", "MESSAGE = " + adError);
     }
 
     @Override
     public void onAdLoaded(Ad ad) {
-        //Was load in the startvars()method
+        interstitialAd.show();
     }
 
     @Override
     public void onAdClicked(Ad ad) {
-        Log.i("AD", ad.getPlacementId());
+        Log.d("AD", ad.getPlacementId());
     }
 }

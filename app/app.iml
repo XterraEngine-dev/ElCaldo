@@ -97,7 +97,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.facebook.android/audience-network-sdk/4.15.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.facebook.android/audience-network-sdk/4.16.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.8/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads-lite/9.4.0/jars" />
@@ -172,6 +172,7 @@
     <orderEntry type="library" exported="" name="play-services-base-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-clearcut-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="preference-v7-23.1.1" level="project" />
+    <orderEntry type="library" exported="" name="audience-network-sdk-4.16.1" level="project" />
     <orderEntry type="library" exported="" name="firebase-database-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="welcome-0.7.2" level="project" />
@@ -207,7 +208,6 @@
     <orderEntry type="library" exported="" name="play-services-fitness-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-nearby-9.4.0" level="project" />
-    <orderEntry type="library" exported="" name="audience-network-sdk-4.15.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.3.3" level="project" />
     <orderEntry type="library" exported="" name="play-services-plus-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-contextmanager-9.4.0" level="project" />

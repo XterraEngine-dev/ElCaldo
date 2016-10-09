@@ -43,9 +43,6 @@ public class DetailRecipeActivity extends AppCompatActivity implements AdListene
     public static Tracker tracker;
     private String keyTracker;
 
-    private AdView adView;
-    private String idPlacement;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +52,6 @@ public class DetailRecipeActivity extends AppCompatActivity implements AdListene
     }
 
     private void startVars() {
-        //Facebook instance vars
-        idPlacement = Parametros.FB_PLACEMENT_BANNER;
-        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
-        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_detail_recipe);
-        linear.addView(adView);
-        adView.setAdListener(this);
-        adView.loadAd();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_detail_recipe);
         setSupportActionBar(toolbar);
@@ -194,9 +184,4 @@ public class DetailRecipeActivity extends AppCompatActivity implements AdListene
         super.onPause();
     }
 
-    @Override
-    protected void onDestroy() {
-        adView.destroy();
-        super.onDestroy();
-    }
 }

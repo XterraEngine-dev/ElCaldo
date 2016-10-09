@@ -3,7 +3,6 @@ package com.gt.dev.lazaro.elcaldo.vista.actividades.recetas;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -24,9 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
-import com.facebook.ads.AdListener;
-import com.facebook.ads.AdSize;
-import com.facebook.ads.AdView;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -45,7 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TopRecipesActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AdListener {
+public class TopRecipesActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, InterstitialAdListener {
 
 
     private ProgressDialog pDialog;
@@ -58,12 +55,11 @@ public class TopRecipesActivity extends AppCompatActivity implements View.OnClic
     //GoogleAnalytics vars
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
-    private String keyTracker;
-
+    private String keyTracker, fbPlace;
     private String tag_json_obj = "jsonbj_req", tag_json_array = "jarray_req";
 
-    private AdView adView;
-    private String idPlacement;
+    private com.facebook.ads.InterstitialAd interstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,13 +89,11 @@ public class TopRecipesActivity extends AppCompatActivity implements View.OnClic
 
     private void startVars() {
         //Facebook instance vars
-        idPlacement = Parametros.FB_PLACEMENT_BANNER;
-        adView = new AdView(this, idPlacement, AdSize.BANNER_HEIGHT_50);
-        LinearLayout linear = (LinearLayout) findViewById(R.id.linear_timeline);
-        linear.addView(adView);
-        adView.setAdListener(this);
-        adView.loadAd();
-
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
+        interstitialAd = new com.facebook.ads.InterstitialAd(this, fbPlace);
+        interstitialAd.setAdListener(TopRecipesActivity.this);
+        interstitialAd.loadAd();
 
         lvTimeline = (GridView) findViewById(R.id.lv_timeline);
         lvTimeline.setOnItemClickListener(this);
@@ -240,21 +234,6 @@ public class TopRecipesActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void onError(Ad ad, AdError adError) {
-        Log.d("ERRO = " + adError.getErrorMessage(), "CODE = " + adError.getErrorCode());
-    }
-
-    @Override
-    public void onAdLoaded(Ad ad) {
-        //This was loaded in the startvars method
-    }
-
-    @Override
-    public void onAdClicked(Ad ad) {
-        Log.i("AD", ad.getPlacementId());
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
     }
@@ -266,7 +245,35 @@ public class TopRecipesActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onDestroy() {
-        adView.destroy();
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
         super.onDestroy();
+    }
+
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        Log.d("EROR APIFACEBOOK", "MESSAGE = " + adError.getErrorMessage() +
+                "ERROR CODE = " + adError.getErrorCode());
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        interstitialAd.show();
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        Log.d("AD", ad.getPlacementId());
     }
 }
