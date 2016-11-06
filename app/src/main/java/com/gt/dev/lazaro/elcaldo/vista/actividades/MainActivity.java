@@ -122,6 +122,8 @@ public class MainActivity extends AppCompatActivity
         //Listview starts
         lista = (ListView) findViewById(R.id.lv_main);
 
+        //Cardview de noticias (webview)
+        categoria.add(new MainClass(R.drawable.noticias_cardview, getString(R.string.news_title)));
         //Cardview de Caldos
         categoria.add(new MainClass(R.drawable.caldos_main_activity, getString(R.string.caldos_title)));
         //Cardview de tamales
@@ -230,7 +232,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_comousar) {
             welcomeScreen.forceShow();
         } else if (id == R.id.nav_website) {
-            String urlWeb = "http://www.facebook.com/elcaldoap";
+            String urlWeb = "http://www.elcaldogt.com";
             Intent iWeb = new Intent(Intent.ACTION_VIEW);
             iWeb.setData(Uri.parse(urlWeb));
             startActivity(iWeb);
@@ -239,7 +241,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, TopRecipesActivity.class));
         } else if (id == R.id.nav_creditos) {
             startActivity(new Intent(MainActivity.this, CreditosActivity.class));
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -290,6 +291,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case 4:
                 startActivity(new Intent(MainActivity.this, TimeLineActivity.class));
+                break;
+            case 5:
+                startActivity(new Intent(MainActivity.this, NewsActivity.class));
                 break;
         }
     }

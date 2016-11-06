@@ -86,7 +86,6 @@ public class BuscarActivity extends AppCompatActivity implements View.OnClickLis
         btnBack.setOnClickListener(this);
 
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         facebookAd = new InterstitialAd(this, fbPlace);
         facebookAd.setAdListener(BuscarActivity.this);
         facebookAd.loadAd();

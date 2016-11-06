@@ -81,7 +81,6 @@ public class CamaraActivity extends AppCompatActivity implements View.OnClickLis
 
     private void loadInterstialAd() {
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         interstitialAd = new InterstitialAd(this, fbPlace);
         interstitialAd.setAdListener(CamaraActivity.this);
         interstitialAd.loadAd();

@@ -140,7 +140,8 @@
             android:theme="@style/WelcomeScreenBaseTheme" />
         <activity
             android:name=".vista.actividades.BuscarActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".vista.actividades.NewsActivity"></activity>
     </application>
 
 </manifest>

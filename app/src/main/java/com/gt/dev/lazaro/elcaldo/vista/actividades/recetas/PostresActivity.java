@@ -72,7 +72,6 @@ public class PostresActivity extends AppCompatActivity implements AdapterView.On
     private void startVars() {
         //Facebook instance vars
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         interstitialAd = new InterstitialAd(this, fbPlace);
         interstitialAd.setAdListener(PostresActivity.this);
         interstitialAd.loadAd();

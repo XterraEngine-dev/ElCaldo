@@ -75,7 +75,6 @@ public class CaldosActivity extends AppCompatActivity implements AdapterView.OnI
     private void startVars() {
         //Facebook vars instance
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         interstialAd = new InterstitialAd(this, fbPlace);
         interstialAd.setAdListener(CaldosActivity.this);
         interstialAd.loadAd();

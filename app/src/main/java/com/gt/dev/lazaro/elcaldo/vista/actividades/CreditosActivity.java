@@ -87,7 +87,6 @@ public class CreditosActivity extends AppCompatActivity implements InterstitialA
 
     private void loadInterstialAd() {
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         interstitialAd = new InterstitialAd(this, fbPlace);
         interstitialAd.setAdListener(CreditosActivity.this);
         interstitialAd.loadAd();

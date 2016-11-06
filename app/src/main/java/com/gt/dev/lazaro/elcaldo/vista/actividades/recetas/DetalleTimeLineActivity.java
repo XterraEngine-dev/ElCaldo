@@ -86,7 +86,6 @@ public class DetalleTimeLineActivity extends AppCompatActivity implements View.O
     private void startVars() {
         //Faceboook instance vars
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         interstitialAd = new InterstitialAd(this, fbPlace);
         interstitialAd.setAdListener(DetalleTimeLineActivity.this);
         interstitialAd.loadAd();

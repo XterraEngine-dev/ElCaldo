@@ -7,6 +7,10 @@ public class Parametros {
 
 
     private String coquiCrazy;
+
+    //Constante para el webview
+    public static final String URL_ELCALDO_NEWS = "http://www.elcaldogt.com/news/articulos";
+
     public static final String URL_SHOW_TIMELINE = "http://dev.elcaldogt.com/timeline";
     public static final String URL_SHOW_TAMALES = "http://dev.elcaldogt.com/tamales";
     public static final String URL_SHOW_CALDOS = "http://dev.elcaldogt.com/caldos";

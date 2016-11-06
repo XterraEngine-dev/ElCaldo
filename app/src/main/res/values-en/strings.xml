@@ -218,7 +218,7 @@
     <string name="creditos_message">We are very interested in your opinion , tell us your suggestions and comments. You will be welcome! :D</string>
 
 
-    <string-array name="regiones_gt" >
+    <string-array name="regiones_gt">
 
         <item>Ciudad de Guatemala</item>
         <item>Chimaltenango</item>
@@ -246,9 +246,9 @@
 
     </string-array>
 
-
     <string name="send_email">Send email</string>
 
     <string name="searching_loading">Searching</string>
 
+    <string name="news_title">News</string>
 </resources>

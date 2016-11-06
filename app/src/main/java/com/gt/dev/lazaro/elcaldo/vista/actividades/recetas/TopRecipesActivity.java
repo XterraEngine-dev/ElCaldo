@@ -90,7 +90,6 @@ public class TopRecipesActivity extends AppCompatActivity implements View.OnClic
     private void startVars() {
         //Facebook instance vars
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         interstitialAd = new com.facebook.ads.InterstitialAd(this, fbPlace);
         interstitialAd.setAdListener(TopRecipesActivity.this);
         interstitialAd.loadAd();

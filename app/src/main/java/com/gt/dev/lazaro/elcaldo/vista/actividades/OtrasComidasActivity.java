@@ -26,6 +26,8 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.gt.dev.lazaro.elcaldo.R;
@@ -47,7 +49,7 @@ import java.util.Map;
 /**
  * Created by Fernnado Lazaro
  */
-public class OtrasComidasActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener {
+public class OtrasComidasActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdListener, InterstitialAdListener {
 
     private ListView lista;
     private ArrayList<Categoria> categoria = new ArrayList<>();
@@ -58,7 +60,9 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
     //GoogleAnalytics var
     public static GoogleAnalytics googleAnalytics;
     public static Tracker tracker;
-    private String keyTracker;
+    private String keyTracker, fbPlace;
+
+    private InterstitialAd interstitialAd;
 
     /**
      * @param savedInstanceState Metodo nativo inicilazador de cada metodo y variable
@@ -75,6 +79,12 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
      * Metodo que inicializa e instancea las variables, widgets, metodos, etc.
      */
     private void startVars() {
+
+        fbPlace = Parametros.FB_PLACEMENT_ID;
+        interstitialAd = new InterstitialAd(this, fbPlace);
+        interstitialAd.setAdListener(OtrasComidasActivity.this);
+        interstitialAd.loadAd();
+
         setContentView(R.layout.activity_otras_comidas);
 
         //Seteamos el toolbar
@@ -277,12 +287,30 @@ public class OtrasComidasActivity extends AppCompatActivity implements AdapterVi
     }
 
     @Override
+    protected void onDestroy() {
+        if (interstitialAd != null) {
+            interstitialAd.show();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void onAdLoaded(Ad ad) {
-        //This was loaded in startvars method
+        interstitialAd.show();
     }
 
     @Override
     public void onAdClicked(Ad ad) {
         Log.i("AD", ad.getPlacementId());
+    }
+
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        onPause();
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        onResume();
     }
 }

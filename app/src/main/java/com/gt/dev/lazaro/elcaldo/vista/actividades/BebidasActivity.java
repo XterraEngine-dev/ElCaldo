@@ -49,7 +49,6 @@ public class BebidasActivity extends AppCompatActivity implements InterstitialAd
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         facebookAd = new InterstitialAd(this, fbPlace);
         facebookAd.setAdListener(BebidasActivity.this);
         facebookAd.loadAd();

@@ -101,7 +101,6 @@ public class TimeLineActivity extends AppCompatActivity implements View.OnClickL
         getnewRecipes();
 
         fbPlace = Parametros.FB_PLACEMENT_ID;
-        AdSettings.addTestDevice(getString(R.string.facebook_app_id));
         facebookAd = new InterstitialAd(this, fbPlace);
         facebookAd.setAdListener(TimeLineActivity.this);
         facebookAd.loadAd();

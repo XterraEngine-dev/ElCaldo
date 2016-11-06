@@ -221,6 +221,6 @@
     <string name="send_email">Enviar correo</string>
 
     <string name="searching_loading">Buscando...</string>
-
+    <string name="news_title">Noticias</string>
 </resources>
 
