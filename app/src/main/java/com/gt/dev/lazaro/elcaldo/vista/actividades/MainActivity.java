@@ -122,8 +122,6 @@ public class MainActivity extends AppCompatActivity
         //Listview starts
         lista = (ListView) findViewById(R.id.lv_main);
 
-        //Cardview de noticias (webview)
-        categoria.add(new MainClass(R.drawable.noticias_cardview, getString(R.string.news_title)));
         //Cardview de Caldos
         categoria.add(new MainClass(R.drawable.caldos_main_activity, getString(R.string.caldos_title)));
         //Cardview de tamales
@@ -134,6 +132,8 @@ public class MainActivity extends AppCompatActivity
         categoria.add(new MainClass(R.drawable.bebidas_main_activity, getString(R.string.bebidas)));
         //Cadview de cocina del usuario
         categoria.add(new MainClass(R.drawable.kitchenuser_main_activity, getString(R.string.cocina_usuario)));
+        //Cardview de noticias (webview)
+        categoria.add(new MainClass(R.drawable.noticias_cardview, getString(R.string.news_title)));
 
         MainAdapter adapter = new MainAdapter(categoria, this);
         lista.setAdapter(adapter);

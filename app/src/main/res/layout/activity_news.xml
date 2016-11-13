@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
         android:elevation="5dp"
-        app:title="Noticias ElCaldo"
+        app:title="@string/news_title"
         app:titleTextColor="@android:color/white" />
 
     <WebView
